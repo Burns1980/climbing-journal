@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './navigationBar.css';
 
 /*
@@ -11,26 +12,20 @@ Github projects
 export default function NavigationBar() {
   return (
     <nav className="top-navigation">
-      <ul className='navigation-list'>
+      <ul className="navigation-list">
         <li>
-          <a href="#">
-            Home
-          </a>
+          <Link to="/">Home</Link>
         </li>
         <li>
-          <a href="https://www.mountainproject.com/" target="_blank">
-           Routes I&apos;ve done 
-          </a>
+          <Link to='routes-by-me' >
+            Routes I&apos;ve done
+          </Link>
         </li>
         <li>
-          <a href="https://www.mountainproject.com/" target="_blank">
-            Trip reports
-          </a>
+          <Link to="/trip-report">Trip reports</Link>
         </li>
         <li>
-          <a href="https://www.mountainproject.com/" target="_blank">
-            Projects
-          </a>
+          <Link to="/projects">Projects</Link>
         </li>
       </ul>
     </nav>

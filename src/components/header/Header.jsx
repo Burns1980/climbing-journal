@@ -13,7 +13,7 @@ export default function Header() {
             <button type="button">Menu</button>
             <button type="button">Search</button>
           </div>
-          <div className="title">Climbing portfolio</div>
+          <div className="title">Climbing bag</div>
           <div className="last-btn-column">
             <button type="button">Sign up</button>
           </div>
