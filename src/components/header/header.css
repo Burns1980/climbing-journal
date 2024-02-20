@@ -3,8 +3,7 @@
   border: none;
 }
 
-.mobile-menu-icon > button:focus
-{
+.mobile-menu-icon > button:focus {
   outline: none;
 }
 

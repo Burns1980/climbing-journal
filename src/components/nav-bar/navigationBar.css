@@ -28,6 +28,6 @@ li {
   padding: 0 1rem 0 1rem;
 }
 
-li:first-of-type > a {
+.navigation-list a.active {
   color: #858585;
 }

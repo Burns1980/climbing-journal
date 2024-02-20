@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './navigationBar.css';
 
 /*
@@ -14,18 +14,16 @@ export default function NavigationBar() {
     <nav className="top-navigation">
       <ul className="navigation-list">
         <li>
-          <Link to="/">Home</Link>
+          <NavLink to="/home">Home</NavLink>
         </li>
         <li>
-          <Link to='routes-by-me' >
-            Routes I&apos;ve done
-          </Link>
+          <NavLink to="routes-by-me">Routes I&apos;ve done</NavLink>
         </li>
         <li>
-          <Link to="/trip-report">Trip reports</Link>
+          <NavLink to="/trip-report">Trip reports</NavLink>
         </li>
         <li>
-          <Link to="/projects">Projects</Link>
+          <NavLink to="/projects">Projects</NavLink>
         </li>
       </ul>
     </nav>
