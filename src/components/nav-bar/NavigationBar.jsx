@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import config from './nav-config';
 import './navigationBar.css';
 
 /*
@@ -13,18 +14,11 @@ export default function NavigationBar() {
   return (
     <nav className="top-navigation">
       <ul className="navigation-list">
-        <li>
-          <NavLink to="/home">Home</NavLink>
-        </li>
-        <li>
-          <NavLink to="routes-by-me">Routes I&apos;ve done</NavLink>
-        </li>
-        <li>
-          <NavLink to="/trip-report">Trip reports</NavLink>
-        </li>
-        <li>
-          <NavLink to="/projects">Projects</NavLink>
-        </li>
+        {config.map((page) => (
+          <li key={page.title}>
+            <NavLink to={page.to}>{page.title}</NavLink>
+          </li>
+        ))}
       </ul>
     </nav>
   );
