@@ -13,13 +13,15 @@ Github projects
 export default function NavigationBar() {
   return (
     <nav className="top-navigation">
-      <ul className="navigation-list">
-        {config.map((page) => (
-          <li key={page.title}>
-            <NavLink to={page.to}>{page.title}</NavLink>
-          </li>
-        ))}
-      </ul>
+      <div className="container">
+        <ul className="navigation-list text-md">
+          {config.map((page) => (
+            <li key={page.title}>
+              <NavLink to={page.to}>{page.title}</NavLink>
+            </li>
+          ))}
+        </ul>
+      </div>
     </nav>
   );
 }

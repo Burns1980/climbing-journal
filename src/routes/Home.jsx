@@ -1,9 +1,10 @@
-import Standings from "../apps/standings/standings";
+import PageWrapper from './PageWrapper';
+import Standings from '../apps/standings/standings';
 
 export default function Home() {
   return (
-    <section>
+    <PageWrapper title="Home" className="container">
       <Standings />
-    </section>
-  )
+    </PageWrapper>
+  );
 }
