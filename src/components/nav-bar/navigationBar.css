@@ -22,12 +22,6 @@ ul.navigation-list {
   margin: 1rem 0 1rem 0;
 }
 
-@media (max-width: 484px) {
-  nav.top-navigation {
-    display: none;
-  }
-}
-
 ul.active {
   left: 0;
   display: flex;
@@ -41,4 +35,21 @@ li {
 
 .navigation-list a.active {
   color: #858585;
+}
+
+@media (min-width: 485px) {
+  .visible {
+    position: relative;
+    top: 0;
+  }
+}
+
+@media (max-width: 484px) {
+  .invisible {
+    top: -300px;
+  }
+
+  nav.top-navigation {
+    position: fixed;
+  }
 }

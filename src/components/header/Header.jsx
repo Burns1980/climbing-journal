@@ -1,10 +1,18 @@
-import './header.css';
+/* eslint-disable react/prop-types */
+import { useRef } from 'react';
+
 import IconButton from '../icon-button/IconButton';
 import Button from '../button/Button';
+import './header.css';
 
-export default function Header() {
+export default function Header({ isMobileMenuActive, setIsMobileMenuActive }) {
+  const headerDiv = useRef();
+
   function handleClick() {
-    console.dir('clicked hamburger button');
+    setIsMobileMenuActive((active) => !active);
+    if (isMobileMenuActive) {
+      console.dir(headerDiv.current.style.display);
+    }
   }
 
   return (
@@ -16,7 +24,13 @@ export default function Header() {
             className="fa-solid fa-bars fa-2xl"
           />
         </div>
-        <div className="desktop-header-wrapper">
+        <div
+          ref={headerDiv}
+          // className={`desktop-header-wrapper ${
+          //   isMobileMenuActive ? 'display' : ''
+          // }`}
+          className={`desktop-header-wrapper`}
+        >
           <Button>Menu</Button>
           <Button>Search</Button>
           <h1 className="title text-xxl">Climbing bag</h1>

@@ -1,4 +1,6 @@
+/* eslint-disable react/prop-types */
 import { NavLink } from 'react-router-dom';
+
 import config from './nav-config';
 import './navigationBar.css';
 
@@ -10,9 +12,13 @@ Trip report
 Github projects
 */
 
-export default function NavigationBar() {
+export default function NavigationBar({ isMobileMenuActive }) {
   return (
-    <nav className="top-navigation">
+    <nav
+      className={`top-navigation ${
+        isMobileMenuActive ? 'visible mobile-menu' : 'invisible'
+      }`}
+    >
       <div className="container">
         <ul className="navigation-list text-md">
           {config.map((page) => (

@@ -32,6 +32,10 @@ div.last-btn-column {
   text-align: center;
 }
 
+header div.display :not(h1) {
+  display: inline-block;
+}
+
 @media (max-width: 484px) {
   .desktop-header-wrapper {
     margin: auto;

@@ -121,9 +121,10 @@ button:focus-visible {
 
 /*Mobile menu */
 .mobile-menu {
-  position: fixed;
-  top: 0;
-  left: -300px;
+  /* display: block; */
+  /* position: fixed; */
+  /* top: 0; */
+  /* left: -300px; */
   background: var(--background-color);
   width: 250px;
   height: 100%;
