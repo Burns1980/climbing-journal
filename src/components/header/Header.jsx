@@ -1,36 +1,17 @@
 /* eslint-disable react/prop-types */
-import { useRef } from 'react';
 
 import IconButton from '../icon-button/IconButton';
 import Button from '../button/Button';
 import './header.css';
 
-export default function Header({ isMobileMenuActive, setIsMobileMenuActive }) {
-  const headerDiv = useRef();
-
-  function handleClick() {
-    setIsMobileMenuActive((active) => !active);
-    if (isMobileMenuActive) {
-      console.dir(headerDiv.current.style.display);
-    }
-  }
-
+export default function Header() {
   return (
     <header>
       <div className="header-wrapper container">
         <div className="mobile-menu-icon">
-          <IconButton
-            onClick={handleClick}
-            className="fa-solid fa-bars fa-2xl"
-          />
+          <IconButton className="fa-solid fa-bars fa-2xl" />
         </div>
-        <div
-          ref={headerDiv}
-          // className={`desktop-header-wrapper ${
-          //   isMobileMenuActive ? 'display' : ''
-          // }`}
-          className={`desktop-header-wrapper`}
-        >
+        <div className={`desktop-header-wrapper`}>
           <Button>Menu</Button>
           <Button>Search</Button>
           <h1 className="title text-xxl">Climbing bag</h1>

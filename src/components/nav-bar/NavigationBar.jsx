@@ -12,13 +12,9 @@ Trip report
 Github projects
 */
 
-export default function NavigationBar({ isMobileMenuActive }) {
+export default function NavigationBar() {
   return (
-    <nav
-      className={`top-navigation ${
-        isMobileMenuActive ? 'visible mobile-menu' : 'invisible'
-      }`}
-    >
+    <nav className="top-navigation">
       <div className="container">
         <ul className="navigation-list text-md">
           {config.map((page) => (
