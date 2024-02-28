@@ -49,8 +49,7 @@ export default function Standings() {
   return (
     <section>
       <div>Standings</div>
-      {error && <Error message={error.message}/>}
-      <img src={noseImage} alt="Me hanging out at El Cap tower" />
+      {error && <Error message={error.message} />}
     </section>
   );
 }

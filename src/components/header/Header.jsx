@@ -2,6 +2,7 @@
 
 import IconButton from '../icon-button/IconButton';
 import Button from '../button/Button';
+import logo from '../../assets/images/climbing-bag-logo.jpg';
 import './header.css';
 
 export default function Header() {
@@ -14,7 +15,12 @@ export default function Header() {
         <div className={`desktop-header-wrapper`}>
           <Button>Menu</Button>
           <Button>Search</Button>
-          <h1 className="title text-xxl">Climbing bag</h1>
+          <h1 className="title text-xxl">
+            Climbing bag
+            <span>
+              <img width="100xp" src={logo}></img>
+            </span>
+          </h1>
           <Button>Sign up</Button>
         </div>
       </div>

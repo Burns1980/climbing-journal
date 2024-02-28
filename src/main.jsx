@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Root from './routes/Root.jsx';
-import Home from './routes/Home.jsx';
-import Routes from './routes/Routes.jsx';
+import Home from './containers/home-page/Home.jsx';
+import Routes from './containers/routes-page/Routes.jsx';
 import ErrorPage from './error-page.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';

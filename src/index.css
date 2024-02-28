@@ -6,7 +6,10 @@
 
 :root {
   --mobile-max-width: 484px;
+  --card-bg-color: #2d3035;
   --background-color: #2c2a2a;
+  --primary-btn-color: #5d6d99;
+  --primary-text-color: #fff;
   --primary-link-color: #646cff;
   --primary-link-hover-color: #535bf2;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -14,7 +17,7 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: var(--primary-text-color);
   background-color: var(--background-color);
 
   font-synthesis: none;
@@ -91,11 +94,11 @@ button:focus-visible {
   font-weight: 600;
 }
 
-/* .text-xl {
+.text-xl {
   font-size: 3rem;
   line-height: 1.4;
   font-weight: normal;
-} */
+}
 
 .text-lg {
   font-size: 2.4rem;
@@ -104,16 +107,16 @@ button:focus-visible {
 }
 
 .text-md {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   line-height: 1.4;
   font-weight: normal;
 }
 
-/* .text-sm {
-  font-size: 1rem;
+.text-sm {
+  font-size: 1.4rem;
   line-height: 1.4;
   font-weight: normal;
-} */
+}
 
 .text-center {
   text-align: center;
