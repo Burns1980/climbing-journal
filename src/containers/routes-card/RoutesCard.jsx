@@ -1,13 +1,31 @@
 /* eslint-disable react/prop-types */
-import EllipsisMenu from '../ellipsis-menu/EllipsisMenu';
+import EllipsisMenu from '../../components/ellipsis-menu/EllipsisMenu';
 import noseImage from '../../assets/images/nose-thumbnail.jpg';
 import './routes-card.css';
+import { useState } from 'react';
 
 export default function RoutesCard({ routeData }) {
+  const [showEllipsisMenu, setShowEllipsisMenu] = useState(false);
+
+  function handleClick() {
+    setShowEllipsisMenu((isMenuVisible) => !isMenuVisible);
+  }
+
+  function handleBlur(e) {
+    console.dir('onblur');
+    console.dir(e.target);
+    console.dir(e.currentTarget);
+    setShowEllipsisMenu(false);
+  }
+
   return (
     <div className="route-card-container">
       <div className="ellipsis-container">
-        <EllipsisMenu />
+        <EllipsisMenu
+          handleClick={handleClick}
+          showEllipsisMenu={showEllipsisMenu}
+          handleBlur={handleBlur}
+        />
       </div>
       <article className="route-card">
         <div className="route-card-header">

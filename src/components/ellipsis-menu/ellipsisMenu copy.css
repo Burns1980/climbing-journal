@@ -1,0 +1,56 @@
+/* Vertical Ellipsis Menu Styles */
+div.vertical-ellipsis-menu {
+  position: relative;
+  /* display: inline-block; */
+  width: 43px;
+  height: 40px;
+}
+
+div.vertical-ellipsis-menu button {
+  position: inherit;
+  /* display: inline-block; */
+  width: 43px;
+  height: 40px;
+}
+
+div.vertical-ellipsis-menu:hover {
+  border-radius: 50%;
+  border: 1px solid var(--primary-btn-color);
+}
+
+.ellipsis-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.menu-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: calc(100% + 5px);
+  right: 0;
+  /* Matches the card background color */
+  /* background-color: var(--card-bg-color); */
+  background-color: #444;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  display: none;
+}
+
+.menu-item {
+  padding: 10px;
+  color: var(--primary-text-color);
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  background-color: #666666; /* Darken background color on hover */
+}
+
+.vertical-ellipsis-menu:hover .menu-list {
+  display: block;
+}
