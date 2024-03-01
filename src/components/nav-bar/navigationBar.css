@@ -8,11 +8,11 @@ nav.top-navigation {
   border-top: 1px solid var(--nav-border-color);
 
   a {
-    color: #fff;
+    color: var(--primary-text-color);
   }
 
   a:hover {
-    color: #ccc;
+    color: var(--primary-link-hover-color);
   }
 }
 
@@ -34,7 +34,7 @@ li {
 }
 
 .navigation-list a.active {
-  color: #858585;
+  color: var(--primary-link-color);
 }
 
 @media (max-width: 484px) {

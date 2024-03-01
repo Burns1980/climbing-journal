@@ -5,13 +5,18 @@
 }
 
 :root {
+  --call-to-action-bg: #3399ff;
   --mobile-max-width: 484px;
-  --card-bg-color: #2d3035;
   --background-color: #2c2a2a;
-  --primary-btn-color: #5d6d99;
+  --primary-btn-color: #0061c2;
+  --secondary-btn-color: #474747;
+  --card-bg-color: #474747;
+  --card-border-color: #404040;
+  --popup-bg-color: #2c2a2a;
   --primary-text-color: #fff;
-  --primary-link-color: #646cff;
-  --primary-link-hover-color: #535bf2;
+  --secondary-text-color: #b3b3b3;
+  --primary-link-color: #3399ff;
+  --primary-link-hover-color: #66b3ff;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -69,7 +74,7 @@ button:focus-visible {
   padding: 0.6em 1.2em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #5d6d99;
+  background-color: var(--primary-btn-color);
   cursor: pointer;
   transition: border-color 0.25s;
 }

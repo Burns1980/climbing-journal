@@ -6,6 +6,7 @@
 .route-card {
   background-color: var(--card-bg-color);
   color: var(--primary-text-color);
+  border: 2px solid var(--card-border-color);
   border-radius: 8px;
   padding: 25px;
   margin-bottom: 20px;
