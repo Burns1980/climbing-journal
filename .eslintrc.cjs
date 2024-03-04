@@ -18,4 +18,17 @@ module.exports = {
       { allowConstantExport: true },
     ],
   },
-}
+  overrides: [
+    {
+      // Node.js specific configuration
+      files: ['src/api/**'], // Adjust the glob pattern to match your Node.js directory structure
+      env: {
+        node: true,
+        browser: false,
+      },
+      rules: {
+        // Node.js specific rules
+      },
+    },
+  ],
+};
