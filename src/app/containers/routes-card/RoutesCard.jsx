@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
-import EllipsisMenu from '../../components/ellipsis-menu/EllipsisMenu';
-import noseImage from '../../assets/images/nose-thumbnail.jpg';
-import './routes-card.css';
 import { useState } from 'react';
+import EllipsisMenu from '../../components/ellipsis-menu/EllipsisMenu';
+import './routes-card.css';
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export default function RoutesCard({ routeData }) {
   const [showEllipsisMenu, setShowEllipsisMenu] = useState(false);
@@ -30,13 +31,13 @@ export default function RoutesCard({ routeData }) {
       <article className="route-card">
         <div className="route-card-header">
           <img
-            src={noseImage}
+            src={`${apiUrl}/${routeData.imageCover}`}
             alt="Brent hanging out on El Cap Tower"
             className="route-card-image"
           />
           <div className="route-card-details">
             <h3 className="route-card-title text-lg">
-              {routeData.routeName}
+              {routeData.name}
               <span className="route-card-grade">{routeData.grade}</span>
             </h3>
             <p className="route-card-description text-sm">
@@ -46,7 +47,7 @@ export default function RoutesCard({ routeData }) {
         </div>
         <div className="route-card-gear-beta">
           <h4 className="text-md">Gear beta</h4>
-          <p className="text-sm">{routeData.gearDescription}</p>
+          <p className="text-sm">{routeData.gear}</p>
         </div>
         <div className="route-card-carousel">Picture carousel goes here</div>
       </article>

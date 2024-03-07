@@ -26,6 +26,14 @@ const routeSchema = new mongoose.Schema({
   meta: {
     favorites: Number, // Number of times this route has been favorited
   },
+  createdDate: {
+    type: Date,
+    default: Date.now(),
+  },
+  imageCover: {
+    type: String,
+    default: 'images/nose-sunset.jpg',
+  },
 });
 
 const Route = mongoose.model('Routes', routeSchema);

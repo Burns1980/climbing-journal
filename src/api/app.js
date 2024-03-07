@@ -16,11 +16,12 @@ const AppError = require('./utils/appError');
 if (process.env.NODE_ENV === 'development') {
   // helps with the HTTP log viewing during development
   app.use(morgan('dev'));
-  // app.use((req, res, next) => {
-  //   res.setHeader('Access-Control-Allow-Origin', '*');
+  app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
 
-  //   next();
-  // });
+    next();
+  });
+  app.use(express.static(`${__dirname}/public`));
 }
 
 app.use('/api/v1/areas', areaRouter);

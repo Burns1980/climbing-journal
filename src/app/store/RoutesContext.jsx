@@ -1,35 +1,51 @@
 /* eslint-disable react/prop-types */
 import { createContext, useReducer, useEffect } from 'react';
 
-import { ADD_ROUTE, LOAD_ROUTES } from '../routes/actions';
+import {
+  ADD_ROUTE,
+  LOAD_ROUTES,
+  SET_IS_LOADING,
+  SET_FETCH_ERROR,
+} from '../routes/actions';
 
 export const RoutesContext = createContext(null);
 export const RoutesDispatchContext = createContext(null);
 
 export default function RoutesProvider({ children }) {
-  const [routeState, dispatch] = useReducer(routesReducer, []);
+  const [routeState, dispatch] = useReducer(routesReducer, { isLoading: true });
 
   useEffect(() => {
     async function loadRoutesToState() {
-      const res = await fetch('http://localhost:3000/api/v1/routes', {});
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/v1/routes`,
+          {}
+        );
 
-      if (!res) {
-        throw new Error('The response was not "ok"');
+        if (!res.ok) {
+          throw new Error(
+            'The response from the fetch operation was not "ok." Try refreshing'
+          );
+        }
+
+        const { data } = await res.json();
+
+        dispatch({
+          type: LOAD_ROUTES,
+          routes: data,
+        });
+      } catch (err) {
+        dispatch({
+          type: SET_FETCH_ERROR,
+          isLoading: false,
+          error: true,
+          errorMessage: err.message,
+        });
+        console.error('There was a problem with the fetch operation', err);
       }
-
-      const { data } = await res.json();
-
-      dispatch({
-        type: LOAD_ROUTES,
-        routes: data,
-      });
     }
 
-    try {
-      loadRoutesToState();
-    } catch (err) {
-      console.error('There was a problem with the fetch operation', err);
-    }
+    loadRoutesToState();
   }, []);
 
   return (
@@ -56,9 +72,25 @@ function routesReducer(routesState, action) {
         },
       ];
     }
-
+    case SET_FETCH_ERROR: {
+      return {
+        isLoading: action.isLoading,
+        error: action.error,
+        errorMessage: action.errorMessage,
+        routes: [routesState.routes],
+      };
+    }
+    case SET_IS_LOADING: {
+      return {
+        isLoading: action.isLoading,
+        routes: [routesState.routes],
+      };
+    }
     case LOAD_ROUTES: {
-      return action.routes;
+      return {
+        isLoading: false,
+        routes: action.routes,
+      };
     }
     default: {
       throw Error('Unknown action type ' + action.type);
