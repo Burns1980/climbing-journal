@@ -1,4 +1,5 @@
 const express = require('express');
+
 const {
   getRoutes,
   createRoute,
@@ -17,7 +18,5 @@ router.post('/', (req, res, next) => {
 router.delete('/:id', (req, res, next) => {
   deleteRoute(req, res, next);
 });
-
-// Add more endpoints as needed...
 
 module.exports = router;
