@@ -1,14 +1,36 @@
 /* eslint-disable react/prop-types */
-import { createContext, useReducer } from 'react';
+import { createContext, useReducer, useEffect } from 'react';
 
-import { climbingRoutes } from './config';
-import { ADD_ROUTE } from '../routes/actions';
+import { ADD_ROUTE, LOAD_ROUTES } from '../routes/actions';
 
 export const RoutesContext = createContext(null);
 export const RoutesDispatchContext = createContext(null);
 
 export default function RoutesProvider({ children }) {
-  const [routeState, dispatch] = useReducer(routesReducer, climbingRoutes);
+  const [routeState, dispatch] = useReducer(routesReducer, []);
+
+  useEffect(() => {
+    async function loadRoutesToState() {
+      const res = await fetch('http://localhost:3000/api/v1/routes', {});
+
+      if (!res) {
+        throw new Error('The response was not "ok"');
+      }
+
+      const { data } = await res.json();
+
+      dispatch({
+        type: LOAD_ROUTES,
+        routes: data,
+      });
+    }
+
+    try {
+      loadRoutesToState();
+    } catch (err) {
+      console.error('There was a problem with the fetch operation', err);
+    }
+  }, []);
 
   return (
     <RoutesContext.Provider value={routeState}>
@@ -33,6 +55,10 @@ function routesReducer(routesState, action) {
           // hide: action.hide,
         },
       ];
+    }
+
+    case LOAD_ROUTES: {
+      return action.routes;
     }
     default: {
       throw Error('Unknown action type ' + action.type);

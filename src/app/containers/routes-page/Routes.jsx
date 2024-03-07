@@ -14,8 +14,8 @@ export default function Routes() {
 
   return (
     <PageWrapper title="Routes I've done" className="container">
-      {climbingRoutes.map((route, i) => (
-        <RoutesCard key={i + route.routeName} routeData={route} />
+      {climbingRoutes.map((route) => (
+        <RoutesCard key={route._id} routeData={route} />
       ))}
     </PageWrapper>
   );

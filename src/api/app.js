@@ -1,25 +1,38 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+
 const app = express();
-const port = 3000;
 
-app.use(express.json());
+app.use(bodyParser.json());
 
-// Importing route modules
-const areaRoutes = require('./routes/area');
-const projectRoutes = require('./routes/project');
-const routeRoutes = require('./routes/route');
-const tripReportRoutes = require('./routes/trip-report');
+const areaRouter = require('./routes/areas');
+const tripResearchRouter = require('./routes/trip-research');
+const routeRouter = require('./routes/routes');
+const tripReportRouter = require('./routes/trip-reports');
+const globalErrorHandler = require('./controllers/errorController');
+const AppError = require('./utils/appError');
 
-// Using routes
-app.use('/area', areaRoutes);
-app.use('/project', projectRoutes);
-app.use('/route', routeRoutes);
-app.use('/trip-report', tripReportRoutes);
+if (process.env.NODE_ENV === 'development') {
+  // helps with the HTTP log viewing during development
+  app.use(morgan('dev'));
+  // app.use((req, res, next) => {
+  //   res.setHeader('Access-Control-Allow-Origin', '*');
 
-app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to the API!' });
+  //   next();
+  // });
+}
+
+app.use('/api/v1/areas', areaRouter);
+app.use('/api/v1/trip-research', tripResearchRouter);
+app.use('/api/v1/routes', routeRouter);
+app.use('/api/v1/trip-reports', tripReportRouter);
+// app.use(defaultRoute);
+
+app.all('*', (req, res, next) => {
+  next(new AppError(`Can't find ${req.method} ${req.originalUrl}`, 500));
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+app.use(globalErrorHandler);
+
+module.exports = app;
