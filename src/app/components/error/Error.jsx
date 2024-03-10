@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import './error.css';
 
-export default function Error({ message }) {
+export default function Error({ title, message }) {
   return (
     <div className="error-message text-md">
-      <div className="text-lg">An error occurred</div>
+      <div className="text-lg">{title}</div>
       <p>{message}</p>
     </div>
   );

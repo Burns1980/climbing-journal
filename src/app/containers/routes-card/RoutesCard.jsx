@@ -1,11 +1,11 @@
-/* eslint-disable react/prop-types */
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import EllipsisMenu from '../../components/ellipsis-menu/EllipsisMenu';
 import './routes-card.css';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-export default function RoutesCard({ routeData }) {
+const RoutesCard = ({ routeData }) => {
   const [showEllipsisMenu, setShowEllipsisMenu] = useState(false);
 
   function handleClick() {
@@ -49,8 +49,20 @@ export default function RoutesCard({ routeData }) {
           <h4 className="text-md">Gear beta</h4>
           <p className="text-sm">{routeData.gear}</p>
         </div>
-        <div className="route-card-carousel">Picture carousel goes here</div>
+        {/* <div className="route-card-carousel">Picture carousel goes here</div> */}
       </article>
     </div>
   );
-}
+};
+
+RoutesCard.propTypes = {
+  routeData: PropTypes.shape({
+    imageCover: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    grade: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    gear: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+export default RoutesCard;

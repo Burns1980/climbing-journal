@@ -1,28 +1,29 @@
 import { useContext } from 'react';
 
-import {
-  RoutesContext,
-  // RoutesDispatchContext,
-} from '../../store/RoutesContext';
+import { DataContext } from '../../store/DataContext';
 import RoutesCard from '../routes-card/RoutesCard';
 import PageWrapper from '../../routes/PageWrapper';
 import Error from '../../components/error/Error';
+import LoadSpinner from '../../components/load-spinner/LoadSpinner';
+
 import './routes.css';
 
 // Will manage the state of the Routes Ive done page
 export default function Routes() {
-  const climbingRoutes = useContext(RoutesContext);
-  const { routes, isLoading, error, errorMessage } = climbingRoutes;
+  const { routes } = useContext(DataContext);
+  const { data, isLoading, isError, errorMessage } = routes;
+
+  const content = isLoading ? (
+    <LoadSpinner />
+  ) : isError ? (
+    <Error message={errorMessage} title="Error occurred getting routes" />
+  ) : (
+    data.map((route) => <RoutesCard key={route._id} routeData={route} />)
+  );
 
   return (
     <PageWrapper title="Routes I've done" className="container">
-      {isLoading ? (
-        <div>Loading</div>
-      ) : error ? (
-        <Error message={errorMessage} />
-      ) : (
-        routes.map((route) => <RoutesCard key={route._id} routeData={route} />)
-      )}
+      {content}
     </PageWrapper>
   );
 }
