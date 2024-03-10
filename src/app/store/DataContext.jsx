@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { createContext, useReducer, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { loadRoutesToState } from '../effects/routeEffects';
+import { loadRoutesToState } from '../effects/index';
 import rootReducer from '../reducers/rootReducer';
 export const DataContext = createContext(null);
 export const DataDispatchContext = createContext(null);

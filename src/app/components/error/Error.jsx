@@ -1,7 +1,8 @@
-/* eslint-disable react/prop-types */
+import PropTypes from 'prop-types';
+
 import './error.css';
 
-export default function Error({ title, message }) {
+function Error({ title, message }) {
   return (
     <div className="error-message text-md">
       <div className="text-lg">{title}</div>
@@ -9,3 +10,10 @@ export default function Error({ title, message }) {
     </div>
   );
 }
+
+Error.propTypes = {
+  title: PropTypes.string.isRequired,
+  message: PropTypes.string,
+};
+
+export default Error;

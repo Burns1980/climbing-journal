@@ -1,10 +1,9 @@
 import { useContext } from 'react';
 
 import { DataContext } from '../../store/DataContext';
-import RoutesCard from '../routes-card/RoutesCard';
+import { RoutesCard } from '../index';
 import PageWrapper from '../../routes/PageWrapper';
-import Error from '../../components/error/Error';
-import LoadSpinner from '../../components/load-spinner/LoadSpinner';
+import { Error, LoadSpinner } from '../../components';
 
 import './routes.css';
 

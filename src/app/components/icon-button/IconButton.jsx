@@ -1,10 +1,17 @@
-/* eslint-disable react/prop-types */
+import PropTypes from 'prop-types';
+
 import './iconButton.css';
 
-export default function IconButton({ className, onClick }) {
+function IconButton({ className }) {
   return (
-    <button onClick={onClick}>
+    <button>
       <i className={className}></i>
     </button>
   );
 }
+
+IconButton.propTypes = {
+  className: PropTypes.string,
+};
+
+export default IconButton;

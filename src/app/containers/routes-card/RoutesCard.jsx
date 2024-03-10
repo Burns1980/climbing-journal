@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import EllipsisMenu from '../../components/ellipsis-menu/EllipsisMenu';
+import { EllipsisMenu } from '../../components';
+
 import './routes-card.css';
 
 const apiUrl = import.meta.env.VITE_API_URL;

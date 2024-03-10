@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
+import PropTypes from 'prop-types';
 
-export default function Button({
+function Button({
   className = 'btn text-md',
   type = 'button',
   children,
@@ -12,3 +12,11 @@ export default function Button({
     </button>
   );
 }
+
+Button.propTypes = {
+  className: PropTypes.string,
+  type: PropTypes.oneOf(['button', 'submit', 'reset']),
+  children: PropTypes.node.isRequired,
+};
+
+export default Button;

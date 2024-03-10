@@ -1,7 +1,4 @@
-/* eslint-disable react/prop-types */
-
-import IconButton from '../icon-button/IconButton';
-import Button from '../button/Button';
+import { Button, IconButton } from '../index';
 import logo from '../../assets/images/climbing-bag-logo.jpg';
 import './header.css';
 
