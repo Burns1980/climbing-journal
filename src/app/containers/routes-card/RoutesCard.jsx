@@ -38,6 +38,7 @@ const RoutesCard = ({ routeData }) => {
             </h3>
             <TruncateText
               className="route-card-description text-sm"
+              // text={routeData.description}
               text={routeData.description}
               maxWords={100}
               onClick={handleReadMoreClick}
