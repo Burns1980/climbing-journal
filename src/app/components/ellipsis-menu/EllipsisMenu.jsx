@@ -1,27 +1,15 @@
 /* eslint-disable react/prop-types */
+import { Button } from '../index';
+
 import './ellipsisMenu.css';
 
-function VerticalEllipsisMenu({ handleClick, showEllipsisMenu, handleBlur }) {
-  function handleClickInMenu(e) {
-    console.dir('inside list');
-    e.stopPropagation();
-  }
-
+function VerticalEllipsisMenu({ handleClick, showEllipsisMenu }) {
   return (
-    <div
-      onBlur={handleBlur}
-      // onFocus={(e) => {
-      //   console.dir(e.currentTarget);
-      //   console.dir(e.target);
-      //   console.dir('onfocus');
-      // }}
-      className="vertical-ellipsis-menu"
-    >
-      <button
+    <div className="vertical-ellipsis-menu">
+      <Button
         className="btn-transparent"
         onClick={handleClick}
         aria-label="Open Menu"
-        // onBlur={handleBlur}
       >
         <svg
           width="25px"
@@ -34,23 +22,32 @@ function VerticalEllipsisMenu({ handleClick, showEllipsisMenu, handleBlur }) {
           <circle cx="5" cy="6" r="1" />
           <circle cx="5" cy="10" r="1" />
         </svg>
-      </button>
+      </Button>
       <div>
         <ul
           className={`menu-list text-sm ${
             showEllipsisMenu ? 'menu-visible' : ''
           }`}
         >
-          <button
-            // className="btn-transparent"
-            onClick={handleClickInMenu}
-            // onClick={handleClick}
-            aria-label="Open Menu"
-          >
-            <li className="menu-item">Edit</li>
-          </button>
-          <li className="menu-item">Hide</li>
-          <li className="menu-item">Favorite</li>
+          <li className="menu-item">
+            <Button
+              className="menu-btn"
+              onClick={handleClick}
+              aria-label="Open Menu"
+            >
+              Edit
+            </Button>
+          </li>
+          <li className="menu-item">
+            <Button className="menu-btn" onClick={handleClick}>
+              Hide
+            </Button>
+          </li>
+          <li className="menu-item">
+            <Button className="menu-btn" onClick={handleClick}>
+              Favorite
+            </Button>
+          </li>
         </ul>
       </div>
     </div>

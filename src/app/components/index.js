@@ -6,3 +6,4 @@ export { default as Header } from './header/Header';
 export { default as IconButton } from './icon-button/IconButton';
 export { default as LoadSpinner } from './load-spinner/LoadSpinner';
 export { default as NavigationBar } from './nav-bar/NavigationBar';
+export { default as TruncateText } from './truncateText/TruncateText';

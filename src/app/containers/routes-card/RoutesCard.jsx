@@ -1,23 +1,19 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { EllipsisMenu } from '../../components';
-
+import { EllipsisMenu, TruncateText } from '../../components';
 import './routes-card.css';
-
-const apiUrl = import.meta.env.VITE_API_URL;
+import { apiUrl } from '../../../utils/envVars';
 
 const RoutesCard = ({ routeData }) => {
   const [showEllipsisMenu, setShowEllipsisMenu] = useState(false);
 
   function handleClick() {
+    console.log('inside handleClick');
     setShowEllipsisMenu((isMenuVisible) => !isMenuVisible);
   }
 
-  function handleBlur(e) {
-    console.dir('onblur');
-    console.dir(e.target);
-    console.dir(e.currentTarget);
-    setShowEllipsisMenu(false);
+  function handleReadMoreClick() {
+    console.log('inside read more handleClick');
   }
 
   return (
@@ -26,7 +22,6 @@ const RoutesCard = ({ routeData }) => {
         <EllipsisMenu
           handleClick={handleClick}
           showEllipsisMenu={showEllipsisMenu}
-          handleBlur={handleBlur}
         />
       </div>
       <article className="route-card">
@@ -41,16 +36,18 @@ const RoutesCard = ({ routeData }) => {
               {routeData.name}
               <span className="route-card-grade">{routeData.grade}</span>
             </h3>
-            <p className="route-card-description text-sm">
-              {routeData.description}
-            </p>
+            <TruncateText
+              className="route-card-description text-sm"
+              text={routeData.description}
+              maxWords={100}
+              onClick={handleReadMoreClick}
+            />
           </div>
         </div>
         <div className="route-card-gear-beta">
           <h4 className="text-md">Gear beta</h4>
           <p className="text-sm">{routeData.gear}</p>
         </div>
-        {/* <div className="route-card-carousel">Picture carousel goes here</div> */}
       </article>
     </div>
   );
