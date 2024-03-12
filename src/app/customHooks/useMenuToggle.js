@@ -1,33 +1,55 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 
-function useMenuToggle(ref) {
-  const [isVisible, setIsVisible] = useState(false);
+import { MenuModalContext } from '../store/MenuModalContext';
+
+function useMenuToggle() {
+  const ctx = useContext(MenuModalContext);
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        setIsVisible(false);
+    const { menuRef, visibleComponentId, hideVisibleComponent } = ctx;
+    console.log('inside useEffect in UseMenuToggle');
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        hideVisibleComponent();
+        // console.log('escape key pressed', ctx);
+      }
+      // Menu should close when enter is pressed on a different element
+      if (
+        e.key === 'Enter' &&
+        menuRef &&
+        menuRef.current &&
+        !menuRef.current.contains(e.target)
+      ) {
+        hideVisibleComponent();
       }
     };
 
-    const handleClickOutside = (event) => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setIsVisible(false);
+    const handleClickOutside = (e) => {
+      if (menuRef && menuRef.current && !menuRef.current.contains(e.target)) {
+        // console.log('handle click outside', ctx);
+        hideVisibleComponent();
       }
     };
 
-    console.log('inside useMenuToggle');
+    /*  
+      No need to listen when when there is not a menu open. Menus open
+      when an id is set in the MenuModalContext
+    */
+    if (visibleComponentId) {
+      console.log('creating listeners');
 
-    document.addEventListener('keydown', handleKeyDown);
-    document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleKeyDown);
+      document.addEventListener('mousedown', handleClickOutside);
+    }
 
     return () => {
+      console.log('removing listeners');
+
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [ref]);
-
-  return [isVisible, setIsVisible];
+  }, [ctx.visibleComponentId]);
 }
 
 export default useMenuToggle;

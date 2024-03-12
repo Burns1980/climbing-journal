@@ -1,15 +1,20 @@
+import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import DataProvider from '../store/DataContext';
+
 import { Header, NavigationBar } from '../components';
+import DataProvider from '../store/DataContext';
+import MenuModalProvider from '../store/MenuModalContext';
 
 function Root() {
   return (
     <>
-      <Header />
-      <NavigationBar />
-      <DataProvider>
-        <Outlet />
-      </DataProvider>
+      <MenuModalProvider>
+        <Header />
+        <NavigationBar />
+        <DataProvider>
+          <Outlet />
+        </DataProvider>
+      </MenuModalProvider>
     </>
   );
 }

@@ -4,11 +4,13 @@ import { DataContext } from '../../store/DataContext';
 import { RoutesCard } from '../index';
 import PageWrapper from '../../routes/PageWrapper';
 import { Error, LoadSpinner } from '../../components';
+import useMenuToggle from '../../customHooks/useMenuToggle';
 
 import './routes.css';
 
 // Will manage the state of the Routes Ive done page
 export default function Routes() {
+  useMenuToggle();
   const { routes } = useContext(DataContext);
   const { data, isLoading, isError, errorMessage } = routes;
 
