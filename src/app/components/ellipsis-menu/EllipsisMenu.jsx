@@ -1,57 +1,49 @@
-/* eslint-disable react/prop-types */
-import { Button } from '../index';
+import { useRef } from 'react';
+import PropTypes from 'prop-types';
+import { EllipsisButton, Button } from '../../components';
+
+import useMenuToggle from '../../customHooks/useMenuToggle';
 
 import './ellipsisMenu.css';
 
-function VerticalEllipsisMenu({ handleClick, showEllipsisMenu }) {
+function VerticalEllipsisMenu({ handleMenuAction, menuActionNames }) {
+  const menuRef = useRef();
+  const [isVisible, setIsVisible] = useMenuToggle(menuRef);
+  const handleItemClick = (action) => () => handleMenuClick(action);
+  const toggleVisibility = () => setIsVisible((isVisbile) => !isVisbile);
+
+  function handleMenuClick(menuAction) {
+    if (menuAction === 'edit') {
+      toggleVisibility();
+    }
+    handleMenuAction(menuAction);
+  }
+
   return (
-    <div className="vertical-ellipsis-menu">
-      <Button
-        className="btn-transparent"
-        onClick={handleClick}
-        aria-label="Open Menu"
-      >
-        <svg
-          width="25px"
-          height="30px"
-          className="ellipsis-icon"
-          fill="currentColor"
-          viewBox="0 0 10 10"
-        >
-          <circle cx="5" cy="2" r="1" />
-          <circle cx="5" cy="6" r="1" />
-          <circle cx="5" cy="10" r="1" />
-        </svg>
-      </Button>
+    <div ref={menuRef} className="vertical-ellipsis-menu">
+      <EllipsisButton handleClick={toggleVisibility} />
       <div>
-        <ul
-          className={`menu-list text-sm ${
-            showEllipsisMenu ? 'menu-visible' : ''
-          }`}
-        >
-          <li className="menu-item">
-            <Button
-              className="menu-btn"
-              onClick={handleClick}
-              aria-label="Open Menu"
-            >
-              Edit
-            </Button>
-          </li>
-          <li className="menu-item">
-            <Button className="menu-btn" onClick={handleClick}>
-              Hide
-            </Button>
-          </li>
-          <li className="menu-item">
-            <Button className="menu-btn" onClick={handleClick}>
-              Favorite
-            </Button>
-          </li>
+        <ul className={`menu-list text-sm ${isVisible ? 'menu-visible' : ''}`}>
+          {menuActionNames.map((action) => (
+            <li key={action} className="menu-item">
+              <Button
+                className="menu-btn"
+                onClick={handleItemClick(action)}
+                aria-label={`Action ${action}`}
+              >
+                {action.charAt(0).toUpperCase() + action.slice(1)}
+              </Button>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
   );
 }
+
+VerticalEllipsisMenu.propTypes = {
+  handleMenuAction: PropTypes.func.isRequired,
+  menuActionNames: PropTypes.array.isRequired,
+};
 
 export default VerticalEllipsisMenu;

@@ -4,27 +4,6 @@
   display: inline-block;
 }
 
-.btn-transparent {
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  background: transparent;
-  border: 1px solid transparent;
-  transition: border-color 0.3s ease-in-out, background-color 0.2s ease-in-out;
-}
-
-.btn-transparent:hover {
-  border-color: var(--primary-btn-color);
-  background-color: rgba(0, 0, 0, 0.3);
-}
-
-.ellipsis-icon {
-  padding: 5px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-
 .menu-list {
   list-style-type: none;
   padding: 0;
@@ -70,6 +49,3 @@
 .menu-visible {
   display: block;
 }
-/* .vertical-ellipsis-menu:hover .menu-list {
-  display: block;
-} */

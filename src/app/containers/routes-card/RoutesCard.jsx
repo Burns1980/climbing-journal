@@ -1,15 +1,29 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+
 import { EllipsisMenu, TruncateText } from '../../components';
-import './routes-card.css';
 import { apiUrl } from '../../../utils/envVars';
+import './routes-card.css';
+import { useState } from 'react';
+
+const MENU_ACTION_NAMES = ['edit', 'hide', 'favorite'];
+const EDIT = 0;
+const HIDE = 1;
+const FAVORITE = 2;
 
 const RoutesCard = ({ routeData }) => {
-  const [showEllipsisMenu, setShowEllipsisMenu] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
 
-  function handleClick() {
-    console.log('inside handleClick');
-    setShowEllipsisMenu((isMenuVisible) => !isMenuVisible);
+  function handleMenuAction(menuAction) {
+    if (menuAction === MENU_ACTION_NAMES[EDIT]) {
+      setIsEditMode(true);
+      console.log(`the ${routeData.name} edit modal should open now`);
+    }
+    if (menuAction === MENU_ACTION_NAMES[HIDE]) {
+      console.log(`the ${routeData.name} hide was clicked`);
+    }
+    if (menuAction === MENU_ACTION_NAMES[FAVORITE]) {
+      console.log(`the ${routeData.name} favorite was clicked`);
+    }
   }
 
   function handleReadMoreClick() {
@@ -20,8 +34,8 @@ const RoutesCard = ({ routeData }) => {
     <div className="route-card-container">
       <div className="ellipsis-container">
         <EllipsisMenu
-          handleClick={handleClick}
-          showEllipsisMenu={showEllipsisMenu}
+          menuActionNames={MENU_ACTION_NAMES}
+          handleMenuAction={handleMenuAction}
         />
       </div>
       <article className="route-card">
@@ -38,7 +52,6 @@ const RoutesCard = ({ routeData }) => {
             </h3>
             <TruncateText
               className="route-card-description text-sm"
-              // text={routeData.description}
               text={routeData.description}
               maxWords={100}
               onClick={handleReadMoreClick}
