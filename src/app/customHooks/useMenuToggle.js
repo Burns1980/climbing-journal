@@ -4,15 +4,18 @@ import { MenuModalContext } from '../store/MenuModalContext';
 
 function useMenuToggle() {
   const ctx = useContext(MenuModalContext);
+  const { menuRef, visibleComponentId, hideVisibleComponent } = ctx;
 
   useEffect(() => {
-    const { menuRef, visibleComponentId, hideVisibleComponent } = ctx;
-    console.log('inside useEffect in UseMenuToggle');
+    console.log('inside useEffect');
+    // no need to attache listeners since no component is visible
+    if (!visibleComponentId) {
+      return;
+    }
 
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
         hideVisibleComponent();
-        // console.log('escape key pressed', ctx);
       }
       // Menu should close when enter is pressed on a different element
       if (
@@ -27,29 +30,18 @@ function useMenuToggle() {
 
     const handleClickOutside = (e) => {
       if (menuRef && menuRef.current && !menuRef.current.contains(e.target)) {
-        // console.log('handle click outside', ctx);
         hideVisibleComponent();
       }
     };
 
-    /*  
-      No need to listen when when there is not a menu open. Menus open
-      when an id is set in the MenuModalContext
-    */
-    if (visibleComponentId) {
-      console.log('creating listeners');
-
-      document.addEventListener('keydown', handleKeyDown);
-      document.addEventListener('mousedown', handleClickOutside);
-    }
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('mousedown', handleClickOutside);
 
     return () => {
-      console.log('removing listeners');
-
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [ctx.visibleComponentId]);
+  }, [visibleComponentId, menuRef, hideVisibleComponent]);
 }
 
 export default useMenuToggle;

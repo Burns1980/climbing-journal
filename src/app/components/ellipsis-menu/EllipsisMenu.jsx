@@ -20,8 +20,7 @@ function VerticalEllipsisMenu({ handleMenuAction, menuActionNames, _id }) {
 
   const handleEllipsisBtnClick = () => {
     // clear the id so the menu closes
-    if (visibleComponentId) {
-      console.log('inside if statement');
+    if (visibleComponentId === _id) {
       return hideVisibleComponent();
     }
 
