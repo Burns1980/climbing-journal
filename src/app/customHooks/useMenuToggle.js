@@ -7,7 +7,6 @@ function useMenuToggle() {
   const { menuRef, visibleComponentId, hideVisibleComponent } = ctx;
 
   useEffect(() => {
-    console.log('inside useEffect');
     // no need to attache listeners since no component is visible
     if (!visibleComponentId) {
       return;

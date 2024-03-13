@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-
-import { EllipsisMenu, TruncateText } from '../../components';
+import { TruncateText } from '../../components';
+import { EllipsisMenu } from '..';
 import { apiUrl } from '../../../utils/envVars';
 import './routes-card.css';
 import { useState } from 'react';
