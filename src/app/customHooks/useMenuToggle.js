@@ -1,22 +1,38 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 
-function useMenuToggle(ref) {
-  const [isVisible, setIsVisible] = useState(false);
+import { MenuModalContext } from '../store/MenuModalContext';
+
+function useMenuToggle() {
+  const ctx = useContext(MenuModalContext);
+  const { menuRef, visibleComponentId, hideVisibleComponent } = ctx;
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        setIsVisible(false);
+    console.log('inside useEffect');
+    // no need to attache listeners since no component is visible
+    if (!visibleComponentId) {
+      return;
+    }
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        hideVisibleComponent();
+      }
+      // Menu should close when enter is pressed on a different element
+      if (
+        e.key === 'Enter' &&
+        menuRef &&
+        menuRef.current &&
+        !menuRef.current.contains(e.target)
+      ) {
+        hideVisibleComponent();
       }
     };
 
-    const handleClickOutside = (event) => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setIsVisible(false);
+    const handleClickOutside = (e) => {
+      if (menuRef && menuRef.current && !menuRef.current.contains(e.target)) {
+        hideVisibleComponent();
       }
     };
-
-    console.log('inside useMenuToggle');
 
     document.addEventListener('keydown', handleKeyDown);
     document.addEventListener('mousedown', handleClickOutside);
@@ -25,9 +41,7 @@ function useMenuToggle(ref) {
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [ref]);
-
-  return [isVisible, setIsVisible];
+  }, [visibleComponentId, menuRef, hideVisibleComponent]);
 }
 
 export default useMenuToggle;

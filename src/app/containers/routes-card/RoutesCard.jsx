@@ -34,6 +34,7 @@ const RoutesCard = ({ routeData }) => {
     <div className="route-card-container">
       <div className="ellipsis-container">
         <EllipsisMenu
+          _id={routeData._id}
           menuActionNames={MENU_ACTION_NAMES}
           handleMenuAction={handleMenuAction}
         />
