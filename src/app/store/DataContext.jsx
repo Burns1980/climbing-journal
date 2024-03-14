@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { createContext, useReducer, useEffect } from 'react';
 import { useRouteLoaderData } from 'react-router-dom';
 
-import { loadRoutesToState } from '../effects';
+import { useLoadRoutesToState } from '../customHooks';
 import { rootReducer } from '../reducers';
 export const DataContext = createContext(null);
 export const DataDispatchContext = createContext(null);
@@ -26,9 +26,7 @@ function DataProvider({ children }) {
   const [state, dispatch] = useReducer(rootReducer, initialState);
   const data = useRouteLoaderData('root');
 
-  useEffect(() => {
-    loadRoutesToState(dispatch, data.data);
-  }, [data]);
+  useLoadRoutesToState(dispatch, data.data);
 
   return (
     <DataContext.Provider value={state}>

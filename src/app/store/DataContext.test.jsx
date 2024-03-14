@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import DataProvider, { DataContext, DataDispatchContext } from './';
 
-import { loadRoutesToState } from '../effects/routeEffects';
+import { loadRoutesToState } from '../customHooks/useLoadRoutesToState';
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
