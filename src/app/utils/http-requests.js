@@ -13,7 +13,7 @@ export const fetchRoutes = async (httpVerb, filter = undefined) => {
           );
         }
 
-        return await res.json();
+        return res;
       }
 
       // filtered get requests here

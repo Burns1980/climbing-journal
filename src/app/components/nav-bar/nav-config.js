@@ -1,18 +1,18 @@
 export default [
   {
-    to: '/home',
-    title: 'Home'
+    to: '/',
+    title: 'Home',
   },
   {
     to: '/routes-by-me',
-    title: 'Routes I\'ve done'
+    title: "Routes I've done",
   },
   {
     to: '/trip-report',
-    title: 'Trip reports'
+    title: 'Trip reports',
   },
   {
-    to: '/projects',
-    title: 'Projects'
+    to: '/trip-research',
+    title: 'Trip research',
   },
 ];

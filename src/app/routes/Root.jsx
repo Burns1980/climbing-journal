@@ -11,7 +11,9 @@ function Root() {
         <Header />
         <NavigationBar />
         <DataProvider>
-          <Outlet />
+          <main>
+            <Outlet />
+          </main>
         </DataProvider>
       </MenuModalProvider>
     </>

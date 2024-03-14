@@ -11,6 +11,7 @@ import './routes.css';
 // Will manage the state of the Routes Ive done page
 export default function Routes() {
   useMenuToggle();
+
   const { routes } = useContext(DataContext);
   const { data, isLoading, isError, errorMessage } = routes;
 

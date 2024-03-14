@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
 import Root from './routes/Root.jsx';
 import Home from './containers/home-page/Home.jsx';
 import Routes from './containers/routes-page/Routes.jsx';
 import ErrorPage from './error-page.jsx';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { fetchRoutes } from './utils/http-requests.js';
+
 import './index.css';
 
 const router = createBrowserRouter([
@@ -12,24 +15,26 @@ const router = createBrowserRouter([
     path: '/',
     element: <Root />,
     errorElement: <ErrorPage />,
+    id: 'root',
+    loader: () => fetchRoutes('GET'),
     children: [
+      {
+        index: true,
+        element: <Home />,
+      },
       {
         path: 'routes-by-me',
         element: <Routes />,
       },
       {
-        path: 'projects',
-        element: <div>Projects page nested in root</div>,
+        path: 'trip-research',
+        element: <div>Trip research</div>,
       },
       {
-        path: 'home',
-        element: <Home />,
+        path: 'trip-report',
+        element: <div>Trip report</div>,
       },
     ],
-  },
-  {
-    path: 'trip-report',
-    element: <div>here page not nested in root</div>,
   },
 ]);
 

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { createContext, useReducer, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useRouteLoaderData } from 'react-router-dom';
 
 import { loadRoutesToState } from '../effects/index';
 import rootReducer from '../reducers/rootReducer';
@@ -24,13 +24,11 @@ const initialState = {
 
 function DataProvider({ children }) {
   const [state, dispatch] = useReducer(rootReducer, initialState);
-  const { pathname } = useLocation();
+  const data = useRouteLoaderData('root');
 
   useEffect(() => {
-    if (pathname === '/routes-by-me') {
-      loadRoutesToState(dispatch);
-    }
-  }, [pathname]);
+    loadRoutesToState(dispatch, data.data);
+  }, [data]);
 
   return (
     <DataContext.Provider value={state}>
