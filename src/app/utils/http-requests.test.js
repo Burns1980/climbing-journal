@@ -2,7 +2,7 @@ jest.mock('../../utils/envVars', () => ({
   apiUrl: jest.fn(() => 'http://localhost:3000'),
 }));
 
-import { fetchRoutes } from './http-requests.js';
+import { fetchRoutes } from './';
 
 global.fetch = jest.fn();
 

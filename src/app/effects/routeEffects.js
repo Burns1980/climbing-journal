@@ -1,10 +1,7 @@
-import { LOAD_ROUTES, SET_FETCH_ERROR } from '../routes/actions';
-import { fetchRoutes } from '../utils/http-requests.js';
+import { LOAD_ROUTES, SET_FETCH_ERROR } from '../reducers';
 
 export async function loadRoutesToState(dispatch, data) {
   try {
-    // const { data } = await fetchRoutes('get');
-
     dispatch({
       type: LOAD_ROUTES,
       payload: {

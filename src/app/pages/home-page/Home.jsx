@@ -1,4 +1,4 @@
-import PageWrapper from '../../routes/PageWrapper';
+import { PageWrapper } from '../';
 import noseImage from '../../assets/images/nose-thumbnail.jpg';
 import logo from '../../assets/images/climbing-bag-logo.jpg';
 

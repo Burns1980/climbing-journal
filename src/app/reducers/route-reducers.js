@@ -1,8 +1,4 @@
-import {
-  LOAD_ROUTES,
-  SET_FETCH_ERROR,
-  SET_IS_LOADING,
-} from '../routes/actions';
+import { LOAD_ROUTES, SET_FETCH_ERROR, SET_IS_LOADING } from './';
 
 export default function routesReducer(routesState, action) {
   const { payload } = action;

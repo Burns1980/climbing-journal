@@ -1,6 +1,6 @@
 import { useEffect, useContext } from 'react';
 
-import { MenuModalContext } from '../store/MenuModalContext';
+import { MenuModalContext } from '../store';
 
 function useMenuToggle() {
   const ctx = useContext(MenuModalContext);

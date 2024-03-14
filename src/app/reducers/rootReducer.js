@@ -1,5 +1,4 @@
-import areasReducers from './areas-reducers';
-import routesReducer from './route-reducers';
+import { areasReducers, routesReducer } from './';
 
 export default (state, action) => {
   return {

@@ -2,7 +2,7 @@ import { useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import { EllipsisButton, Button } from '../../components';
-import { MenuModalContext } from '../../store/MenuModalContext';
+import { MenuModalContext } from '../../store';
 
 import './ellipsisMenu.css';
 

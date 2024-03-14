@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
-import { Button } from '../index';
-import { truncateTextByWords } from '../../utils/helpers';
+import { Button } from '../';
+import { truncateTextByWords } from '../../utils';
 
 const TruncateText = ({ onClick, maxWords, text, ...props }) => {
   const numOfWordsInDescription = text.split(' ').length;

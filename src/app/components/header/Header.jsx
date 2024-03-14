@@ -1,4 +1,4 @@
-import { Button, IconButton } from '../index';
+import { Button, IconButton } from '../';
 import logo from '../../assets/images/climbing-bag-logo.jpg';
 import './header.css';
 

@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 
-import { DataContext } from '../../store/DataContext';
-import { RoutesCard } from '../index';
-import PageWrapper from '../../routes/PageWrapper';
+import { DataContext } from '../../store';
+import { RoutesCard } from '../../containers';
+import { PageWrapper } from '../';
 import { Error, LoadSpinner } from '../../components';
-import useMenuToggle from '../../customHooks/useMenuToggle';
+import { useMenuToggle } from '../../customHooks';
 
 import './routes.css';
 

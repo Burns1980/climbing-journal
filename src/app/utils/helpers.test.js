@@ -1,4 +1,4 @@
-import { truncateTextByWords } from './helpers';
+import { truncateTextByWords } from './';
 
 describe('truncateTextByWords', () => {
   const testText = 'This is test text for unit tests.';

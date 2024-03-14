@@ -2,7 +2,7 @@ import * as React from 'react';
 import { render, act, screen } from '@testing-library/react';
 import { useLocation } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import DataProvider, { DataContext, DataDispatchContext } from './DataContext';
+import DataProvider, { DataContext, DataDispatchContext } from './';
 
 import { loadRoutesToState } from '../effects/routeEffects';
 
