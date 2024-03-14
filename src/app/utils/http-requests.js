@@ -8,8 +8,11 @@ export const fetchRoutes = async (httpVerb, filter = undefined) => {
         const res = await fetch(`${apiUrl}${GET_ROUTES_URL}`, {});
 
         if (!res.ok) {
-          throw new Error(
-            'The response from the fetch operation was not "ok." Try refreshing'
+          throw new Response(
+            JSON.stringify({
+              message: 'The fetch routes operation failed. Try refreshing',
+            }),
+            { status: 500 }
           );
         }
 
