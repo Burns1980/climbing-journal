@@ -1,0 +1,12 @@
+.page-header {
+  margin: 0 0 40px 0;
+}
+
+.sidebar {
+  width: 25%;
+  /* min-width: 25rem; */
+}
+
+.wd-75 {
+  width: 75%;
+}

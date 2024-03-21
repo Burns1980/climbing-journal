@@ -63,13 +63,13 @@
 /* Responsive Styles */
 @media screen and (min-width: 969px) and (max-width: 1200px) {
   .route-card-container {
-    width: 85%;
+    /* width: 85%; */
   }
 }
 
 @media screen and (min-width: 1201px) {
   .route-card-container {
-    width: 80%;
+    /* width: 80%; */
   }
 }
 

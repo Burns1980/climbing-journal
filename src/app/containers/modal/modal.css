@@ -1,0 +1,30 @@
+.modal {
+  --modal-input-bg-color: #505050;
+  /* --modal-input-border-color: #676767; */
+  --modal-input-border-color: #7682b8;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 85vw;
+  min-height: 85vh;
+  background-color: var(--modal-bg-color);
+  overflow-y: auto; /* Allows scrolling within the modal if the content is too long */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 8px;
+  z-index: 1000;
+}
+
+/* Style the backdrop that appears when the dialog is open */
+::backdrop {
+  background-color: rgba(44, 42, 42, 0.95);
+}
+
+/*Mobile views */
+@media (max-width: 850px) {
+  .modal {
+    min-width: 93vw;
+    min-height: 93vh;
+  }
+}

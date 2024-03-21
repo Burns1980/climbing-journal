@@ -7,7 +7,10 @@ export default function Header() {
     <header>
       <div className="header-wrapper container">
         <div className="mobile-menu-icon">
-          <IconButton className="fa-solid fa-bars fa-2xl" />
+          <IconButton
+            onClick={() => console.log('hamburger')}
+            iconClassName="fa-solid fa-bars fa-2xl"
+          />
         </div>
         <div className={`desktop-header-wrapper`}>
           <Button>Menu</Button>

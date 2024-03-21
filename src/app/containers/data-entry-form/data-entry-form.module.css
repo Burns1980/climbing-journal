@@ -1,0 +1,26 @@
+.inputContainer {
+  flex: 1;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.modalHeader {
+  color: var(--primary-text-color);
+}
+
+label {
+  margin-right: 10px;
+}
+
+textarea {
+  border: none;
+}
+
+.formContainer {
+  margin: 30px;
+}
+
+.rowContainer {
+  display: flex;
+  justify-content: space-between;
+}

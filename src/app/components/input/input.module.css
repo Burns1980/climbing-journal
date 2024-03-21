@@ -1,0 +1,32 @@
+/* General label styling */
+.formInputLabel {
+  color: var(--primary-link-color);
+  margin-bottom: 3px; /* Space between label and input */
+  /* display: block; Ensures the label takes its own line */
+}
+
+textarea {
+  overflow: auto;
+}
+
+/* Styling for input fields */
+.formInput,
+.formtextArea {
+  font-size: inherit;
+  background-color: var(
+    --modal-input-bg-color
+  ); /* Slightly lighter than the modal for contrast */
+  color: inherit; /* White text for readability */
+  /* border: 1px solid var(--modal-input-border-color); */
+  border: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  border-radius: 4px; /* Rounded corners */
+  padding: 10px; /* Inner spacing */
+  width: 100%; /* Full-width inputs */
+}
+
+.formInput:focus,
+.formtextArea:focus {
+  border-color: #fff; /* Highlight focus with a white border */
+  outline: none; /* Remove default focus outline */
+}

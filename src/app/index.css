@@ -9,6 +9,7 @@
   --call-to-action-bg: #3399ff;
   --mobile-max-width: 484px;
   --background-color: #2c2a2a;
+  --modal-bg-color: #3a3b3b;
   --primary-btn-color: #0061c2;
   --secondary-btn-color: #474747;
   --menu-btn-hover-color: #757474;
@@ -68,6 +69,11 @@ button:focus-visible {
   padding: 0 15px;
 }
 
+.display-flex {
+  display: flex;
+  width: 100%;
+}
+
 /* Button classes */
 .btn {
   display: inline-block;
@@ -84,6 +90,7 @@ button:focus-visible {
 .btn-secondary {
   display: inline-block;
   border-radius: 8px;
+  padding: 0.4em 1em;
   border: 1px solid transparent;
   font-weight: 500;
   font-family: inherit;
@@ -148,6 +155,10 @@ button:focus-visible {
 
 .text-center {
   text-align: center;
+}
+
+.header-margin {
+  margin-bottom: 10px;
 }
 
 /*Mobile menu */

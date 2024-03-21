@@ -1,0 +1,5 @@
+.add-route-container {
+  display: flex;
+  justify-content: center; /* Center the button horizontally */
+  margin: 20px 0;
+}

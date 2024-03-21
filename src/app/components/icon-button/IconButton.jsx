@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 
 import './iconButton.css';
 
-function IconButton({ className }) {
+function IconButton({ iconClassName, ...props }) {
   return (
-    <button>
-      <i className={className}></i>
+    <button {...props}>
+      <i className={iconClassName}></i>
     </button>
   );
 }

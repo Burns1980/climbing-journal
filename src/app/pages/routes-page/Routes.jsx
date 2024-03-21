@@ -1,16 +1,22 @@
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 
 import { DataContext } from '../../store';
-import { RoutesCard } from '../../containers';
+import { Modal, RoutesCard, DataEntryForm } from '../../containers';
 import { PageWrapper } from '../';
 import { Error, LoadSpinner } from '../../components';
 import { useMenuToggle } from '../../customHooks';
+import { formFields } from './config';
 
 import './routes.css';
 
-// Will manage the state of the Routes Ive done page
 export default function Routes() {
+  const modalRef = useRef();
+
   useMenuToggle();
+
+  function handleAddRoute() {
+    modalRef.current.open();
+  }
 
   const { routes } = useContext(DataContext);
   const { data, isLoading, isError, errorMessage } = routes;
@@ -24,8 +30,13 @@ export default function Routes() {
   );
 
   return (
-    <PageWrapper title="Routes I've done" className="container">
-      {content}
-    </PageWrapper>
+    <>
+      <Modal ref={modalRef}>
+        <DataEntryForm title="Enter new route" fields={formFields} />
+      </Modal>
+      <PageWrapper handleAddClick={handleAddRoute} title="Routes I've done">
+        {content}
+      </PageWrapper>
+    </>
   );
 }
