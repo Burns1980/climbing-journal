@@ -20,7 +20,8 @@
   --secondary-text-color: #b3b3b3;
   --primary-link-color: rgb(150, 184, 255);
   --primary-link-hover-color: #70b2f3;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Roboto, sans-serif, Arial;
+
   line-height: 1.5;
   font-weight: 400;
 
@@ -32,6 +33,10 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+input {
+  font-family: Roboto, sans-serif, Arial;
 }
 
 html {
