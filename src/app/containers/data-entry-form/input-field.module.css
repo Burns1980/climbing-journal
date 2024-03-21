@@ -1,0 +1,55 @@
+label {
+  margin-right: 10px;
+}
+
+textarea {
+  overflow: auto;
+  height: 10vh;
+  resize: vertical;
+}
+
+.inputContainer {
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+.inputContainer:nth-child(1) {
+  margin-right: 20px;
+}
+
+.formInputLabel {
+  color: var(--primary-link-color);
+  margin-bottom: 5px;
+  display: block;
+}
+
+.formInput,
+.formtextArea {
+  background-color: var(--modal-input-bg-color);
+  color: inherit;
+  border: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  padding: 10px;
+  width: 100%;
+}
+
+.formtextArea::placeholder {
+  color: #909090;
+  font-style: italic;
+}
+
+.formInput:focus,
+.formtextArea:focus {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+/*Mobile views*/
+@media (max-width: 500px) {
+  .inputContainer:nth-child(1) {
+    margin: 20px 0 0 0;
+  }
+  .inputContainer {
+    margin: 20px 0 0 0;
+  }
+}

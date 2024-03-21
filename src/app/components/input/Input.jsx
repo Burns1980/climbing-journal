@@ -3,26 +3,16 @@ import PropTypes from 'prop-types';
 
 import styles from './input.module.css';
 
-function Input({ name, labelName, inputProps = {} }) {
+function Input({ name, labelName, inputProps = {}, ...props }) {
   return (
     <>
       <label className={styles.formInputLabel + ' text-md'} htmlFor={name}>
         {labelName}
       </label>
       {inputProps.type === 'textarea' ? (
-        <textarea
-          className={styles.formtextArea + ' text-sm'}
-          id={name}
-          name={name}
-          {...inputProps}
-        />
+        <textarea {...props} id={name} name={name} {...inputProps} />
       ) : (
-        <input
-          className={styles.formInput + ' text-sm'}
-          id={name}
-          name={name}
-          {...inputProps}
-        />
+        <input {...props} id={name} name={name} {...inputProps} />
       )}
     </>
   );

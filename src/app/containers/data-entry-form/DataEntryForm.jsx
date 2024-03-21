@@ -24,7 +24,7 @@ function DataEntryForm({ title, fields }) {
       <h2 className={`${styles.modalHeader} text-xl text-center header-margin`}>
         {title}
       </h2>
-      <form className={styles.form} onSubmit={handleSubmit} method="dialog">
+      <form onSubmit={handleSubmit} method="dialog">
         {inputRows.map((row, idx) => (
           <div className={styles.rowContainer} key={idx}>
             {row.map((field) => (
