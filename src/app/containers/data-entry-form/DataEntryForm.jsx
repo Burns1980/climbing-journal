@@ -35,8 +35,14 @@ function DataEntryForm({ title, fields }) {
         {textAreaFields.map((field) => (
           <InputField key={field.name} field={field} />
         ))}
-        <Button type="submit">Submit</Button>
-        <Button>Cancel</Button>
+        <div className={`${styles.buttonRow}`}>
+          <Button className={`btn text-md ${styles.formButton}`} type="submit">
+            Save
+          </Button>
+          <Button className={`btn-secondary text-md ${styles.formButton}`}>
+            Cancel
+          </Button>
+        </div>
       </form>
     </div>
   );

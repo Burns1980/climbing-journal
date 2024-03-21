@@ -1,7 +1,10 @@
 .inputContainer {
   flex: 1;
-  margin-right: 20px;
   margin-bottom: 20px;
+}
+
+.inputContainer:nth-child(1) {
+  margin-right: 20px;
 }
 
 .modalHeader {
@@ -12,10 +15,6 @@ label {
   margin-right: 10px;
 }
 
-textarea {
-  border: none;
-}
-
 .formContainer {
   margin: 30px;
 }
@@ -23,4 +22,18 @@ textarea {
 .rowContainer {
   display: flex;
   justify-content: space-between;
+}
+
+.buttonRow {
+  display: flex;
+  /* justify-content: end; */
+  justify-content: flex-end;
+}
+
+.formButton {
+  margin: 20px 0 20px 0;
+}
+
+.formButton:nth-child(-n + 1) {
+  margin-right: 50px;
 }

@@ -11,7 +11,7 @@
   --background-color: #2c2a2a;
   --modal-bg-color: #3a3b3b;
   --primary-btn-color: #0061c2;
-  --secondary-btn-color: #474747;
+  --secondary-btn-color: #707070;
   --menu-btn-hover-color: #757474;
   --card-bg-color: #474747;
   --card-border-color: #404040;
@@ -80,7 +80,6 @@ button:focus-visible {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
-  font-weight: 500;
   font-family: inherit;
   background-color: var(--primary-btn-color);
   cursor: pointer;
@@ -92,7 +91,6 @@ button:focus-visible {
   border-radius: 8px;
   padding: 0.4em 1em;
   border: 1px solid transparent;
-  font-weight: 500;
   font-family: inherit;
   background-color: var(--secondary-btn-color);
   cursor: pointer;
@@ -109,7 +107,8 @@ button:focus-visible {
   padding: 0;
 }
 
-.btn:hover {
+.btn:hover,
+.btn-secondary:hover {
   opacity: 0.9;
 }
 
@@ -142,13 +141,13 @@ button:focus-visible {
 }
 
 .text-md {
-  font-size: 1.8rem;
+  font-size: 1.9rem;
   line-height: 1.4;
   font-weight: normal;
 }
 
 .text-sm {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   line-height: 1.4;
   font-weight: normal;
 }
@@ -158,7 +157,7 @@ button:focus-visible {
 }
 
 .header-margin {
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 }
 
 /*Mobile menu */

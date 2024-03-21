@@ -5,7 +5,7 @@ export const formFields = [
   },
   {
     name: 'Date climbed',
-    inputProps: { type: 'date' },
+    inputProps: { type: 'date', min: '1900-01-01' },
   },
   {
     name: 'YDS grade',
@@ -31,14 +31,15 @@ export const formFields = [
     name: 'Description',
     inputProps: {
       type: 'textarea',
-      placeholder: 'placeholder text for description',
+      placeholder: 'What do you have to say about the route?',
     },
   },
   {
     name: 'Gear',
     inputProps: {
       type: 'textarea',
-      placeholder: 'placeholder text for gear',
+      placeholder:
+        'Add some gear here, unless you free soloed. What kind of shoes did you wear?',
     },
   },
   {

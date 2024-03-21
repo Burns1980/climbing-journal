@@ -11,17 +11,17 @@ function Input({ name, labelName, inputProps = {} }) {
       </label>
       {inputProps.type === 'textarea' ? (
         <textarea
-          className={styles.formtextArea}
+          className={styles.formtextArea + ' text-sm'}
           id={name}
           name={name}
           {...inputProps}
         />
       ) : (
         <input
-          className={styles.formInput}
-          {...inputProps}
+          className={styles.formInput + ' text-sm'}
           id={name}
           name={name}
+          {...inputProps}
         />
       )}
     </>

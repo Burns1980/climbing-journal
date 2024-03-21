@@ -1,32 +1,32 @@
-/* General label styling */
 .formInputLabel {
   color: var(--primary-link-color);
-  margin-bottom: 3px; /* Space between label and input */
-  /* display: block; Ensures the label takes its own line */
+  margin-bottom: 5px;
+  display: block;
 }
 
 textarea {
   overflow: auto;
+  height: 200px;
+  resize: vertical;
 }
 
-/* Styling for input fields */
 .formInput,
 .formtextArea {
-  font-size: inherit;
-  background-color: var(
-    --modal-input-bg-color
-  ); /* Slightly lighter than the modal for contrast */
-  color: inherit; /* White text for readability */
-  /* border: 1px solid var(--modal-input-border-color); */
+  background-color: var(--modal-input-bg-color);
+  color: inherit;
   border: none;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  border-radius: 4px; /* Rounded corners */
-  padding: 10px; /* Inner spacing */
-  width: 100%; /* Full-width inputs */
+  border-radius: 4px;
+  padding: 10px;
+  width: 100%;
+}
+
+.formtextArea::placeholder {
+  color: #909090;
+  font-style: italic;
 }
 
 .formInput:focus,
 .formtextArea:focus {
-  border-color: #fff; /* Highlight focus with a white border */
-  outline: none; /* Remove default focus outline */
+  outline: 4px auto -webkit-focus-ring-color;
 }
