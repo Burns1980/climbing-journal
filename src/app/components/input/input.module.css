@@ -3,3 +3,9 @@
   margin-bottom: 5px;
   display: block;
 }
+
+.controlError {
+  margin: 5px 0 0 0;
+  text-align: center;
+  color: var(--error-text-color);
+}

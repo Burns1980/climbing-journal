@@ -15,6 +15,7 @@ const InputField = ({ field }) => {
             : inputStyles.formInput + ' text-sm'
         }
         name={name}
+        id={name}
         labelName={field.name}
         inputProps={field.inputProps}
       />

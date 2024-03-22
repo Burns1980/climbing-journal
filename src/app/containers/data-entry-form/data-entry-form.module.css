@@ -1,5 +1,15 @@
-.modalHeader {
+.formHeader {
   color: var(--primary-text-color);
+}
+
+.formInputs {
+  --input-bg-color: #505050;
+  --input-border-color: #7682b8;
+
+  input,
+  textarea {
+    background-color: var(--input-bg-color);
+  }
 }
 
 .formContainer {
@@ -8,7 +18,7 @@
 
 .rowContainer {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 
 .buttonRow {

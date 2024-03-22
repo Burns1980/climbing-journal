@@ -2,7 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { Home, Root, Routes, RouteInfo, ErrorPage } from './pages';
+import {
+  Home,
+  Root,
+  RouteRoot,
+  Routes,
+  AddNewRoute,
+  RouteInfo,
+  ErrorPage,
+} from './pages';
 import { fetchRoutes } from './utils';
 
 import './index.css';
@@ -21,11 +29,25 @@ const router = createBrowserRouter([
       },
       {
         path: 'routes-by-me',
-        element: <Routes />,
-      },
-      {
-        path: 'routes-by-me/:route-id',
-        element: <RouteInfo />,
+        element: <RouteRoot />,
+        children: [
+          {
+            index: true,
+            element: <Routes />,
+          },
+          {
+            path: ':route-id',
+            element: <RouteInfo />,
+          },
+          {
+            path: 'add-new-route',
+            element: <AddNewRoute />,
+          },
+          {
+            path: 'edit-route/:id',
+            element: <div>Hello</div>,
+          },
+        ],
       },
       {
         path: 'trip-research',

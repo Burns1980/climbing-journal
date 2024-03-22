@@ -1,6 +1,4 @@
 .modal {
-  --modal-input-bg-color: #505050;
-  --modal-input-border-color: #7682b8;
   position: fixed;
   top: 50%;
   left: 50%;

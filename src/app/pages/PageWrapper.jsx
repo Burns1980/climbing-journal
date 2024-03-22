@@ -6,15 +6,15 @@ import './pages.css';
 
 function PageWrapper({ showSidebar = true, title, children, handleAddClick }) {
   return (
-    <>
+    <section className="container">
       {title && <h2 className="text-xl text-center page-header">{title}</h2>}
-      <div className="container display-flex">
+      <div className="display-flex">
         {showSidebar && (
           <Sidebar handleAddClick={handleAddClick} className="sidebar" />
         )}
-        <section className="wd-75">{children}</section>
+        <section className="page-main-content">{children}</section>
       </div>
-    </>
+    </section>
   );
 }
 

@@ -20,11 +20,15 @@ function DataEntryForm({ title, fields }) {
   );
 
   return (
-    <div className={styles.formContainer}>
-      <h2 className={`${styles.modalHeader} text-xl text-center header-margin`}>
+    <section className={styles.formContainer}>
+      <h2 className={`${styles.formHeader} text-xl text-center header-margin`}>
         {title}
       </h2>
-      <form onSubmit={handleSubmit} method="dialog">
+      <form
+        className={styles.formInputs}
+        onSubmit={handleSubmit}
+        method="dialog"
+      >
         {inputRows.map((row, idx) => (
           <div className={styles.rowContainer} key={idx}>
             {row.map((field) => (
@@ -44,7 +48,7 @@ function DataEntryForm({ title, fields }) {
           </Button>
         </div>
       </form>
-    </div>
+    </section>
   );
 }
 
