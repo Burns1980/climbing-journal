@@ -5,4 +5,7 @@ export { default as Root } from './Root';
 export { default as ErrorPage } from './error-page';
 export { default as RouteInfo } from './route-info/RouteInfo';
 export { default as RouteRoot } from './routes-page/RouteRoot';
-export { default as AddNewRoute } from './add-new-route/AddNewRoute';
+export {
+  default as AddNewRoute,
+  action as addNewRouteAction,
+} from './add-new-route/AddNewRoute';

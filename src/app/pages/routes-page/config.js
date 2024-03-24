@@ -1,49 +1,60 @@
+// the name property needs to match the name in the database
 export const formFields = [
   {
-    name: 'Route name',
+    label: 'Route name',
     inputProps: { required: true, type: 'text' },
+    name: 'name',
   },
   {
-    name: 'Date climbed',
+    label: 'Date climbed',
     inputProps: { type: 'date', min: '1900-01-01' },
+    name: 'dateClimbed',
   },
   {
-    name: 'YDS grade',
+    label: 'YDS grade',
     inputProps: { type: 'text' },
+    name: 'grade',
   },
   {
-    name: 'Type',
+    label: 'Type',
     inputProps: { type: 'text' },
+    name: 'type',
   },
   {
-    name: 'Length',
+    label: 'Length',
     inputProps: { type: 'text' },
+    name: 'length',
   },
   {
-    name: 'Pitches',
+    label: 'Pitches',
     inputProps: { type: 'number' },
+    name: 'pitches',
   },
   {
-    name: 'Grade',
+    label: 'Grade',
     inputProps: { type: 'text' },
+    name: 'commitmentGrade',
   },
   {
-    name: 'Description',
+    label: 'Description',
     inputProps: {
       type: 'textarea',
       placeholder: 'What do you have to say about the route?',
     },
+    name: 'description',
   },
   {
-    name: 'Gear',
+    label: 'Gear',
     inputProps: {
       type: 'textarea',
       placeholder:
         'Add some gear here, unless you free soloed. What kind of shoes did you wear?',
     },
+    name: 'gear',
   },
   {
-    name: 'Picture attachments',
-    inputProps: { type: 'file' },
+    label: 'Cover image URL',
+    inputProps: { type: 'text' },
+    name: 'imageCoverUrl',
   },
 ];

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { Button } from '../../components';
@@ -6,12 +7,7 @@ import InputField from './InputField';
 import { groupFieldsIntoRows } from './helpers';
 import styles from './data-entry-form.module.css';
 
-function DataEntryForm({ title, fields }) {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('submit value');
-  };
-
+function DataEntryForm({ title, fields, handleSubmit }) {
   const inputRows = groupFieldsIntoRows(
     fields.filter((field) => field.inputProps.type !== 'textarea')
   );
@@ -24,10 +20,11 @@ function DataEntryForm({ title, fields }) {
       <h2 className={`${styles.formHeader} text-xl text-center header-margin`}>
         {title}
       </h2>
-      <form
+      {/* <Form className={styles.formInputs} onSubmit={handleSubmit} method="post"> */}
+      <Form
+        // encType="multipart/form-data"
         className={styles.formInputs}
-        onSubmit={handleSubmit}
-        method="dialog"
+        method="post"
       >
         {inputRows.map((row, idx) => (
           <div className={styles.rowContainer} key={idx}>
@@ -40,14 +37,14 @@ function DataEntryForm({ title, fields }) {
           <InputField key={field.name} field={field} />
         ))}
         <div className={`${styles.buttonRow}`}>
-          <Button className={`btn text-md ${styles.formButton}`} type="submit">
+          <Button type="submit" className={`btn text-md ${styles.formButton}`}>
             Save
           </Button>
           <Button className={`btn-secondary text-md ${styles.formButton}`}>
             Cancel
           </Button>
         </div>
-      </form>
+      </Form>
     </section>
   );
 }

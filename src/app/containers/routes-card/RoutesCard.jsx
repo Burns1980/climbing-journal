@@ -41,11 +41,14 @@ const RoutesCard = ({ routeData }) => {
       </div>
       <article className="route-card">
         <div className="route-card-header">
-          <img
-            src={`${apiUrl}/${routeData.imageCover}`}
-            alt="Brent hanging out on El Cap Tower"
-            className="route-card-image"
-          />
+          {routeData.imageCoverUrl && (
+            <img
+              src={`${routeData.imageCoverUrl}`}
+              // src={`${apiUrl}/${routeData.imageCoverUrl}`}
+              alt={routeData.name}
+              className="route-card-image"
+            />
+          )}
           <div className="route-card-details">
             <h3 className="route-card-title text-lg">
               {routeData.name}
@@ -70,11 +73,11 @@ const RoutesCard = ({ routeData }) => {
 
 RoutesCard.propTypes = {
   routeData: PropTypes.shape({
-    imageCover: PropTypes.string.isRequired,
+    imageCover: PropTypes.string,
     name: PropTypes.string.isRequired,
-    grade: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    gear: PropTypes.string.isRequired,
+    grade: PropTypes.string,
+    description: PropTypes.string,
+    gear: PropTypes.string,
   }).isRequired,
 };
 

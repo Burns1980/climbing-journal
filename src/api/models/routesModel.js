@@ -1,26 +1,50 @@
 const mongoose = require('mongoose');
 
+const ydsGradeRE = /5\.(?:[0-7]|[8-9](\+|-)?|1[0-5][abcd\+-]?)$/;
+
 const routeSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'The route needs a name property'],
     trim: true,
   },
+  dateClimbed: {
+    type: Date,
+    default: Date.now(),
+  },
   grade: {
     type: String,
-    required: [true, 'The route needs a grade property'],
     trim: true,
-    maxLength: 6,
-    minLength: 1,
+    lowercase: true,
+    match: ydsGradeRE,
+    required: [true, 'The grade is required.'],
+  },
+  type: {
+    type: String,
+    trim: true,
+    lowercase: true,
+    enum: ['traditional', 'boulder', 'sport', 'ice', 'mixed', 'aid'],
+  },
+  length: {
+    type: String,
+    trim: true,
+  },
+  pitches: {
+    type: Number,
+    trim: true,
+  },
+  commitmentGrade: {
+    type: String,
+    trim: true,
+    uppercase: true,
+    enum: ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'],
   },
   description: {
     type: String,
-    required: [true, 'The route needs a description property'],
     trim: true,
   },
   gear: {
     type: String,
-    required: [true, 'The route needs a gear property'],
     trim: true,
   },
   meta: {
@@ -30,9 +54,8 @@ const routeSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
-  imageCover: {
+  imageCoverUrl: {
     type: String,
-    default: 'images/nose-sunset.jpg',
   },
 });
 

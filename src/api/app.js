@@ -18,6 +18,10 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
   app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
+    res.header(
+      'Access-Control-Allow-Headers',
+      'Content-Type, Authorization, X-Requested-With'
+    );
 
     next();
   });

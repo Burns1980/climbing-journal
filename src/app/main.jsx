@@ -10,6 +10,7 @@ import {
   AddNewRoute,
   RouteInfo,
   ErrorPage,
+  addNewRouteAction,
 } from './pages';
 import { fetchRoutes } from './utils';
 
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
           {
             path: 'add-new-route',
             element: <AddNewRoute />,
+            action: addNewRouteAction,
           },
           {
             path: 'edit-route/:id',

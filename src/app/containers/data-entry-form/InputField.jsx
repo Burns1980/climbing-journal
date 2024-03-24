@@ -5,7 +5,7 @@ import { Input } from '../../components';
 import inputStyles from './input-field.module.css';
 
 const InputField = ({ field }) => {
-  const name = field.name.toLowerCase().replace(' ', '-').trim();
+  const name = field.name.trim();
   return (
     <div className={inputStyles.inputContainer + ' text-sm'}>
       <Input
@@ -16,7 +16,7 @@ const InputField = ({ field }) => {
         }
         name={name}
         id={name}
-        labelName={field.name}
+        labelName={field.label}
         inputProps={field.inputProps}
       />
     </div>
