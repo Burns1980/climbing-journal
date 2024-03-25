@@ -23,28 +23,27 @@ export const fetchRoutes = async (httpVerb, data, filter = undefined) => {
     }
 
     case 'POST': {
-      console.log(data);
+      const body = JSON.stringify(data);
+
       const res = await fetch(`${apiUrl}${GET_ROUTES_URL}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
-        // body: data,
+        body,
       });
 
       if (!res.ok) {
         throw new Response(
           JSON.stringify({
-            message: 'The fetch routes operation failed. Try refreshing',
+            message:
+              'The request to save the data to the database failed. Ensure all data fields are correct.',
           }),
-          { status: 500 }
+          { status: res.status }
         );
       }
 
       return res;
-
-      // filtered get requests here
     }
     default: {
       throw Error('unknown http request');

@@ -16,16 +16,8 @@ function DataEntryForm({ title, fields, handleSubmit }) {
   );
 
   return (
-    <section className={styles.formContainer}>
-      <h2 className={`${styles.formHeader} text-xl text-center header-margin`}>
-        {title}
-      </h2>
-      {/* <Form className={styles.formInputs} onSubmit={handleSubmit} method="post"> */}
-      <Form
-        // encType="multipart/form-data"
-        className={styles.formInputs}
-        method="post"
-      >
+    <div className={styles.formContainer}>
+      <Form className={styles.formInputs} method="post">
         {inputRows.map((row, idx) => (
           <div className={styles.rowContainer} key={idx}>
             {row.map((field) => (
@@ -45,12 +37,11 @@ function DataEntryForm({ title, fields, handleSubmit }) {
           </Button>
         </div>
       </Form>
-    </section>
+    </div>
   );
 }
 
 DataEntryForm.propTypes = {
-  title: PropTypes.string.isRequired,
   fields: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,

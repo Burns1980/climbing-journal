@@ -12,14 +12,14 @@ function PageWrapper({ showSidebar = true, title, children, handleAddClick }) {
         {showSidebar && (
           <Sidebar handleAddClick={handleAddClick} className="sidebar" />
         )}
-        <section className="page-main-content">{children}</section>
+        <div className="page-main-content">{children}</div>
       </div>
     </section>
   );
 }
 
 PageWrapper.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   showSidebar: PropTypes.bool,
 };

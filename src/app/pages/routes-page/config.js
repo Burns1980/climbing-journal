@@ -12,7 +12,7 @@ export const formFields = [
   },
   {
     label: 'YDS grade',
-    inputProps: { type: 'text' },
+    inputProps: { type: 'text', required: true },
     name: 'grade',
   },
   {

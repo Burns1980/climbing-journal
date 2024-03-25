@@ -31,7 +31,7 @@ const RoutesCard = ({ routeData }) => {
   }
 
   return (
-    <div className="route-card-container">
+    <article className="route-card-container">
       <div className="ellipsis-container">
         <EllipsisMenu
           _id={routeData._id}
@@ -39,7 +39,7 @@ const RoutesCard = ({ routeData }) => {
           handleMenuAction={handleMenuAction}
         />
       </div>
-      <article className="route-card">
+      <div className="route-card">
         <div className="route-card-header">
           {routeData.imageCoverUrl && (
             <img
@@ -66,8 +66,8 @@ const RoutesCard = ({ routeData }) => {
           <h4 className="text-md">Gear beta</h4>
           <p className="text-sm">{routeData.gear}</p>
         </div>
-      </article>
-    </div>
+      </div>
+    </article>
   );
 };
 

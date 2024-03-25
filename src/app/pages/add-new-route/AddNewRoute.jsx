@@ -15,12 +15,8 @@ function AddNewRoute(props) {
   };
 
   return (
-    <PageWrapper showSidebar={false}>
-      <DataEntryForm
-        handleSubmit={handleSubmit}
-        title="Enter new route"
-        fields={formFields}
-      />
+    <PageWrapper title="Enter new route" showSidebar={false}>
+      <DataEntryForm handleSubmit={handleSubmit} fields={formFields} />
     </PageWrapper>
   );
 }

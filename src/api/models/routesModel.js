@@ -23,7 +23,7 @@ const routeSchema = new mongoose.Schema({
     type: String,
     trim: true,
     lowercase: true,
-    enum: ['traditional', 'boulder', 'sport', 'ice', 'mixed', 'aid'],
+    enum: ['', 'traditional', 'boulder', 'sport', 'ice', 'mixed', 'aid'],
   },
   length: {
     type: String,
@@ -37,7 +37,7 @@ const routeSchema = new mongoose.Schema({
     type: String,
     trim: true,
     uppercase: true,
-    enum: ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'],
+    enum: ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII'],
   },
   description: {
     type: String,
