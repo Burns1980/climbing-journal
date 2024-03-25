@@ -8,3 +8,4 @@ export { default as NavigationBar } from './nav-bar/NavigationBar';
 export { default as TruncateText } from './truncateText/TruncateText';
 export { default as EllipsisButton } from './ellipsis-btn/EllipsisButton';
 export { default as Input } from './input/Input';
+export { default as Select } from './select/Select';

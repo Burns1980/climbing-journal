@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import PageWrapper from '../PageWrapper';
 import { DataEntryForm } from '../../containers';
 import { formFields } from '../routes-page/config';
+import { Error } from '../../components';
 import { fetchRoutes } from '../../utils';
-import styles from './add-new-route.module.css';
 
 function AddNewRoute(props) {
   const handleSubmit = (e) => {
@@ -16,7 +16,14 @@ function AddNewRoute(props) {
 
   return (
     <PageWrapper title="Enter new route" showSidebar={false}>
-      <DataEntryForm handleSubmit={handleSubmit} fields={formFields} />
+      {formFields ? (
+        <DataEntryForm handleSubmit={handleSubmit} fields={formFields} />
+      ) : (
+        <Error
+          title="Missing form fields"
+          message="The form fields array was missing. Perhaps server is down. Try refreshing."
+        />
+      )}
     </PageWrapper>
   );
 }

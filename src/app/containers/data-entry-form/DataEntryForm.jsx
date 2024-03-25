@@ -7,12 +7,12 @@ import InputField from './InputField';
 import { groupFieldsIntoRows } from './helpers';
 import styles from './data-entry-form.module.css';
 
-function DataEntryForm({ fields, handleSubmit }) {
+function DataEntryForm({ fields }) {
   const inputRows = groupFieldsIntoRows(
-    fields.filter((field) => field?.inputProps?.type !== 'textarea')
+    fields.filter((field) => !Object.hasOwn(field, 'textarea'))
   );
-  const textAreaFields = fields.filter(
-    (field) => field?.inputProps?.type === 'textarea'
+  const textAreaFields = fields.filter((field) =>
+    Object.hasOwn(field, 'textarea')
   );
 
   return (
@@ -20,13 +20,13 @@ function DataEntryForm({ fields, handleSubmit }) {
       <Form className={styles.formInputs} method="post">
         {inputRows.map((row, idx) => (
           <div className={styles.rowContainer} key={idx}>
-            {row.map((field) => (
-              <InputField key={field.name} field={field} />
+            {row.map((field, idx) => (
+              <InputField key={idx} field={field} />
             ))}
           </div>
         ))}
-        {textAreaFields.map((field) => (
-          <InputField key={field.name} field={field} />
+        {textAreaFields.map((field, idx) => (
+          <InputField key={idx} field={field} />
         ))}
         <div className={`${styles.buttonRow}`}>
           <Button type="submit" className={`btn text-md ${styles.formButton}`}>
@@ -44,10 +44,9 @@ function DataEntryForm({ fields, handleSubmit }) {
 DataEntryForm.propTypes = {
   fields: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      inputProps: PropTypes.object,
+      label: PropTypes.string.isRequired,
     })
-  ).isRequired,
+  ),
 };
 
 export default DataEntryForm;

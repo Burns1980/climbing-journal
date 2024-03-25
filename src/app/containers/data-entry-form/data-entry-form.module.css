@@ -7,13 +7,14 @@
   --input-border-color: #7682b8;
 
   input,
-  textarea {
+  textarea,
+  select {
     background-color: var(--input-bg-color);
   }
 }
 
 .formContainer {
-  margin: 30px;
+  margin: 10px;
 }
 
 .rowContainer {
