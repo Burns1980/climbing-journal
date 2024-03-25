@@ -7,12 +7,12 @@ import InputField from './InputField';
 import { groupFieldsIntoRows } from './helpers';
 import styles from './data-entry-form.module.css';
 
-function DataEntryForm({ title, fields, handleSubmit }) {
+function DataEntryForm({ fields, handleSubmit }) {
   const inputRows = groupFieldsIntoRows(
-    fields.filter((field) => field.inputProps.type !== 'textarea')
+    fields.filter((field) => field?.inputProps?.type !== 'textarea')
   );
   const textAreaFields = fields.filter(
-    (field) => field.inputProps.type === 'textarea'
+    (field) => field?.inputProps?.type === 'textarea'
   );
 
   return (
