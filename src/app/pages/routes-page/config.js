@@ -72,23 +72,48 @@ export const formFields = [
     },
   },
   {
-    label: 'YDS grade',
-    select: {
-      props: { required: true, name: 'grade', options: gradeOptions },
-    },
-  },
-  {
-    label: 'Seriousness rating',
-    select: {
-      props: { name: 'grade', options: ['G', 'PG', 'PG-13', 'R', 'X'] },
-    },
-  },
-  {
     label: 'Type',
     select: {
       props: {
         name: 'type',
         options: ['sport', 'traditional', 'boulder', 'aid', 'ice', 'mixed'],
+      },
+    },
+  },
+  {
+    label: 'Difficulty grade',
+    select: {
+      props: { required: true, name: 'grade', options: gradeOptions },
+    },
+  },
+  {
+    label: 'Aid rating',
+    select: {
+      props: {
+        disabled: true,
+        name: 'aidRating',
+        options: [
+          'N/A',
+          'C1',
+          'C2',
+          'C3',
+          'C4',
+          'C5',
+          'A1',
+          'A2',
+          'A3',
+          'A4',
+          'A5',
+        ],
+      },
+    },
+  },
+  {
+    label: 'Seriousness rating',
+    select: {
+      props: {
+        name: 'seriousnessRating',
+        options: ['G', 'PG', 'PG-13', 'R', 'X'],
       },
     },
   },

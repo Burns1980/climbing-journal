@@ -1,8 +1,13 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
+import { RouteFormProvider } from '../../store';
 
 function RouteRoot() {
-  return <Outlet />;
+  return (
+    <RouteFormProvider>
+      <Outlet />
+    </RouteFormProvider>
+  );
 }
 
 export default RouteRoot;
