@@ -6,13 +6,14 @@ import { Button } from '../../components';
 import InputField from './InputField';
 import { groupFieldsIntoRows } from './helpers';
 import styles from './data-entry-form.module.css';
+import { fieldTypes } from '../../pages/routes-page/config';
 
 function DataEntryForm({ fields }) {
   const inputRows = groupFieldsIntoRows(
-    fields.filter((field) => !Object.hasOwn(field, 'textarea'))
+    fields.filter((field) => field.type !== fieldTypes.textarea)
   );
-  const textAreaFields = fields.filter((field) =>
-    Object.hasOwn(field, 'textarea')
+  const textAreaFields = fields.filter(
+    (field) => field.type === fieldTypes.textarea
   );
 
   return (

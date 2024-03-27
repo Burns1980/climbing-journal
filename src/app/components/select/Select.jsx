@@ -5,11 +5,12 @@ function Select({ className, id, name, options, children, ...props }) {
   return (
     <select className={className} name={name} id={id} {...props}>
       {children}
-      {options.map((option) => (
-        <option key={option} value={option}>
-          {option}
-        </option>
-      ))}
+      {options &&
+        options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
     </select>
   );
 }

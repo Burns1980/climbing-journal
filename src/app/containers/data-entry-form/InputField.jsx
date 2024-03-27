@@ -4,12 +4,8 @@ import { Input } from '../../components';
 import inputStyles from './input-field.module.css';
 
 const InputField = ({ field }) => {
-  const controlType = Object.keys(field).find(
-    (key) =>
-      typeof field[key] === 'object' && Object.hasOwn(field[key], 'props')
-  );
-
-  const props = field[controlType]?.props;
+  const controlType = field.type;
+  const props = field?.props;
 
   const id = props?.name?.trim();
 

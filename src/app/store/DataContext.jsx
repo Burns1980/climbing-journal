@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { createContext, useReducer, useEffect } from 'react';
+import React, { createContext, useReducer } from 'react';
 import { useRouteLoaderData } from 'react-router-dom';
 
 import { useLoadRoutesToState } from '../customHooks';
