@@ -30,30 +30,87 @@ export default function useRouteForm() {
   const [dynamicFormFields, setDynamicFormFields] = useState(
     getInitialFormFields()
   );
-  const [climbType, setClimbType] = useState(
-    dynamicFormFields.find((field) => field.props.name === 'type').props
-      .options[0]
-  );
+  const [formData, setFormData] = useState({
+    name: '',
+    dateClimbed: '',
+    type: '',
+    grade: '',
+    aidRating: '',
+    seriousnessRating: '',
+    length: '',
+    pitches: undefined,
+    commitmentGrade: '',
+    description: '',
+    gear: '',
+    imageCoverUrl: '',
+  });
   const [isError, setIsError] = useState(false);
 
-  function handleClimbTypeChange(e) {
-    setClimbType(e.target.value);
+  function handleChange(e) {
+    if (e.target.name === 'type') {
+      if (e.target.value === 'aid') {
+        setFormData((data) => {
+          const optionsKey = dynamicFormFields.find(
+            (field) => field.props.name === 'aidRating'
+          ).optionsKey;
+          return {
+            ...data,
+            aidRating: optionSets[optionsKey][0],
+          };
+        });
+      }
+      if (e.target.value !== 'aid') {
+        setFormData((data) => {
+          return {
+            ...data,
+            aidRating: '',
+          };
+        });
+      }
+      setClimbType(e.target.value);
+    }
+    setFormData((data) => {
+      return {
+        ...data,
+        [e.target.name]: e.target.value,
+      };
+    });
   }
 
-  // initializes Type input with onChange handler
+  function handleBlur(e) {
+    setFormData((data) => {
+      return {
+        ...data,
+        [e.target.name]: e.target.value,
+      };
+    });
+  }
+
+  console.log(formData);
+
+  // initializes Type input with onChange handler and onBlur
+  // for others.
   useEffect(() => {
     setDynamicFormFields((formFields) => {
       return formFields.map((field) => {
-        if (field.props.name === 'type') {
+        // if (field.props.name === 'type') {
+        if (field.type === fieldTypes.select) {
           return {
             ...field,
             props: {
               ...field.props,
-              onChange: handleClimbTypeChange,
+              onChange: handleChange,
             },
           };
         }
-        return field;
+        return {
+          ...field,
+          props: {
+            ...field.props,
+            onBlur: handleBlur,
+          },
+        };
+        // return field;
       });
     });
   }, []);
@@ -65,7 +122,7 @@ export default function useRouteForm() {
           field.props.name === 'aidRating' &&
           field.type === fieldTypes.select
         ) {
-          const isDisabled = climbType !== 'aid';
+          const isDisabled = formData.type !== 'aid';
           return {
             ...field,
             props: {
@@ -78,7 +135,7 @@ export default function useRouteForm() {
         return field;
       });
     });
-  }, [climbType]);
+  }, [formData]);
 
   return [dynamicFormFields, isError];
 }
