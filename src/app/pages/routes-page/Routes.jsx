@@ -1,21 +1,23 @@
 import { useContext, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { DataContext } from '../../store';
 import { Modal, RoutesCard, DataEntryForm } from '../../containers';
 import { PageWrapper } from '../';
 import { Error, LoadSpinner } from '../../components';
-import { useMenuToggle, useRouteForm } from '../../customHooks';
+import { useMenuToggle } from '../../customHooks';
 import { formFields } from './config';
 
 import './routes.css';
 
 export default function Routes() {
   const modalRef = useRef();
+  const navigate = useNavigate();
 
   useMenuToggle();
 
   function handleAddRoute() {
-    modalRef.current.open();
+    navigate('/routes-climbed/add-new-route');
   }
 
   const { routes } = useContext(DataContext);
@@ -34,7 +36,10 @@ export default function Routes() {
       <Modal ref={modalRef}>
         <DataEntryForm title="Enter new route" fields={formFields} />
       </Modal>
-      <PageWrapper handleAddClick={handleAddRoute} title="Routes I've done">
+      <PageWrapper
+        sidebarProps={{ handleAddClick: handleAddRoute }}
+        title="Routes I've done"
+      >
         {content}
       </PageWrapper>
     </>

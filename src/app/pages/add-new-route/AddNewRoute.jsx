@@ -38,7 +38,7 @@ export async function action({ request, params }) {
 
   // console.log(res);
 
-  return redirect('/routes-by-me');
+  return redirect('/routes-climbed');
   // return null;
 }
 

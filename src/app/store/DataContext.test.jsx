@@ -103,7 +103,7 @@ describe('DataProvider', () => {
   });
 
   // Effects test
-  it('calls loadRoutesToState when pathname changes to /routes-by-me', () => {
+  it('calls loadRoutesToState when pathname changes to /routes-climbed', () => {
     let path = '/';
     useLocation.mockImplementation(() => ({ pathname: path }));
 
@@ -117,7 +117,7 @@ describe('DataProvider', () => {
 
     // Simulate pathname change
     act(() => {
-      path = '/routes-by-me';
+      path = '/routes-climbed';
       // Rerender to trigger useEffect
       render(
         <DataProvider>

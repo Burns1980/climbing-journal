@@ -29,7 +29,7 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: 'routes-by-me',
+        path: 'routes-climbed',
         element: <RouteRoot />,
         children: [
           {

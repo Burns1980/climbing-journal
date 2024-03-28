@@ -6,32 +6,38 @@ import {
   fieldTypes,
 } from '../pages/routes-page/config';
 
-const climbTypeInput = formFields.find((field) => field?.props.name === 'type');
-const defaultClimbTypeValue = optionSets[climbTypeInput?.optionsKey][0];
+const getInitialFormFields = () => {
+  const climbTypeInput = formFields.find(
+    (field) => field?.props.name === 'type'
+  );
+  const defaultClimbTypeValue = optionSets[climbTypeInput?.optionsKey][0];
 
-const initialFormFields = _.cloneDeep(formFields).map((field) => {
-  if (field.type === fieldTypes.select && field.optionsKey) {
-    if (field.props.name === 'aidRating') {
-      const isDisabled = defaultClimbTypeValue !== 'aid';
-      field.label = isDisabled
-        ? 'Aid rating (choose type aid to enable)'
-        : 'Aid rating';
-      const options = isDisabled ? ['N/A'] : optionSets[field.optionsKey];
-      field.props.options = options;
-      return field;
+  return _.cloneDeep(formFields).map((field) => {
+    if (field.type === fieldTypes.select && field.optionsKey) {
+      if (field.props.name === 'aidRating') {
+        const isDisabled = defaultClimbTypeValue !== 'aid';
+        const options = isDisabled ? ['N/A'] : optionSets[field.optionsKey];
+        field.props.options = options;
+        return field;
+      }
+      field.props.options = optionSets[field.optionsKey];
     }
-    field.props.options = optionSets[field.optionsKey];
-  }
-  return field;
-});
+    return field;
+  });
+};
 
 export default function useRouteForm() {
-  const [dynamicFormFields, setDynamicFormFields] = useState(initialFormFields);
-  const [climbType, setClimbType] = useState(defaultClimbTypeValue);
+  const [dynamicFormFields, setDynamicFormFields] = useState(
+    getInitialFormFields()
+  );
+  const [climbType, setClimbType] = useState(
+    dynamicFormFields.find((field) => field.props.name === 'type').props
+      .options[0]
+  );
   const [isError, setIsError] = useState(false);
 
-  function handleClimbTypeChange(type) {
-    setClimbType(type);
+  function handleClimbTypeChange(e) {
+    setClimbType(e.target.value);
   }
 
   // initializes Type input with onChange handler
@@ -43,7 +49,7 @@ export default function useRouteForm() {
             ...field,
             props: {
               ...field.props,
-              onChange: (e) => handleClimbTypeChange(e.target.value),
+              onChange: handleClimbTypeChange,
             },
           };
         }
@@ -55,19 +61,17 @@ export default function useRouteForm() {
   useEffect(() => {
     setDynamicFormFields((formFields) => {
       return formFields.map((field) => {
-        if (field.props.name === 'aidRating') {
+        if (
+          field.props.name === 'aidRating' &&
+          field.type === fieldTypes.select
+        ) {
           const isDisabled = climbType !== 'aid';
-          const label = isDisabled
-            ? 'Aid rating (choose type aid to enable)'
-            : 'Aid rating';
-          const options = isDisabled ? ['N/A'] : optionSets[field.optionsKey];
           return {
             ...field,
-            label,
             props: {
               ...field.props,
               disabled: isDisabled,
-              options: options,
+              options: isDisabled ? ['N/A'] : optionSets[field.optionsKey],
             },
           };
         }

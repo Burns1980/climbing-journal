@@ -1,10 +1,9 @@
 .modal {
+  max-width: 90%;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  min-width: 85vw;
-  min-height: 85vh;
   background-color: var(--modal-bg-color);
   overflow-y: auto; /* Allows scrolling within the modal if the content is too long */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
@@ -20,7 +19,12 @@
 /*Mobile views */
 @media (max-width: 850px) {
   .modal {
-    min-width: 93vw;
-    min-height: 93vh;
+    min-width: 60%;
+  }
+}
+
+@media (max-width: 650px) {
+  .modal {
+    min-width: 95%;
   }
 }

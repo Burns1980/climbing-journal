@@ -4,7 +4,7 @@ export default [
     title: 'Home',
   },
   {
-    to: '/routes-by-me',
+    to: '/routes-climbed',
     title: "Routes I've done",
   },
   {
