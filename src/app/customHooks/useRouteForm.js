@@ -59,7 +59,7 @@ export default function useRouteForm() {
       return dynamicProps.map((fieldData) => {
         switch (fieldData.name) {
           case 'aidRating':
-            return updateAidRating(fieldData, value);
+            return updateAidRating(fieldData, value, optionSets);
           case 'grade':
             return updateGrade(fieldData, value, optionSets);
 

@@ -1,5 +1,5 @@
 // Field types definition
-export const DEFAULT_OPTIONS_VALUE = '--Choose form dropdown--';
+export const DEFAULT_OPTIONS_VALUE = '--Choose aid from climb type--';
 export const fieldTypes = {
   input: 'input',
   select: 'select',
@@ -8,17 +8,8 @@ export const fieldTypes = {
 
 // Options for select fields
 export const optionSets = {
-  climbTypes: [
-    DEFAULT_OPTIONS_VALUE,
-    'sport',
-    'traditional',
-    'boulder',
-    'aid',
-    'ice',
-    'mixed',
-  ],
+  climbTypes: ['sport', 'traditional', 'boulder', 'aid', 'ice', 'mixed'],
   YDSGrades: [
-    DEFAULT_OPTIONS_VALUE,
     '5.0',
     '5.1',
     '5.2',
@@ -76,9 +67,10 @@ export const optionSets = {
     '5.15',
     '5.15+',
   ],
-  iceGrades: [DEFAULT_OPTIONS_VALUE, 'place holder', 'ice3'],
-  boulderGrades: [DEFAULT_OPTIONS_VALUE, 'V0', 'V2'],
-  mixedGrades: [DEFAULT_OPTIONS_VALUE, 'WI0', 'WI2'],
+  iceGrades: ['place holder', 'ice3'],
+  boulderGrades: ['V0', 'V2'],
+  mixedGrades: ['WI0', 'WI2'],
+  disabledAid: [DEFAULT_OPTIONS_VALUE],
   aidRatings: [
     DEFAULT_OPTIONS_VALUE,
     'C1',
@@ -92,17 +84,8 @@ export const optionSets = {
     'A4',
     'A5',
   ],
-  seriousnessRatings: [DEFAULT_OPTIONS_VALUE, 'G', 'PG', 'PG-13', 'R', 'X'],
-  commitmentGrades: [
-    DEFAULT_OPTIONS_VALUE,
-    'I',
-    'II',
-    'III',
-    'IV',
-    'V',
-    'VI',
-    'VII',
-  ],
+  seriousnessRatings: ['G', 'PG', 'PG-13', 'R', 'X'],
+  commitmentGrades: ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'],
 };
 
 // Form fields definition
@@ -110,7 +93,11 @@ export const formFields = [
   {
     label: 'Route name',
     type: fieldTypes.input,
-    configProps: { required: true, type: 'text', name: 'name' },
+    configProps: {
+      required: true,
+      type: 'text',
+      name: 'name',
+    },
   },
   {
     label: 'Date climbed',
@@ -120,19 +107,28 @@ export const formFields = [
   {
     label: 'Climb type',
     type: fieldTypes.select,
-    configProps: { name: 'type' },
+    configProps: {
+      name: 'type',
+      required: true,
+    },
     optionsKey: 'climbTypes',
   },
   {
     label: 'Difficulty grade',
     type: fieldTypes.select,
-    configProps: { required: true, name: 'grade' },
+    configProps: {
+      required: true,
+      name: 'grade',
+    },
     optionsKey: 'YDSGrades',
   },
   {
     label: 'Aid rating',
     type: fieldTypes.select,
-    configProps: { name: 'aidRating' },
+    configProps: {
+      defaultValue: DEFAULT_OPTIONS_VALUE,
+      name: 'aidRating',
+    },
     optionsKey: 'aidRatings',
   },
   {

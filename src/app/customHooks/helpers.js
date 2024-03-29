@@ -1,9 +1,10 @@
-export function updateAidRating(fieldData, value) {
+export function updateAidRating(fieldData, value, optionSets) {
   return {
     ...fieldData,
     dynamicProps: {
       ...fieldData.dynamicProps,
       disabled: value !== 'aid',
+      options: value === 'aid' ? optionSets.aidRatings : optionSets.disabledAid,
     },
   };
 }
