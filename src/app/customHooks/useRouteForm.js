@@ -1,141 +1,92 @@
 import _ from 'lodash';
 import { useEffect, useState } from 'react';
-import {
-  optionSets,
-  formFields,
-  fieldTypes,
-} from '../pages/routes-page/config';
+import { optionSets, formFields } from '../pages/routes-page/config';
+import { updateAidRating, updateGrade } from './';
 
-const getInitialFormFields = () => {
-  const climbTypeInput = formFields.find(
-    (field) => field?.props.name === 'type'
-  );
-  const defaultClimbTypeValue = optionSets[climbTypeInput?.optionsKey][0];
+// map the options into form props
+const formFieldsCopy = formFields.map((field) => {
+  if (field.optionsKey) {
+    return {
+      ...field,
+      configProps: {
+        ...field.configProps,
+        options: optionSets[field.optionsKey],
+      },
+    };
+  }
+  return field;
+});
 
-  return _.cloneDeep(formFields).map((field) => {
-    if (field.type === fieldTypes.select && field.optionsKey) {
-      if (field.props.name === 'aidRating') {
-        const isDisabled = defaultClimbTypeValue !== 'aid';
-        const options = isDisabled ? ['N/A'] : optionSets[field.optionsKey];
-        field.props.options = options;
-        return field;
-      }
-      field.props.options = optionSets[field.optionsKey];
+const initialDynamicProps = formFields
+  .map((field) => {
+    switch (field.configProps.name) {
+      case 'aidRating':
+        return {
+          name: field.configProps.name,
+          dynamicProps: {
+            disabled: true, // Initial disabled state
+          },
+        };
+      case 'grade':
+        return {
+          name: field.configProps.name,
+          dynamicProps: {},
+        };
+      case 'type':
+        return {
+          name: field.configProps.name,
+          dynamicProps: {
+            onChange: () => {},
+          },
+        };
+      default:
+        return null;
     }
-    return field;
-  });
-};
+  })
+  .filter((props) => props !== null);
+
+let i = 0;
 
 export default function useRouteForm() {
-  const [dynamicFormFields, setDynamicFormFields] = useState(
-    getInitialFormFields()
-  );
-  const [formData, setFormData] = useState({
-    name: '',
-    dateClimbed: '',
-    type: '',
-    grade: '',
-    aidRating: '',
-    seriousnessRating: '',
-    length: '',
-    pitches: undefined,
-    commitmentGrade: '',
-    description: '',
-    gear: '',
-    imageCoverUrl: '',
-  });
+  console.log('i ran again ', ++i);
+  const [dynamicProps, setDynamicProps] = useState(initialDynamicProps);
   const [isError, setIsError] = useState(false);
 
-  function handleChange(e) {
-    if (e.target.name === 'type') {
-      if (e.target.value === 'aid') {
-        setFormData((data) => {
-          const optionsKey = dynamicFormFields.find(
-            (field) => field.props.name === 'aidRating'
-          ).optionsKey;
-          return {
-            ...data,
-            aidRating: optionSets[optionsKey][0],
-          };
-        });
-      }
-      if (e.target.value !== 'aid') {
-        setFormData((data) => {
-          return {
-            ...data,
-            aidRating: '',
-          };
-        });
-      }
-      setClimbType(e.target.value);
-    }
-    setFormData((data) => {
-      return {
-        ...data,
-        [e.target.name]: e.target.value,
-      };
+  function handleTypeChange(e) {
+    const { value } = e.target;
+
+    setDynamicProps((dynamicProps) => {
+      return dynamicProps.map((fieldData) => {
+        switch (fieldData.name) {
+          case 'aidRating':
+            return updateAidRating(fieldData, value);
+          case 'grade':
+            return updateGrade(fieldData, value, optionSets);
+
+          default:
+            return fieldData;
+        }
+      });
     });
   }
 
-  function handleBlur(e) {
-    setFormData((data) => {
-      return {
-        ...data,
-        [e.target.name]: e.target.value,
-      };
-    });
-  }
-
-  console.log(formData);
-
-  // initializes Type input with onChange handler and onBlur
-  // for others.
+  // initialize the event handlers
   useEffect(() => {
-    setDynamicFormFields((formFields) => {
-      return formFields.map((field) => {
-        // if (field.props.name === 'type') {
-        if (field.type === fieldTypes.select) {
+    setDynamicProps((dynamicProps) => {
+      return dynamicProps.map((formField) => {
+        if (formField.name === 'type') {
           return {
-            ...field,
-            props: {
-              ...field.props,
-              onChange: handleChange,
+            ...formField,
+            dynamicProps: {
+              ...formField.dynamicProps,
+              onChange: handleTypeChange,
             },
           };
         }
-        return {
-          ...field,
-          props: {
-            ...field.props,
-            onBlur: handleBlur,
-          },
-        };
-        // return field;
+        return formField;
       });
     });
   }, []);
 
-  useEffect(() => {
-    setDynamicFormFields((formFields) => {
-      return formFields.map((field) => {
-        if (
-          field.props.name === 'aidRating' &&
-          field.type === fieldTypes.select
-        ) {
-          const isDisabled = formData.type !== 'aid';
-          return {
-            ...field,
-            props: {
-              ...field.props,
-              disabled: isDisabled,
-              options: isDisabled ? ['N/A'] : optionSets[field.optionsKey],
-            },
-          };
-        }
-        return field;
-      });
-    });
-  }, [formData]);
-
-  return [dynamicFormFields, isError];
+  return [formFieldsCopy, dynamicProps, isError];
 }

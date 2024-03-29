@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { Input } from '../../components';
 import inputStyles from './input-field.module.css';
 
-const InputField = ({ field }) => {
+const InputField = ({ field, dynamicProps }) => {
   const controlType = field.type;
-  const props = field?.props;
+  const configProps = field?.configProps;
 
-  const id = props?.name?.trim();
+  const id = configProps?.name?.trim();
 
   const inputClassName = `${
     controlType === 'textarea'
@@ -22,7 +22,8 @@ const InputField = ({ field }) => {
         id={id}
         controlType={controlType}
         labelName={field.label}
-        {...props}
+        {...configProps}
+        {...dynamicProps}
       />
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Form, useNavigate } from 'react-router-dom';
+import { Form } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { Button } from '../../components';
@@ -10,9 +10,9 @@ import styles from './data-entry-form.module.css';
 import { fieldTypes } from '../../pages/routes-page/config';
 import { useMenuToggle } from '../../customHooks';
 
-function DataEntryForm({ fields }) {
-  const navigate = useNavigate();
+function DataEntryForm({ fields, dynamicProps }) {
   const modalRef = useRef();
+  const formRef = useRef();
 
   useMenuToggle();
 
@@ -27,12 +27,20 @@ function DataEntryForm({ fields }) {
     modalRef.current.open();
   }
 
-  function handleClearForm(e) {
+  function handleClearForm() {
+    formRef.current.reset();
     modalRef.current.close();
   }
 
   function handleGoBack() {
     modalRef.current.close();
+  }
+
+  function getMatchingDynamicProps(fieldName) {
+    const containesDynamicProp = dynamicProps.find(
+      (fieldProp) => fieldProp.name === fieldName
+    );
+    return containesDynamicProp ? containesDynamicProp.dynamicProps : '';
   }
 
   return (
@@ -50,16 +58,24 @@ function DataEntryForm({ fields }) {
         </div>
       </Modal>
       <div className={styles.formContainer}>
-        <Form className={styles.formInputs} method="post">
+        <Form ref={formRef} className={styles.formInputs} method="post">
           {inputRows.map((row) => (
-            <div className={styles.rowContainer} key={row[0].props.name}>
+            <div className={styles.rowContainer} key={row[0].configProps.name}>
               {row.map((field) => (
-                <InputField key={field.props.name} field={field} />
+                <InputField
+                  key={field.configProps.name}
+                  dynamicProps={getMatchingDynamicProps(field.configProps.name)}
+                  field={field}
+                />
               ))}
             </div>
           ))}
           {textAreaFields.map((field) => (
-            <InputField key={field.props.name} field={field} />
+            <InputField
+              key={field.configProps.name}
+              dynamicProps={getMatchingDynamicProps(field.configProps.name)}
+              field={field}
+            />
           ))}
           <div className={`${styles.buttonRow}`}>
             <Button
