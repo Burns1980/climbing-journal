@@ -1,5 +1,6 @@
+import _ from 'lodash';
 import React, { useRef } from 'react';
-import { Form } from 'react-router-dom';
+import { Form, useActionData } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { Button } from '../../components';
@@ -11,6 +12,7 @@ import { fieldTypes } from '../../pages/routes-page/config';
 import { useMenuToggle } from '../../customHooks';
 
 function DataEntryForm({ fields, dynamicProps }) {
+  const { status, data } = useActionData() || { status: null, data: null };
   const modalRef = useRef();
   const formRef = useRef();
 
@@ -59,6 +61,17 @@ function DataEntryForm({ fields, dynamicProps }) {
       </Modal>
       <div className={styles.formContainer}>
         <Form ref={formRef} className={styles.formInputs} method="post">
+          <legend className="text-sm">* denotes a required field</legend>
+          {status === 'fail' && !_.isEmpty(data) && (
+            <div className="text-sm">
+              <h3 className="text-md">The following fields have errors</h3>
+              <ul>
+                {Object.entries(data).map((error) => {
+                  return <li key={error[0]}>{`${error[0]}: ${error[1]}`}</li>;
+                })}
+              </ul>
+            </div>
+          )}
           {inputRows.map((row) => (
             <div className={styles.rowContainer} key={row[0].configProps.name}>
               {row.map((field) => (

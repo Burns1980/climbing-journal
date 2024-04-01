@@ -9,12 +9,12 @@ import { useRouteForm } from '../../customHooks';
 import { fetchRoutes } from '../../utils';
 
 function AddNewRoute(props) {
-  const [formFields, dynamicProps, isError] = useRouteForm();
+  const { defaultFormFields, dynamicProps, isError } = useRouteForm();
 
   return (
     <PageWrapper title="Enter new route" showSidebar={false}>
       {!isError ? (
-        <DataEntryForm fields={formFields} dynamicProps={dynamicProps} />
+        <DataEntryForm fields={defaultFormFields} dynamicProps={dynamicProps} />
       ) : (
         <Error
           title="Missing form fields"
@@ -36,7 +36,11 @@ export async function action({ request, params }) {
   console.log(newRoute);
   const res = await fetchRoutes('POST', { data: [newRoute] });
 
-  // console.log(res);
+  console.log(res);
+  if (res.status === 'fail') {
+    const { message } = res;
+    return res;
+  }
 
   return redirect('/routes-climbed');
   // return null;

@@ -33,9 +33,9 @@ export default function Routes() {
 
   return (
     <>
-      <Modal ref={modalRef}>
+      {/* <Modal ref={modalRef}>
         <DataEntryForm title="Enter new route" fields={formFields} />
-      </Modal>
+      </Modal> */}
       <PageWrapper
         sidebarProps={{ handleAddClick: handleAddRoute }}
         title="Routes I've done"

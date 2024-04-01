@@ -4,7 +4,7 @@ import { optionSets, formFields } from '../pages/routes-page/config';
 import { updateAidRating, updateGrade } from './';
 
 // map the options into form props
-const formFieldsCopy = formFields.map((field) => {
+const defaultFormFields = formFields.map((field) => {
   if (field.optionsKey) {
     return {
       ...field,
@@ -88,5 +88,5 @@ export default function useRouteForm() {
     });
   }, []);
 
-  return [formFieldsCopy, dynamicProps, isError];
+  return { defaultFormFields, dynamicProps, isError };
 }
