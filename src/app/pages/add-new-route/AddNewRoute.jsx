@@ -9,18 +9,11 @@ import { useRouteForm } from '../../customHooks';
 import { fetchRoutes } from '../../utils';
 
 function AddNewRoute(props) {
-  const { defaultFormFields, dynamicProps, isError } = useRouteForm();
+  const { defaultFormFields, dynamicProps } = useRouteForm();
 
   return (
     <PageWrapper title="Enter new route" showSidebar={false}>
-      {!isError ? (
-        <DataEntryForm fields={defaultFormFields} dynamicProps={dynamicProps} />
-      ) : (
-        <Error
-          title="Missing form fields"
-          message="The form fields array was missing. Perhaps server is down. Try refreshing."
-        />
-      )}
+      <DataEntryForm fields={defaultFormFields} dynamicProps={dynamicProps} />
     </PageWrapper>
   );
 }

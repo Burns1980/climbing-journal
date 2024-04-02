@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { useEffect, useState } from 'react';
 import { optionSets, formFields } from '../pages/routes-page/config';
 import { updateAidRating, updateGrade } from './';
@@ -50,7 +49,6 @@ let i = 0;
 export default function useRouteForm() {
   console.log('i ran again ', ++i);
   const [dynamicProps, setDynamicProps] = useState(initialDynamicProps);
-  const [isError, setIsError] = useState(false);
 
   function handleTypeChange(e) {
     const { value } = e.target;
@@ -88,5 +86,5 @@ export default function useRouteForm() {
     });
   }, []);
 
-  return { defaultFormFields, dynamicProps, isError };
+  return { defaultFormFields, dynamicProps };
 }

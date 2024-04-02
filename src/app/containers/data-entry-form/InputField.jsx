@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Input } from '../../components';
 import inputStyles from './input-field.module.css';
 
-const InputField = ({ field, dynamicProps }) => {
+const InputField = ({ field, dynamicProps, error }) => {
   const controlType = field.type;
   const configProps = field?.configProps;
 
@@ -22,6 +22,7 @@ const InputField = ({ field, dynamicProps }) => {
         id={id}
         controlType={controlType}
         labelName={field.label}
+        error={error}
         {...configProps}
         {...dynamicProps}
       />

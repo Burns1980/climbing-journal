@@ -61,8 +61,8 @@ function DataEntryForm({ fields, dynamicProps }) {
       </Modal>
       <div className={styles.formContainer}>
         <Form ref={formRef} className={styles.formInputs} method="post">
-          <legend className="text-sm">* denotes a required field</legend>
-          {status === 'fail' && !_.isEmpty(data) && (
+          {/* <legend className="text-sm">* denotes a required field</legend> */}
+          {/* {status === 'fail' && !_.isEmpty(data) && (
             <div className="text-sm">
               <h3 className="text-md">The following fields have errors</h3>
               <ul>
@@ -71,7 +71,7 @@ function DataEntryForm({ fields, dynamicProps }) {
                 })}
               </ul>
             </div>
-          )}
+          )} */}
           {inputRows.map((row) => (
             <div className={styles.rowContainer} key={row[0].configProps.name}>
               {row.map((field) => (
@@ -79,6 +79,11 @@ function DataEntryForm({ fields, dynamicProps }) {
                   key={field.configProps.name}
                   dynamicProps={getMatchingDynamicProps(field.configProps.name)}
                   field={field}
+                  error={
+                    data && data[field.configProps.name]
+                      ? `${field.label} is required`
+                      : null
+                  }
                 />
               ))}
             </div>

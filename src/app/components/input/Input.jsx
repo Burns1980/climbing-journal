@@ -47,7 +47,7 @@ function Input({
       </label>
       {controlComponent}
       {error && (
-        <div className={styles.controlError + ' text-md'}>{<p>{error}</p>}</div>
+        <div className={styles.controlError + ' text-sm'}>{<p>{error}</p>}</div>
       )}
     </>
   );

@@ -126,7 +126,7 @@ export const optionSets = {
 // Form fields definition
 export const formFields = [
   {
-    label: 'Route name*',
+    label: 'Route name',
     type: fieldTypes.input,
     configProps: {
       // required: true,
@@ -161,7 +161,6 @@ export const formFields = [
     label: 'Aid rating',
     type: fieldTypes.select,
     configProps: {
-      // defaultValue: DEFAULT_OPTIONS_VALUE,
       name: 'aidRating',
     },
     optionsKey: 'disabledAid',
