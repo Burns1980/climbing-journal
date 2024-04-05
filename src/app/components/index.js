@@ -9,3 +9,4 @@ export { default as TruncateText } from './truncateText/TruncateText';
 export { default as EllipsisButton } from './ellipsis-btn/EllipsisButton';
 export { default as Input } from './input/Input';
 export { default as Select } from './select/Select';
+export { default as APIErrorList } from './api-error-list/APIErrorList';

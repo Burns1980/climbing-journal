@@ -1,14 +1,12 @@
 import React from 'react';
 import { redirect } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 import PageWrapper from '../PageWrapper';
-import { Error } from '../../components';
 import { DataEntryForm } from '../../containers';
-import { useRouteForm } from '../../customHooks';
+import useRouteForm from './useRouteForm';
 import { fetchRoutes } from '../../utils';
 
-function AddNewRoute(props) {
+function AddNewRoute() {
   const { defaultFormFields, dynamicProps } = useRouteForm();
 
   return (
@@ -26,19 +24,13 @@ export async function action({ request, params }) {
     newRoute[key] = val;
   }
 
-  console.log(newRoute);
   const res = await fetchRoutes('POST', { data: [newRoute] });
 
-  console.log(res);
   if (res.status === 'fail') {
-    const { message } = res;
     return res;
   }
 
   return redirect('/routes-climbed');
-  // return null;
 }
-
-AddNewRoute.propTypes = {};
 
 export default AddNewRoute;

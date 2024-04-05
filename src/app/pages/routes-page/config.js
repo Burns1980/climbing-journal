@@ -126,10 +126,10 @@ export const optionSets = {
 // Form fields definition
 export const formFields = [
   {
-    label: 'Route name',
+    label: 'Route name (required)',
     type: fieldTypes.input,
     configProps: {
-      // required: true,
+      required: true,
       type: 'text',
       name: 'name',
     },

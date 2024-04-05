@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { optionSets, formFields } from '../pages/routes-page/config';
-import { updateAidRating, updateGrade } from './';
+import { optionSets, formFields } from '../routes-page/config';
+import { updateAidRating, updateGrade } from './helpers';
 
 // map the options into form props
 const defaultFormFields = formFields.map((field) => {
