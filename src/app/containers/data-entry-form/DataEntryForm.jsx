@@ -11,7 +11,7 @@ import styles from './data-entry-form.module.css';
 import { fieldTypes } from '../../pages/routes-page/config';
 import { useMenuToggle } from '../../customHooks';
 
-function DataEntryForm({ fields, dynamicProps }) {
+function DataEntryForm({ fields, dynamicProps, dataTc }) {
   const actionData = useActionData();
   const [fieldErrors, setFieldErrors] = useState(actionData);
   const navigation = useNavigation();
@@ -63,7 +63,11 @@ function DataEntryForm({ fields, dynamicProps }) {
 
   return (
     <>
-      <Modal className={styles.confirmationModal} ref={modalRef}>
+      <Modal
+        data-tc={`${dataTc}-modal`}
+        className={styles.confirmationModal}
+        ref={modalRef}
+      >
         <h2 className="text-lg">Are you sure you want to clear the form?</h2>
         <div className={styles.modalBtns}>
           <Button onClick={handleGoBack}>Cancel</Button>
@@ -75,7 +79,7 @@ function DataEntryForm({ fields, dynamicProps }) {
           </Button>
         </div>
       </Modal>
-      <div className={styles.formContainer}>
+      <div data-tc={`${dataTc}-container`} className={styles.formContainer}>
         <Form ref={formRef} className={styles.formInputs} method="post">
           {fieldErrors?.status === 'fail' && !_.isEmpty(fieldErrors?.data) && (
             <APIErrorList ref={errorListRef} data={fieldErrors.data} />

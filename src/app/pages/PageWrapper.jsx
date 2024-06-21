@@ -4,9 +4,15 @@ import { Sidebar } from '../containers';
 
 import './pages.css';
 
-function PageWrapper({ showSidebar = true, title, children, sidebarProps }) {
+function PageWrapper({
+  title,
+  children,
+  sidebarProps,
+  showSidebar = true,
+  ...props
+}) {
   return (
-    <section className="container">
+    <section {...props} className="container">
       {title && <h2 className="text-xl text-center page-header">{title}</h2>}
       <div className="display-flex">
         {showSidebar && <Sidebar {...sidebarProps} className="sidebar" />}

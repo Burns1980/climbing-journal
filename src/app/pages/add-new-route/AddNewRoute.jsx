@@ -10,8 +10,16 @@ function AddNewRoute() {
   const { defaultFormFields, dynamicProps } = useRouteForm();
 
   return (
-    <PageWrapper title="Enter new route" showSidebar={false}>
-      <DataEntryForm fields={defaultFormFields} dynamicProps={dynamicProps} />
+    <PageWrapper
+      data-tc="addNewRoutePage"
+      title="Enter new route"
+      showSidebar={false}
+    >
+      <DataEntryForm
+        dataTc="addNewRouteForm"
+        fields={defaultFormFields}
+        dynamicProps={dynamicProps}
+      />
     </PageWrapper>
   );
 }
