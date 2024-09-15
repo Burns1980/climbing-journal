@@ -1,6 +1,18 @@
+const { ValidationError: MongooseValidationError } = require('mongoose').Error;
+
 class AppError extends Error {
-  constructor(message, statusCode) {
-    super(message);
+  constructor(error, statusCode) {
+    // super(error instanceof Error ? error.message : error);
+    super(error);
+
+    if (error instanceof MongooseValidationError) {
+      const { errors } = error;
+      this.validationErrors = {};
+      for (let error in errors) {
+        this.validationErrors[error] = errors[error].message;
+      }
+      this.message = 'Validation error occurred';
+    }
 
     this.statusCode = statusCode;
     this.status = `${statusCode}`.startsWith('4') ? 'fail' : 'error';

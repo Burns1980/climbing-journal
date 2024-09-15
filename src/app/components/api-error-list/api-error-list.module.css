@@ -1,0 +1,22 @@
+.errorContainer {
+  color: var(--error-text-color);
+  width: 50%;
+  margin-bottom: 20px;
+  padding: 10px 10px;
+  border: 1px solid var(--error-text-color);
+  border-radius: 5px;
+
+  a {
+    color: var(--error-text-color);
+  }
+  a:hover {
+    opacity: 0.9;
+  }
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .errorContainer {
+    width: 100%;
+  }
+}

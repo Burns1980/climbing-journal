@@ -15,21 +15,27 @@ function Input({
 }) {
   let controlComponent;
 
+  if (error) {
+    props['aria-describedby'] = `${name}-error`;
+  }
+
+  const commonClassNames = `${className} ${error && styles.errorBorder}`;
+
   switch (controlType) {
     case 'textarea':
       controlComponent = (
-        <textarea className={className} id={id} name={name} {...props} />
+        <textarea className={commonClassNames} id={id} name={name} {...props} />
       );
       break;
     case 'input':
       controlComponent = (
-        <input className={className} id={id} name={name} {...props} />
+        <input className={commonClassNames} id={id} name={name} {...props} />
       );
       break;
     case 'select':
       controlComponent = (
         <Select
-          className={`${className}`}
+          className={commonClassNames}
           id={id}
           name={name}
           {...props}
@@ -47,7 +53,9 @@ function Input({
       </label>
       {controlComponent}
       {error && (
-        <div className={styles.controlError + ' text-md'}>{<p>{error}</p>}</div>
+        <div id={`${name}-error`} className={styles.controlError + ' text-sm'}>
+          {error}
+        </div>
       )}
     </>
   );

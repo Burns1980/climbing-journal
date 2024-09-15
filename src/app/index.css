@@ -18,7 +18,7 @@
   --popup-bg-color: #2c2a2a;
   --primary-text-color: #fff;
   --secondary-text-color: #b3b3b3;
-  --error-text-color: rgb(214, 26, 26);
+  --error-text-color: #ff6161;
   --primary-link-color: rgb(150, 184, 255);
   --primary-link-hover-color: #70b2f3;
   font-family: Roboto, sans-serif, Arial;
@@ -81,6 +81,10 @@ button:focus-visible {
   display: flex;
   justify-content: space-around;
   width: 100%;
+}
+
+.position-relative {
+  position: relative;
 }
 
 /* Button classes */

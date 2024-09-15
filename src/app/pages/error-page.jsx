@@ -9,6 +9,10 @@ export default function ErrorPage() {
   let title = 'Sorry, an unexpected error has occurred.';
   let message = 'Something went wrong.';
 
+  if (error.status === 400) {
+    message = JSON.parse(error.data).message;
+  }
+
   if (error.status === 500) {
     message = JSON.parse(error.data).message;
   }
@@ -28,8 +32,8 @@ export default function ErrorPage() {
           className="text-md text-center container"
           id="error-page"
         >
-          <p>{title}</p>
-          <p>
+          <p className="text-sm">{title}</p>
+          <p className="text-sm">
             <i>{message}</i>
           </p>
         </PageWrapper>

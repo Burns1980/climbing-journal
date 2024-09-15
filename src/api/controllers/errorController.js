@@ -5,5 +5,6 @@ module.exports = (err, req, res, _next) => {
   res.status(err.statusCode).json({
     status: err.status,
     message: err.message,
+    data: err?.validationErrors || {},
   });
 };

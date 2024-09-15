@@ -1,4 +1,5 @@
 // Field types definition
+export const DEFAULT_OPTIONS_VALUE = '--Choose aid from climb type--';
 export const fieldTypes = {
   input: 'input',
   select: 'select',
@@ -8,7 +9,7 @@ export const fieldTypes = {
 // Options for select fields
 export const optionSets = {
   climbTypes: ['sport', 'traditional', 'boulder', 'aid', 'ice', 'mixed'],
-  gradeOptions: [
+  YDSGrades: [
     '5.0',
     '5.1',
     '5.2',
@@ -66,7 +67,58 @@ export const optionSets = {
     '5.15',
     '5.15+',
   ],
-  aidRatings: ['C1', 'C2', 'C3', 'C4', 'C5', 'A1', 'A2', 'A3', 'A4', 'A5'],
+  iceGrades: ['WI1', 'WI2', 'WI3', 'WI4', 'WI5', 'WI6', 'WI7'],
+  boulderGrades: [
+    'V0',
+    'V1',
+    'V2',
+    'V3',
+    'V4',
+    'V5',
+    'V6',
+    'V7',
+    'V8',
+    'V9',
+    'V10',
+    'V11',
+    'V12',
+    'V13',
+    'V14',
+    'V15',
+    'V16',
+  ],
+  mixedGrades: [
+    'M1',
+    'M2',
+    'M3',
+    'M4',
+    'M5',
+    'M6',
+    'M7',
+    'M8',
+    'M9',
+    'M10',
+    'M11',
+    'M12',
+    'M13',
+    'M14',
+    'M15',
+    'M16',
+  ],
+  disabledAid: [DEFAULT_OPTIONS_VALUE],
+  aidRatings: [
+    'C1',
+    'C2',
+    'C3',
+    'C4',
+    'C5',
+    'A0',
+    'A1',
+    'A2',
+    'A3',
+    'A4',
+    'A5',
+  ],
   seriousnessRatings: ['G', 'PG', 'PG-13', 'R', 'X'],
   commitmentGrades: ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'],
 };
@@ -74,59 +126,71 @@ export const optionSets = {
 // Form fields definition
 export const formFields = [
   {
-    label: 'Route name',
+    label: 'Route name (required)',
     type: fieldTypes.input,
-    props: { required: true, type: 'text', name: 'name' },
+    configProps: {
+      required: true,
+      type: 'text',
+      name: 'name',
+    },
   },
   {
     label: 'Date climbed',
     type: fieldTypes.input,
-    props: { type: 'date', min: '1900-01-01', name: 'dateClimbed' },
+    configProps: { type: 'date', min: '1900-01-01', name: 'dateClimbed' },
   },
   {
-    label: 'Type',
+    label: 'Climb type',
     type: fieldTypes.select,
-    props: { name: 'type' },
+    configProps: {
+      name: 'type',
+      required: true,
+    },
     optionsKey: 'climbTypes',
   },
   {
     label: 'Difficulty grade',
     type: fieldTypes.select,
-    props: { required: true, name: 'grade' },
-    optionsKey: 'gradeOptions',
+    configProps: {
+      required: true,
+      name: 'grade',
+    },
+    optionsKey: 'YDSGrades',
   },
   {
     label: 'Aid rating',
     type: fieldTypes.select,
-    props: { disabled: true, name: 'aidRating' },
-    optionsKey: 'aidRatings',
+    configProps: {
+      name: 'aidRating',
+    },
+    optionsKey: 'disabledAid',
   },
   {
     label: 'Seriousness rating',
     type: fieldTypes.select,
-    props: { name: 'seriousnessRating' },
+    configProps: { name: 'seriousnessRating' },
     optionsKey: 'seriousnessRatings',
   },
   {
     label: 'Length',
     type: fieldTypes.input,
-    props: { type: 'text', name: 'length' },
+    configProps: { type: 'text', name: 'length' },
   },
   {
     label: 'Pitches',
     type: fieldTypes.input,
-    props: { type: 'number', name: 'pitches' },
+    configProps: { type: 'number', name: 'pitches' },
   },
   {
     label: 'Grade',
     type: fieldTypes.select,
-    props: { name: 'commitmentGrade' },
+    configProps: { name: 'commitmentGrade' },
     optionsKey: 'commitmentGrades',
   },
   {
     label: 'Description',
     type: fieldTypes.textarea,
-    props: {
+    configProps: {
       placeholder: 'What do you have to say about the route?',
       name: 'description',
     },
@@ -134,7 +198,7 @@ export const formFields = [
   {
     label: 'Gear',
     type: fieldTypes.textarea,
-    props: {
+    configProps: {
       placeholder:
         'Add some gear here, unless you free soloed. What kind of shoes did you wear?',
       name: 'gear',
@@ -143,6 +207,6 @@ export const formFields = [
   {
     label: 'Cover image URL',
     type: fieldTypes.input,
-    props: { type: 'text', name: 'imageCoverUrl' },
+    configProps: { type: 'text', name: 'imageCoverUrl' },
   },
 ];

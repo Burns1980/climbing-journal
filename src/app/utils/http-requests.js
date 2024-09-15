@@ -33,6 +33,12 @@ export const fetchRoutes = async (httpVerb, data, filter = undefined) => {
         body,
       });
 
+      if (res.status === 400) {
+        const resBody = await res.json();
+        console.log(resBody);
+
+        return resBody;
+      }
       if (!res.ok) {
         throw new Response(
           JSON.stringify({
