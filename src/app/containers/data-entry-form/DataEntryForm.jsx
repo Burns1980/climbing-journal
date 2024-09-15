@@ -23,22 +23,18 @@ function DataEntryForm({ fields, dynamicProps, dataTc }) {
 
   useEffect(() => {
     setFieldErrors(actionData);
-  }, [actionData]);
 
-  useEffect(() => {
     if (fieldErrors?.status === 'fail' && !_.isEmpty(fieldErrors?.data)) {
       errorListRef.current?.scrollIntoView({
         behavior: 'smooth',
         block: 'nearest',
       });
     }
-  }, [fieldErrors]);
 
-  useEffect(() => {
     if (navigation.formAction === '/routes-climbed/add-new-route') {
       setFieldErrors(null);
     }
-  }, [navigation.formAction]);
+  }, [actionData, fieldErrors, navigation.formAction]);
 
   const inputRows = groupFieldsIntoRows(
     fields.filter((field) => field.type !== fieldTypes.textarea)
@@ -135,7 +131,7 @@ function DataEntryForm({ fields, dynamicProps, dataTc }) {
               onClick={handleClearFormClick}
               className={`btn-secondary text-md ${styles.formButton}`}
             >
-              Clear from
+              Clear form
             </Button>
           </div>
         </Form>
