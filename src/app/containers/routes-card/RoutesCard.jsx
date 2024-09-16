@@ -13,9 +13,28 @@ const FAVORITE = 2;
 const RoutesCard = ({ routeData }) => {
   const [isEditMode, setIsEditMode] = useState(false);
 
+  const {
+    _id,
+    name,
+    grade,
+    aidRating,
+    seriousnessRating,
+    description,
+    gear,
+    imageCoverUrl,
+  } = routeData;
+  const fullRating =
+    (grade ? `- ${grade}` : '') +
+    (aidRating ? ` ${aidRating}` : '') +
+    (seriousnessRating ? ` ${seriousnessRating}` : '');
+
   function handleMenuAction(menuAction) {
     if (menuAction === MENU_ACTION_NAMES[EDIT]) {
       setIsEditMode(true);
+
+      //////////////////////////
+      console.log(routeData._id);
+
       console.log(`the ${routeData.name} edit modal should open now`);
     }
     if (menuAction === MENU_ACTION_NAMES[HIDE]) {
@@ -34,29 +53,29 @@ const RoutesCard = ({ routeData }) => {
     <article className="route-card-container">
       <div className="ellipsis-container">
         <EllipsisMenu
-          _id={routeData._id}
+          _id={_id}
           menuActionNames={MENU_ACTION_NAMES}
           handleMenuAction={handleMenuAction}
         />
       </div>
       <div className="route-card">
         <div className="route-card-header">
-          {routeData.imageCoverUrl && (
+          {imageCoverUrl && (
             <img
-              src={`${routeData.imageCoverUrl}`}
+              src={`${imageCoverUrl}`}
               // src={`${apiUrl}/${routeData.imageCoverUrl}`}
-              alt={routeData.name}
+              alt={name}
               className="route-card-image"
             />
           )}
           <div className="route-card-details">
             <h3 className="route-card-title text-lg">
-              {routeData.name}
-              <span className="route-card-grade">{routeData.grade}</span>
+              {name}
+              <span className="route-card-grade text-md">{fullRating}</span>
             </h3>
             <TruncateText
               className="route-card-description text-sm"
-              text={routeData.description}
+              text={description}
               maxWords={100}
               onClick={handleReadMoreClick}
             />
@@ -64,7 +83,7 @@ const RoutesCard = ({ routeData }) => {
         </div>
         <div className="route-card-gear-beta">
           <h4 className="text-md">Gear beta</h4>
-          <p className="text-sm">{routeData.gear}</p>
+          <p className="text-sm">{gear}</p>
         </div>
       </div>
     </article>
