@@ -8,7 +8,7 @@ import {
   RouteRoot,
   Routes,
   AddNewRoute,
-  RouteInfo,
+  RouteDetail,
   ErrorPage,
   addNewRouteAction,
 } from './pages';
@@ -37,8 +37,8 @@ const router = createBrowserRouter([
             element: <Routes />,
           },
           {
-            path: ':route-id',
-            element: <RouteInfo />,
+            path: ':routeId',
+            element: <RouteDetail />,
           },
           {
             path: 'add-new-route',

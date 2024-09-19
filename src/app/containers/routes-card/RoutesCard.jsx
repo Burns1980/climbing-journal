@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 import { TruncateText } from '../../components';
 import { EllipsisMenu } from '..';
 import { apiUrl } from '../../../utils/envVars';
@@ -70,7 +72,7 @@ const RoutesCard = ({ routeData }) => {
           )}
           <div className="route-card-details">
             <h3 className="route-card-title text-lg">
-              {name}
+              <Link to={_id}>{name}</Link>
               <span className="route-card-grade text-md">{fullRating}</span>
             </h3>
             <TruncateText

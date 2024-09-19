@@ -1,4 +1,12 @@
 /* Card styles */
+a {
+  color: var(--primary-text-color);
+}
+
+a:hover {
+  color: var(--primary-link-hover-color);
+}
+
 .route-card-container {
   position: relative;
 }
@@ -39,6 +47,9 @@
 
 .route-card-title {
   margin-bottom: 5px;
+  a {
+    text-decoration: underline;
+  }
 }
 
 .route-card-grade {

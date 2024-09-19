@@ -6,6 +6,22 @@ export const fieldTypes = {
   textarea: 'textarea',
 };
 
+export const fieldPropNames = {
+  NAME: 'name',
+  LOCATION: 'location',
+  DATE_CLIMBED: 'dateClimbed',
+  TYPE: 'type',
+  GRADE: 'grade',
+  AID_RATING: 'aidRating',
+  SERIOUSNESS_RATING: 'seriousnessRating',
+  LENGTH: 'length',
+  PITCHES: 'pitches',
+  COMMITMENT_GRADE: 'commitmentGrade',
+  DESCRIPTION: 'description',
+  GEAR: 'gear',
+  IMAGE_COVER_URL: 'imageCoverUrl',
+};
+
 // Options for select fields
 export const optionSets = {
   climbTypes: ['sport', 'traditional', 'boulder', 'aid', 'ice', 'mixed'],
@@ -131,19 +147,28 @@ export const formFields = [
     configProps: {
       required: true,
       type: 'text',
-      name: 'name',
+      name: fieldPropNames.NAME,
     },
+  },
+  {
+    label: 'Location',
+    type: fieldTypes.input,
+    configProps: { type: 'text', name: fieldPropNames.LOCATION },
   },
   {
     label: 'Date climbed',
     type: fieldTypes.input,
-    configProps: { type: 'date', min: '1900-01-01', name: 'dateClimbed' },
+    configProps: {
+      type: 'date',
+      min: '1900-01-01',
+      name: fieldPropNames.DATE_CLIMBED,
+    },
   },
   {
     label: 'Climb type',
     type: fieldTypes.select,
     configProps: {
-      name: 'type',
+      name: fieldPropNames.TYPE,
       required: true,
     },
     optionsKey: 'climbTypes',
@@ -153,7 +178,7 @@ export const formFields = [
     type: fieldTypes.select,
     configProps: {
       required: true,
-      name: 'grade',
+      name: fieldPropNames.GRADE,
     },
     optionsKey: 'YDSGrades',
   },
@@ -161,30 +186,30 @@ export const formFields = [
     label: 'Aid rating',
     type: fieldTypes.select,
     configProps: {
-      name: 'aidRating',
+      name: fieldPropNames.AID_RATING,
     },
     optionsKey: 'disabledAid',
   },
   {
     label: 'Seriousness rating',
     type: fieldTypes.select,
-    configProps: { name: 'seriousnessRating' },
+    configProps: { name: fieldPropNames.SERIOUSNESS_RATING },
     optionsKey: 'seriousnessRatings',
   },
   {
     label: 'Length',
     type: fieldTypes.input,
-    configProps: { type: 'text', name: 'length' },
+    configProps: { type: 'text', name: fieldPropNames.LENGTH },
   },
   {
     label: 'Pitches',
     type: fieldTypes.input,
-    configProps: { type: 'number', name: 'pitches' },
+    configProps: { type: 'number', name: fieldPropNames.PITCHES },
   },
   {
     label: 'Grade',
     type: fieldTypes.select,
-    configProps: { name: 'commitmentGrade' },
+    configProps: { name: fieldPropNames.COMMITMENT_GRADE },
     optionsKey: 'commitmentGrades',
   },
   {
@@ -192,7 +217,7 @@ export const formFields = [
     type: fieldTypes.textarea,
     configProps: {
       placeholder: 'What do you have to say about the route?',
-      name: 'description',
+      name: fieldPropNames.DESCRIPTION,
     },
   },
   {
@@ -201,12 +226,12 @@ export const formFields = [
     configProps: {
       placeholder:
         'Add some gear here, unless you free soloed. What kind of shoes did you wear?',
-      name: 'gear',
+      name: fieldPropNames.GEAR,
     },
   },
   {
     label: 'Cover image URL',
     type: fieldTypes.input,
-    configProps: { type: 'text', name: 'imageCoverUrl' },
+    configProps: { type: 'text', name: fieldPropNames.IMAGE_COVER_URL },
   },
 ];

@@ -1,3 +1,4 @@
+const { lowerCase } = require('lodash');
 const mongoose = require('mongoose');
 
 const ydsGradeRE = /5\.(?:[0-7]|[8-9](\+|-)?|1[0-5][abcd\+-]?)$/;
@@ -11,6 +12,10 @@ const routeSchema = new mongoose.Schema(
     name: {
       type: String,
       required: [true, 'The route name is missing'],
+      trim: true,
+    },
+    location: {
+      type: String,
       trim: true,
     },
     dateClimbed: {
@@ -103,10 +108,10 @@ const routeSchema = new mongoose.Schema(
     meta: {
       favorites: Number,
     },
-    createdDate: {
-      type: Date,
-      default: Date.now(),
-    },
+    // createdDate: {
+    //   type: Date,
+    //   default: Date.now(),
+    // },
     imageCoverUrl: {
       type: String,
     },

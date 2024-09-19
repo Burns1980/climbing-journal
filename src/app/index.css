@@ -165,6 +165,12 @@ button:focus-visible {
   font-weight: normal;
 }
 
+.text-xs {
+  font-size: 1.4rem;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
 .text-center {
   text-align: center;
 }
