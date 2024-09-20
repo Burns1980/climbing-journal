@@ -13,8 +13,8 @@ function PageWrapper({
 }) {
   return (
     <section {...props} className="container">
-      {title && <h2 className="text-xl text-center page-header">{title}</h2>}
-      <div className="display-flex">
+      {title && <h2 className="text-xxl text-center page-header">{title}</h2>}
+      <div className="full-page-content display-flex">
         {showSidebar && <Sidebar {...sidebarProps} className="sidebar" />}
         <div className="page-main-content">{children}</div>
       </div>
@@ -23,7 +23,7 @@ function PageWrapper({
 }
 
 PageWrapper.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   children: PropTypes.node.isRequired,
   showSidebar: PropTypes.bool,
 };

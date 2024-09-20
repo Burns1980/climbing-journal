@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { PageWrapper } from '../';
 import { DataContext } from '../../store';
-import { Error, LoadSpinner } from '../../components';
+import { EditIconButton, Error, LoadSpinner } from '../../components';
 import { fieldPropNames } from '../routes-page/config';
 
 import './route-detail.css';
@@ -29,6 +29,10 @@ export default function RouteDetail() {
   const { routeId } = useParams();
   const { data, isLoading, isError, errorMessage } =
     useContext(DataContext).routes;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   // const routeDetail = data.find((route) => route._id === routeId);
   // console.log(routeDetail);
   const routeDetail = testData;
@@ -56,6 +60,10 @@ export default function RouteDetail() {
   const fullGradeTxt = gradeTxt.filter((txt) => txt).join(' ');
   const fullTypeText = typeText.filter((txt) => txt).join(', ');
 
+  function handleEditClick() {
+    console.log('edit button clicked');
+  }
+
   console.log(data);
   console.log(routeDetail);
 
@@ -73,20 +81,23 @@ export default function RouteDetail() {
   ) : undefined;
 
   return (
-    <PageWrapper title="Route Detail">
+    <PageWrapper>
       {contentNotReady || (
         <article className="route-detail-container">
           <div className="grade-container">
-            <h3 className="text-xl">{routeDetail[NAME]}</h3>
+            <EditIconButton handleClick={handleEditClick}>
+              <h3 className="text-xl">{routeDetail[NAME]}</h3>
+            </EditIconButton>
             <p className="text-md p-margin">
               <span className="route-grade">{fullGradeTxt}</span> -{' '}
               {fullTypeText}
             </p>
           </div>
-          {/* <p className="type-container text-sm">{fullTypeText}</p> */}
           <p className="text-sm p-margin">{routeDetail[LOCATION]}</p>
           <section className="description-container">
-            <h3 className="text-xl">Description</h3>
+            <h3 id="description" className="text-xl">
+              Description
+            </h3>
             <p className="text-sm p-margin">{routeDetail[DESCRIPTION]}</p>
           </section>
           <section className="description-container">

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import { TruncateText } from '../../components';
 import { EllipsisMenu } from '..';
@@ -14,6 +14,8 @@ const FAVORITE = 2;
 
 const RoutesCard = ({ routeData }) => {
   const [isEditMode, setIsEditMode] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const {
     _id,
@@ -48,7 +50,8 @@ const RoutesCard = ({ routeData }) => {
   }
 
   function handleReadMoreClick() {
-    console.log('inside read more handleClick');
+    console.log('location ', location);
+    navigate(`${location.pathname}/${_id}`);
   }
 
   return (

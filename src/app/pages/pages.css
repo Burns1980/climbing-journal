@@ -2,6 +2,10 @@
   margin: 0 0 40px 0;
 }
 
+.full-page-content {
+  margin: 5rem 0 5rem 0;
+}
+
 .sidebar {
   width: 25%;
 }

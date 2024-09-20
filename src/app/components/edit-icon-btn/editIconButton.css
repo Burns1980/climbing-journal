@@ -1,0 +1,18 @@
+button.edit-btn {
+  color: var(--primary-link-color);
+  padding: 2px;
+  border: none;
+}
+
+button.edit-btn:hover {
+  cursor: pointer;
+}
+
+.edit-icon-btn-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.edit-icon-btn-container > :first-child {
+  margin-right: 1rem;
+}
