@@ -8,11 +8,11 @@ button.edit-btn:hover {
   cursor: pointer;
 }
 
-.edit-icon-btn-container {
+.edit-btn-icon-container {
   display: flex;
   align-items: flex-start;
 }
 
-.edit-icon-btn-container > :first-child {
+.edit-btn-icon-container > :first-child {
   margin-right: 1rem;
 }

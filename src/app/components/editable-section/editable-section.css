@@ -1,0 +1,9 @@
+.editable-container {
+  margin-top: 7.5rem;
+  p {
+    white-space: pre-wrap;
+  }
+  .p-margin-editable {
+    margin-top: 0.5rem;
+  }
+}

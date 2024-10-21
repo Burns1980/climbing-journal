@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 
 import { PageWrapper } from '../';
 import { DataContext } from '../../store';
-import { EditIconButton, Error, LoadSpinner } from '../../components';
+import {
+  EditableSection,
+  EditButtonIcon,
+  Error,
+  LoadSpinner,
+} from '../../components';
 import { fieldPropNames } from '../routes-page/config';
 
 import './route-detail.css';
@@ -33,9 +38,9 @@ export default function RouteDetail() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  // const routeDetail = data.find((route) => route._id === routeId);
+  const routeDetail = data.find((route) => route._id === routeId);
   // console.log(routeDetail);
-  const routeDetail = testData;
+  // const routeDetail = testData;
   const gradeTxt = [
     routeDetail[GRADE] ? routeDetail[GRADE].toLowerCase() : '',
     routeDetail[AID_RATING] ? routeDetail[AID_RATING].toUpperCase() : '',
@@ -85,25 +90,24 @@ export default function RouteDetail() {
       {contentNotReady || (
         <article className="route-detail-container">
           <div className="grade-container">
-            <EditIconButton handleClick={handleEditClick}>
+            <EditButtonIcon handleClick={handleEditClick}>
               <h3 className="text-xl">{routeDetail[NAME]}</h3>
-            </EditIconButton>
+            </EditButtonIcon>
             <p className="text-md p-margin">
-              <span className="route-grade">{fullGradeTxt}</span> -{' '}
-              {fullTypeText}
+              <span className="route-grade">{fullGradeTxt}</span> {fullTypeText}
             </p>
           </div>
           <p className="text-sm p-margin">{routeDetail[LOCATION]}</p>
-          <section className="description-container">
-            <h3 id="description" className="text-xl">
-              Description
-            </h3>
-            <p className="text-sm p-margin">{routeDetail[DESCRIPTION]}</p>
-          </section>
-          <section className="description-container">
-            <h3 className="text-xl">Gear</h3>
-            <p className="text-sm p-margin">{routeDetail[GEAR]}</p>
-          </section>
+          <EditableSection
+            title="Description"
+            content={routeDetail[DESCRIPTION]}
+            handleEditClick={handleEditClick}
+          />
+          <EditableSection
+            title="Gear"
+            content={routeDetail[GEAR]}
+            handleEditClick={handleEditClick}
+          />
         </article>
       )}
     </PageWrapper>
