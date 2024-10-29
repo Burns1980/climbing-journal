@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { TruncateText } from '../../components';
 import { EllipsisMenu } from '..';
 import { apiUrl } from '../../../utils/envVars';
 import './routes-card.css';
-import { useState } from 'react';
 
 const MENU_ACTION_NAMES = ['edit', 'hide', 'favorite'];
 const EDIT = 0;
@@ -13,9 +12,7 @@ const HIDE = 1;
 const FAVORITE = 2;
 
 const RoutesCard = ({ routeData }) => {
-  const [isEditMode, setIsEditMode] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
 
   const {
     _id,
@@ -34,12 +31,7 @@ const RoutesCard = ({ routeData }) => {
 
   function handleMenuAction(menuAction) {
     if (menuAction === MENU_ACTION_NAMES[EDIT]) {
-      setIsEditMode(true);
-
-      //////////////////////////
-      console.log(routeData._id);
-
-      console.log(`the ${routeData.name} edit modal should open now`);
+      navigate(`./edit-route/${_id}`, { relative: 'path' });
     }
     if (menuAction === MENU_ACTION_NAMES[HIDE]) {
       console.log(`the ${routeData.name} hide was clicked`);
@@ -50,8 +42,7 @@ const RoutesCard = ({ routeData }) => {
   }
 
   function handleReadMoreClick() {
-    console.log('location ', location);
-    navigate(`${location.pathname}/${_id}`);
+    navigate(`./${_id}`, { relative: 'path' });
   }
 
   return (

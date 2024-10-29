@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { PageWrapper } from '../';
@@ -32,6 +32,7 @@ const {
 
 export default function RouteDetail() {
   const { routeId } = useParams();
+  const navigate = useNavigate();
   const { data, isLoading, isError, errorMessage } =
     useContext(DataContext).routes;
 
@@ -66,7 +67,7 @@ export default function RouteDetail() {
   const fullTypeText = typeText.filter((txt) => txt).join(', ');
 
   function handleEditClick() {
-    console.log('edit button clicked');
+    navigate(`../edit-route/${routeId}`, { relative: 'path' });
   }
 
   console.log(data);

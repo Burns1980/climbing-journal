@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import {
-  Home,
   Root,
-  RouteRoot,
-  Routes,
+  Home,
+  EditPage,
   AddNewRoute,
+  Routes,
+  RouteRoot,
   RouteDetail,
   ErrorPage,
   addNewRouteAction,
@@ -46,8 +47,8 @@ const router = createBrowserRouter([
             action: addNewRouteAction,
           },
           {
-            path: 'edit-route/:id',
-            element: <div>Hello</div>,
+            path: 'edit-route/:routeId',
+            element: <EditPage />,
           },
         ],
       },
