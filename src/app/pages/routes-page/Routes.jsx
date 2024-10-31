@@ -23,7 +23,7 @@ export default function Routes() {
   const { routes } = useContext(DataContext);
 
   /////////////////////////////////
-  console.log(routes);
+  // console.log(routes);
 
   const { data, isLoading, isError, errorMessage } = routes;
 

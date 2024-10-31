@@ -1,13 +1,16 @@
 import { useRouteError } from 'react-router-dom';
+
+import { Error } from '../components';
 import { Header, NavigationBar } from '../components';
 import PageWrapper from './PageWrapper';
 
 export default function ErrorPage() {
   const error = useRouteError();
 
-  console.log(error);
   let title = 'Sorry, an unexpected error has occurred.';
   let message = 'Something went wrong.';
+
+  console.log('error', error);
 
   if (error.status === 400) {
     message = JSON.parse(error.data).message;
@@ -27,15 +30,8 @@ export default function ErrorPage() {
       <Header />
       <NavigationBar />
       <main>
-        <PageWrapper
-          title="Oops"
-          className="text-md text-center container"
-          id="error-page"
-        >
-          <p className="text-sm">{title}</p>
-          <p className="text-sm">
-            <i>{message}</i>
-          </p>
+        <PageWrapper className="text-md text-center container" id="error-page">
+          <Error title={title} message={message} />
         </PageWrapper>
       </main>
     </>

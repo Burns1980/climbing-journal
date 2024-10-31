@@ -70,8 +70,8 @@ export default function RouteDetail() {
     navigate(`../edit-route/${routeId}`, { relative: 'path' });
   }
 
-  console.log(data);
-  console.log(routeDetail);
+  // console.log(data);
+  // console.log(routeDetail);
 
   const contentNotReady = isLoading ? (
     <div className="display-flex">

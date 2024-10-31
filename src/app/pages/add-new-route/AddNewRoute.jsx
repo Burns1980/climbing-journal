@@ -35,6 +35,7 @@ export async function action({ request, params }) {
   const res = await fetchRoutes('POST', { data: [newRoute] });
 
   if (res.status === 'fail') {
+    console.log('Error adding new route:', res);
     return res;
   }
 
