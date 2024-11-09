@@ -1,0 +1,77 @@
+.formHeader {
+  color: var(--primary-text-color);
+}
+
+.formInputs {
+  --input-bg-color: #505050;
+  --input-border-color: #7682b8;
+
+  input,
+  textarea,
+  select {
+    background-color: var(--input-bg-color);
+  }
+}
+
+.formContainer {
+  margin: 10px;
+}
+
+.rowContainer {
+  display: flex;
+  /* justify-content: space-between; */
+}
+
+.buttonRow {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.formButton {
+  margin: 20px 0 20px 0;
+}
+
+.formButton:nth-child(-n + 1) {
+  margin-right: 50px;
+}
+
+.confirmationModal {
+  padding: 40px;
+}
+
+.modalBtns {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-around;
+}
+
+/* Utilities */
+.spinnerOverlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/*Mobile views*/
+@media (max-width: 500px) {
+  .btnMarginTop {
+    margin-top: 30px;
+  }
+  .modalBtns {
+    flex-direction: column;
+  }
+
+  .rowContainer {
+    flex-direction: column;
+  }
+
+  .buttonRow {
+    flex-direction: column;
+    margin-top: 30px;
+  }
+
+  .formButton:nth-child(-n + 1) {
+    margin: 0;
+  }
+}

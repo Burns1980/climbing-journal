@@ -1,0 +1,96 @@
+/* Card styles */
+a {
+  color: var(--primary-text-color);
+}
+
+a:hover {
+  color: var(--primary-link-hover-color);
+}
+
+.route-card-container {
+  position: relative;
+}
+
+.route-card {
+  background-color: var(--card-bg-color);
+  color: var(--primary-text-color);
+  border: 2px solid var(--card-border-color);
+  border-radius: 8px;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ellipsis-container {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+/* Route card header styles */
+.route-card-header {
+  display: flex;
+  align-items: start;
+  margin-bottom: 15px;
+}
+
+.route-card-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.route-card-details {
+  flex-grow: 1; /* Allow the details to take remaining space */
+}
+
+.route-card-title {
+  margin-bottom: 5px;
+  a {
+    text-decoration: underline;
+  }
+}
+
+.route-card-grade {
+  margin-left: 5px;
+}
+
+.route-card-description {
+  margin-top: 0;
+}
+
+/* Route card gear beta styles */
+.route-card-gear-beta {
+  margin-bottom: 15px;
+}
+
+/* Route card carousel styles */
+.route-card-carousel {
+  /* Add styles for carousel if applicable */
+}
+
+/* Responsive Styles */
+@media screen and (min-width: 969px) and (max-width: 1200px) {
+  .route-card-container {
+    /* width: 85%; */
+  }
+}
+
+@media screen and (min-width: 1201px) {
+  .route-card-container {
+    /* width: 80%; */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .route-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .route-card-image {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}

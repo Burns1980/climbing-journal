@@ -1,0 +1,19 @@
+.route-detail-container {
+  h3 {
+    font-weight: 700;
+  }
+
+  margin-left: 3rem;
+
+  .grade-container {
+    margin: 0 0 1rem 0;
+  }
+
+  .route-grade {
+    font-weight: 600;
+  }
+
+  .p-margin {
+    margin-top: 0.5rem;
+  }
+}

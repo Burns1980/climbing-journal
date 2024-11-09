@@ -8,6 +8,7 @@ module.exports = {
     'plugin:react-hooks/recommended',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
+  argsIgnorePattern: ['^_'],
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   settings: { react: { version: '18.2' } },
   plugins: ['react-refresh'],
@@ -18,4 +19,17 @@ module.exports = {
       { allowConstantExport: true },
     ],
   },
-}
+  overrides: [
+    {
+      // Node.js specific configuration
+      files: ['src/api/**'], // Adjust the glob pattern to match your Node.js directory structure
+      env: {
+        node: true,
+        browser: false,
+      },
+      rules: {
+        // Node.js specific rules
+      },
+    },
+  ],
+};

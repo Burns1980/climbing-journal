@@ -1,0 +1,18 @@
+export const testData = {
+  _id: '66e8764bb07c154f4379bbee',
+  name: 'The Nose',
+  dateClimbed: '2024-09-16T18:09:40.806Z',
+  type: 'aid',
+  grade: '5.9',
+  length: '2900 ft',
+  pitches: '31',
+  aidRating: 'C2',
+  commitmentGrade: 'VI',
+  description: `\tThe Nose is a classic multi-pitch climb located in Yosemite Valley, California. Rated at 5.10b, this climb offers a diverse range of challenges including crack climbing, \n\n\tface climbing, and chimney sections. The route follows a striking line up a red sandstone formation, providing climbers with breathtaking views of the surrounding desert landscape throughout the ascent. Super duper hard climbing. Crimson Chrysalis is a classic multi-pitch climb located in Red Rock Canyon, Nevada. Rated at 5.10b, this climb offers a diverse range of challenges including crack climbing, face climbing, and chimney sections. The route follows a striking line up a red sandstone formation, providing climbers with breathtaking views of the surrounding desert landscape throughout the ascent. Super duper hard climbing. Crimson Chrysalis is a classic multi-pitch climb located in Red Rock Canyon, Nevada. Rated at 5.10b, this climb offers a diverse range of challenges including crack climbing, face climbing, and chimney sections. The route follows a striking line up a red sandstone formation, providing climbers with breathtaking views of the surrounding desert landscape throughout the ascent. Super duper hard climbing. Crimson Chrysalis is a classic multi-pitch climb located in Red Rock Canyon, Nevada. Rated at 5.10b, this climb offers a diverse range of challenges including crack climbing, face climbing, and chimney sections. The route follows a striking line up a red sandstone formation, providing climbers with breathtaking views of the surrounding desert landscape throughout the ascent. Super duper hard climbing.`,
+  gear: '\tFor Crimson Chrysalis, climbers typically bring a standard rack of cams and nuts, with sizes ranging from small to medium. Additionally, a set of quickdraws is useful for protecting bolted sections. Helmets are recommended due to loose rock on some pitches.',
+  __v: 0,
+  createdAt: '2024-09-16T18:17:47.785Z',
+  updatedAt: '2024-09-16T19:01:45.823Z',
+  seriousnessRating: 'PG',
+  location: 'Yosemite Valley, California, United States',
+};

@@ -1,0 +1,17 @@
+.formInputLabel {
+  color: var(--primary-link-color);
+  margin-bottom: 5px;
+  display: block;
+}
+
+.controlError {
+  margin: 5px 0 0 0;
+  text-align: left;
+  color: var(--error-text-color);
+}
+
+select.errorBorder,
+input.errorBorder,
+textarea.errorBorder {
+  border: 1px solid var(--error-text-color);
+}
