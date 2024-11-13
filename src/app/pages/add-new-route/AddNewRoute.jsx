@@ -7,7 +7,8 @@ import useRouteForm from './useRouteForm';
 import { fetchRoutes } from '../../utils';
 
 function AddNewRoute() {
-  const { defaultFormFields, controlProps } = useRouteForm();
+  // initializes form fields and control props for the form
+  const { formFields } = useRouteForm();
 
   return (
     <PageWrapper
@@ -15,11 +16,7 @@ function AddNewRoute() {
       title="Enter new route"
       showSidebar={false}
     >
-      <DataEntryForm
-        dataTc="addNewRouteForm"
-        fields={defaultFormFields}
-        controlProps={controlProps}
-      />
+      <DataEntryForm dataTc="addNewRouteForm" fields={formFields} />
     </PageWrapper>
   );
 }

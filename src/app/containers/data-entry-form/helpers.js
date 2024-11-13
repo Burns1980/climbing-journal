@@ -8,10 +8,3 @@ export const groupFieldsIntoRows = (fields) => {
     return rows;
   }, []);
 };
-
-export function getMatchingControlProps(fieldName, controlProps) {
-  const containesDynamicProp = controlProps.find(
-    (fieldProp) => fieldProp.name === fieldName
-  );
-  return containesDynamicProp ? containesDynamicProp.controlProps : '';
-}

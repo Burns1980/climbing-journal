@@ -1,22 +1,19 @@
 import _ from 'lodash';
-import React, { useEffect, useRef, useState, useContext } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Form, useActionData, useNavigation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { Button, LoadSpinner, APIErrorList } from '../../components';
 import { Modal } from '../../containers';
 import InputField from './InputField';
-import { groupFieldsIntoRows, getMatchingControlProps } from './helpers';
+import { groupFieldsIntoRows } from './helpers';
 import styles from './data-entry-form.module.css';
 import { formInputTypes } from '../../pages/routes-page/config';
 import { useMenuToggle } from '../../customHooks';
-import { RouteFormContext } from '../../store';
 
-function DataEntryForm({ fields, controlProps, dataTc, isEditMode = false }) {
+function DataEntryForm({ fields, dataTc, isEditMode = false }) {
   const actionData = useActionData();
   const [fieldErrors, setFieldErrors] = useState(actionData);
-  const formConfig = useContext(RouteFormContext);
-  const [controlInputs, setControlInputs] = useState({ ...controlProps });
 
   const navigation = useNavigation();
   const modalRef = useRef();
@@ -89,10 +86,6 @@ function DataEntryForm({ fields, controlProps, dataTc, isEditMode = false }) {
               {row.map((field) => (
                 <InputField
                   key={field.configProps.name}
-                  controlProps={getMatchingControlProps(
-                    field.configProps.name,
-                    controlProps
-                  )}
                   field={field}
                   error={
                     fieldErrors?.data[field.configProps.name]
@@ -106,10 +99,6 @@ function DataEntryForm({ fields, controlProps, dataTc, isEditMode = false }) {
           {textAreaFields.map((field) => (
             <InputField
               key={field.configProps.name}
-              controlProps={getMatchingControlProps(
-                field.configProps.name,
-                controlProps
-              )}
               field={field}
               error={
                 fieldErrors?.data[field.configProps.name]
@@ -154,7 +143,6 @@ DataEntryForm.propTypes = {
       configProps: PropTypes.object,
     }).isRequired
   ),
-  controlProps: PropTypes.array,
 };
 
 export default DataEntryForm;

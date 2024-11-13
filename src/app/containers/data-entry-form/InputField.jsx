@@ -5,17 +5,15 @@ import PropTypes from 'prop-types';
 import { Input } from '../../components';
 import inputStyles from './input-field.module.css';
 
-const InputField = ({ field, controlProps, error }) => {
+const InputField = ({ field, error }) => {
   const { routeId } = useParams();
-  const controlType = field.type;
-  const configProps = field?.configProps;
+  const inputType = field.type;
+  const inputProps = field?.configProps;
 
-  const id = configProps?.name?.trim();
+  const name = inputProps.name?.trim();
 
   const inputClassName = `${
-    controlType === 'textarea'
-      ? inputStyles.formtextArea
-      : inputStyles.formInput
+    inputType === 'textarea' ? inputStyles.formtextArea : inputStyles.formInput
   } text-sm`;
 
   // console.log('use params', routeId);
@@ -24,12 +22,11 @@ const InputField = ({ field, controlProps, error }) => {
     <div className={`${inputStyles.inputContainer} text-sm`}>
       <Input
         className={inputClassName}
-        id={id}
-        controlType={controlType}
-        labelName={field.label}
+        name={name}
+        inputType={inputType}
+        inputLabel={field.label}
         error={error}
-        {...configProps}
-        {...controlProps}
+        {...inputProps}
       />
     </div>
   );

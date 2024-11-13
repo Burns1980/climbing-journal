@@ -4,15 +4,7 @@ import PropTypes from 'prop-types';
 import { Select } from '../';
 import styles from './input.module.css';
 
-function Input({
-  className,
-  labelName,
-  name,
-  id,
-  controlType,
-  error,
-  ...props
-}) {
+function Input({ className, inputLabel, name, inputType, error, ...props }) {
   let controlComponent;
 
   if (error) {
@@ -21,22 +13,27 @@ function Input({
 
   const commonClassNames = `${className} ${error && styles.errorBorder}`;
 
-  switch (controlType) {
+  switch (inputType) {
     case 'textarea':
       controlComponent = (
-        <textarea className={commonClassNames} id={id} name={name} {...props} />
+        <textarea
+          className={commonClassNames}
+          id={name}
+          name={name}
+          {...props}
+        />
       );
       break;
     case 'input':
       controlComponent = (
-        <input className={commonClassNames} id={id} name={name} {...props} />
+        <input className={commonClassNames} id={name} name={name} {...props} />
       );
       break;
     case 'select':
       controlComponent = (
         <Select
           className={commonClassNames}
-          id={id}
+          id={name}
           name={name}
           {...props}
         ></Select>
@@ -49,7 +46,7 @@ function Input({
   return (
     <>
       <label className={styles.formInputLabel + ' text-md'} htmlFor={name}>
-        {labelName}
+        {inputLabel}
       </label>
       {controlComponent}
       {error && (
@@ -63,10 +60,9 @@ function Input({
 
 Input.propTypes = {
   className: PropTypes.string.isRequired,
-  labelName: PropTypes.string.isRequired,
+  inputLabel: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  controlType: PropTypes.oneOf(['input', 'textarea', 'select']).isRequired,
+  inputType: PropTypes.oneOf(['input', 'textarea', 'select']).isRequired,
   error: PropTypes.string,
 };
 

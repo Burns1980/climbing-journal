@@ -7,7 +7,4 @@ export {
   MenuModalContext,
   default as MenuModalProvider,
 } from './MenuModalContext';
-export {
-  RouteFormContext,
-  default as RouteFormProvider,
-} from './RouteFormContext';
+export { FormContext, default as FormProvider } from './FormContext';

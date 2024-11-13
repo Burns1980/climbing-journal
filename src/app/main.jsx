@@ -8,7 +8,6 @@ import {
   EditPage,
   AddNewRoute,
   Routes,
-  RouteRoot,
   RouteDetail,
   ErrorPage,
   addNewRouteAction,
@@ -31,7 +30,6 @@ const router = createBrowserRouter([
       },
       {
         path: 'routes-climbed',
-        element: <RouteRoot />,
         children: [
           {
             index: true,
