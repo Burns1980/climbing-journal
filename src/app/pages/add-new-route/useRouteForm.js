@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { optionSets, formFields } from '../routes-page/config';
+import { optionSets, formInputFields } from '../routes-page/config';
 import { updateAidRating, updateGrade } from './helpers';
 
 // map the options into form props
-const defaultFormFields = formFields.map((field) => {
+const defaultFormFields = formInputFields.map((field) => {
   if (field.optionsKey) {
     return {
       ...field,
@@ -16,7 +16,7 @@ const defaultFormFields = formFields.map((field) => {
   return field;
 });
 
-const initialDynamicProps = formFields
+const initialDynamicProps = formInputFields
   .map((field) => {
     switch (field.configProps.name) {
       case 'aidRating':
@@ -49,6 +49,8 @@ let i = 0;
 export default function useRouteForm() {
   console.log('i ran again ', ++i);
   const [dynamicProps, setDynamicProps] = useState(initialDynamicProps);
+  // const [formControlledInputs, setDynamicProps] = useState(initialDynamicProps);
+  console.log('dynamicProps', dynamicProps);
 
   function handleTypeChange(e) {
     const { value } = e.target;

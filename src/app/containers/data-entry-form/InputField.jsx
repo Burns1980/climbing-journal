@@ -1,9 +1,12 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
 import { Input } from '../../components';
 import inputStyles from './input-field.module.css';
 
 const InputField = ({ field, dynamicProps, error }) => {
+  const { routeId } = useParams();
   const controlType = field.type;
   const configProps = field?.configProps;
 
@@ -14,6 +17,8 @@ const InputField = ({ field, dynamicProps, error }) => {
       ? inputStyles.formtextArea
       : inputStyles.formInput
   } text-sm`;
+
+  // console.log('use params', routeId);
 
   return (
     <div className={`${inputStyles.inputContainer} text-sm`}>

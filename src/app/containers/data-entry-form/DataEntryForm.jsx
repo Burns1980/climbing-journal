@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import { Form, useActionData, useNavigation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -8,12 +8,19 @@ import { Modal } from '../../containers';
 import InputField from './InputField';
 import { groupFieldsIntoRows, getMatchingDynamicProps } from './helpers';
 import styles from './data-entry-form.module.css';
-import { fieldTypes } from '../../pages/routes-page/config';
+import { formInputTypes } from '../../pages/routes-page/config';
 import { useMenuToggle } from '../../customHooks';
+import { RouteFormContext } from '../../store';
 
-function DataEntryForm({ fields, dynamicProps, dataTc }) {
+function DataEntryForm({ fields, dynamicProps, dataTc, isEditMode = false }) {
   const actionData = useActionData();
   const [fieldErrors, setFieldErrors] = useState(actionData);
+  const formConfig = useContext(RouteFormContext);
+  const [controlledInputs, setControlledInputs] = useState({ ...dynamicProps });
+  // console.log('controlledInputs', controlledInputs);
+  console.log('climb type', formConfig.getClimbType());
+  console.log('difficulty options', formConfig.getDifficultyOptions());
+
   const navigation = useNavigation();
   const modalRef = useRef();
   const formRef = useRef();
@@ -23,6 +30,11 @@ function DataEntryForm({ fields, dynamicProps, dataTc }) {
 
   useEffect(() => {
     setFieldErrors(actionData);
+
+    formConfig.setClimbType('aid');
+    formConfig.setDifficultyOptions([0, 1, 3]);
+    console.log('climb type', formConfig.getClimbType());
+    console.log('difficulty options', formConfig.getDifficultyOptions());
 
     if (fieldErrors?.status === 'fail' && !_.isEmpty(fieldErrors?.data)) {
       errorListRef.current?.scrollIntoView({
@@ -37,10 +49,10 @@ function DataEntryForm({ fields, dynamicProps, dataTc }) {
   }, [actionData, fieldErrors, navigation.formAction]);
 
   const inputRows = groupFieldsIntoRows(
-    fields.filter((field) => field.type !== fieldTypes.textarea)
+    fields.filter((field) => field.type !== formInputTypes.textarea)
   );
   const textAreaFields = fields.filter(
-    (field) => field.type === fieldTypes.textarea
+    (field) => field.type === formInputTypes.textarea
   );
 
   function handleClearFormClick() {
@@ -120,19 +132,21 @@ function DataEntryForm({ fields, dynamicProps, dataTc }) {
               className={`btn text-md position-relative ${styles.formButton}`}
               disabled={navigation.state !== 'idle'}
             >
-              Save route
+              Save
               {navigation.state !== 'idle' && (
                 <span className={styles.spinnerOverlay}>
                   <LoadSpinner className="size-sm" />
                 </span>
               )}
             </Button>
-            <Button
-              onClick={handleClearFormClick}
-              className={`btn-secondary text-md ${styles.formButton}`}
-            >
-              Clear form
-            </Button>
+            {!isEditMode && (
+              <Button
+                onClick={handleClearFormClick}
+                className={`btn-secondary text-md ${styles.formButton}`}
+              >
+                Clear form
+              </Button>
+            )}
           </div>
         </Form>
       </div>

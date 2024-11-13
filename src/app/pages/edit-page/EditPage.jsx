@@ -17,6 +17,7 @@ const EditPage = (props) => {
         dataTc="editRouteForm"
         fields={defaultFormFields}
         dynamicProps={dynamicProps}
+        isEditMode={true}
       />
     </PageWrapper>
   );

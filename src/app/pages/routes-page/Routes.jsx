@@ -6,7 +6,7 @@ import { Modal, RoutesCard, DataEntryForm } from '../../containers';
 import { PageWrapper } from '../';
 import { Error, LoadSpinner } from '../../components';
 import { useMenuToggle } from '../../customHooks';
-import { formFields } from './config';
+import { formInputFields } from './config';
 
 import './routes.css';
 
@@ -38,7 +38,7 @@ export default function Routes() {
   return (
     <>
       {/* <Modal ref={modalRef}>
-        <DataEntryForm title="Enter new route" fields={formFields} />
+        <DataEntryForm title="Enter new route" fields={formInputFields} />
       </Modal> */}
       <PageWrapper
         sidebarProps={{ handleAddClick: handleAddRoute }}

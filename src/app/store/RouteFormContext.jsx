@@ -2,34 +2,34 @@ import React, { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
 
 export const RouteFormContext = createContext({
-  difficultyGradeOptions: [],
-  climbType: '',
-  setDifficultyGradeOptions: () => {},
+  getDifficultyOptions: () => {},
+  getClimbType: () => {},
+  setDifficultyOptions: () => {},
   setClimbType: () => {},
 });
 
 function RouteFormProvider({ children }) {
-  const [difficultyGradeOptions, setDifficultyGradeOptions] = useState();
-  const [climbType, setClimbType] = useState();
+  const [difficultyOptionsVal, setDifficultyOptionsVal] = useState([]);
+  const [climbTypeVal, setClimbTypeVal] = useState('trad');
 
-  function setClimbTypeValue(val) {
-    setClimbType(val);
+  function setClimbType(val) {
+    setClimbTypeVal(val);
   }
 
   function getClimbType() {
-    return climbType;
+    return climbTypeVal;
   }
 
   function setDifficultyOptions(options) {
-    setDifficultyGradeOptions(options);
+    setDifficultyOptionsVal(options);
   }
 
   function getDifficultyOptions() {
-    return difficultyGradeOptions;
+    return difficultyOptionsVal;
   }
 
   const routeFormCtx = {
-    setClimbTypeValue,
+    setClimbType,
     getClimbType,
     setDifficultyOptions,
     getDifficultyOptions,
