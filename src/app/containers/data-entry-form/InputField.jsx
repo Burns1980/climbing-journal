@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Input } from '../../components';
 import inputStyles from './input-field.module.css';
 
-const InputField = ({ field, dynamicProps, error }) => {
+const InputField = ({ field, controlProps, error }) => {
   const { routeId } = useParams();
   const controlType = field.type;
   const configProps = field?.configProps;
@@ -29,7 +29,7 @@ const InputField = ({ field, dynamicProps, error }) => {
         labelName={field.label}
         error={error}
         {...configProps}
-        {...dynamicProps}
+        {...controlProps}
       />
     </div>
   );

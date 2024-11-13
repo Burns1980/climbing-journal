@@ -16,25 +16,25 @@ const defaultFormFields = formInputFields.map((field) => {
   return field;
 });
 
-const initialDynamicProps = formInputFields
+const initialControlProps = formInputFields
   .map((field) => {
     switch (field.configProps.name) {
       case 'aidRating':
         return {
           name: field.configProps.name,
-          dynamicProps: {
+          controlProps: {
             disabled: true, // Initial disabled state
           },
         };
       case 'grade':
         return {
           name: field.configProps.name,
-          dynamicProps: {},
+          controlProps: {},
         };
       case 'type':
         return {
           name: field.configProps.name,
-          dynamicProps: {
+          controlProps: {
             onChange: () => {},
           },
         };
@@ -48,15 +48,15 @@ let i = 0;
 
 export default function useRouteForm() {
   console.log('i ran again ', ++i);
-  const [dynamicProps, setDynamicProps] = useState(initialDynamicProps);
-  // const [formControlledInputs, setDynamicProps] = useState(initialDynamicProps);
-  console.log('dynamicProps', dynamicProps);
+  const [controlProps, setControlProps] = useState(initialControlProps);
+  // const [formControlledInputs, setControlProps] = useState(initialControlProps);
+  console.log('controlProps', controlProps);
 
   function handleTypeChange(e) {
     const { value } = e.target;
 
-    setDynamicProps((dynamicProps) => {
-      return dynamicProps.map((fieldData) => {
+    setControlProps((controlProps) => {
+      return controlProps.map((fieldData) => {
         switch (fieldData.name) {
           case 'aidRating':
             return updateAidRating(fieldData, value, optionSets);
@@ -72,13 +72,13 @@ export default function useRouteForm() {
 
   // initialize the event handlers
   useEffect(() => {
-    setDynamicProps((dynamicProps) => {
-      return dynamicProps.map((formField) => {
+    setControlProps((controlProps) => {
+      return controlProps.map((formField) => {
         if (formField.name === 'type') {
           return {
             ...formField,
-            dynamicProps: {
-              ...formField.dynamicProps,
+            controlProps: {
+              ...formField.controlProps,
               onChange: handleTypeChange,
             },
           };
@@ -88,5 +88,5 @@ export default function useRouteForm() {
     });
   }, []);
 
-  return { defaultFormFields, dynamicProps };
+  return { defaultFormFields, controlProps };
 }

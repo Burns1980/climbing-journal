@@ -1,8 +1,8 @@
 export function updateAidRating(fieldData, value, optionSets) {
   return {
     ...fieldData,
-    dynamicProps: {
-      ...fieldData.dynamicProps,
+    controlProps: {
+      ...fieldData.controlProps,
       disabled: value !== 'aid',
       options: value === 'aid' ? optionSets.aidRatings : optionSets.disabledAid,
     },
@@ -27,8 +27,8 @@ export function updateGrade(fieldData, value, optionSets) {
 
   return {
     ...fieldData,
-    dynamicProps: {
-      ...fieldData.dynamicProps,
+    controlProps: {
+      ...fieldData.controlProps,
       options,
     },
   };

@@ -8,7 +8,7 @@ import { Error, LoadSpinner } from '../../components';
 import useRouteForm from '../add-new-route/useRouteForm';
 
 const EditPage = (props) => {
-  const { defaultFormFields, dynamicProps } = useRouteForm();
+  const { defaultFormFields, controlProps } = useRouteForm();
   const { routeId } = useParams();
 
   return (
@@ -16,7 +16,7 @@ const EditPage = (props) => {
       <DataEntryForm
         dataTc="editRouteForm"
         fields={defaultFormFields}
-        dynamicProps={dynamicProps}
+        controlProps={controlProps}
         isEditMode={true}
       />
     </PageWrapper>

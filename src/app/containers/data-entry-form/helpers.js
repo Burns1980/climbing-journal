@@ -9,9 +9,9 @@ export const groupFieldsIntoRows = (fields) => {
   }, []);
 };
 
-export function getMatchingDynamicProps(fieldName, dynamicProps) {
-  const containesDynamicProp = dynamicProps.find(
+export function getMatchingControlProps(fieldName, controlProps) {
+  const containesDynamicProp = controlProps.find(
     (fieldProp) => fieldProp.name === fieldName
   );
-  return containesDynamicProp ? containesDynamicProp.dynamicProps : '';
+  return containesDynamicProp ? containesDynamicProp.controlProps : '';
 }
