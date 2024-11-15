@@ -1,24 +1,32 @@
-import _ from 'lodash';
+import _, { method } from 'lodash';
 import React, { useEffect, useRef, useState } from 'react';
 import { Form, useActionData, useNavigation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { Button, LoadSpinner, APIErrorList } from '../../components';
 import { Modal } from '../../containers';
-import InputField from './InputField';
+import { Input } from '../../components';
 import { groupFieldsIntoRows } from './helpers';
 import styles from './data-entry-form.module.css';
 import { formInputTypes } from '../../pages/routes-page/config';
 import { useMenuToggle } from '../../customHooks';
 
-function DataEntryForm({ fields, dataTc, isEditMode = false }) {
+function DataEntryForm({
+  fields,
+  handleSubmit,
+  formValues,
+  dataTc,
+  clearForm,
+  isEditMode = false,
+}) {
   const actionData = useActionData();
   const [fieldErrors, setFieldErrors] = useState(actionData);
 
   const navigation = useNavigation();
   const modalRef = useRef();
-  const formRef = useRef();
   const errorListRef = useRef();
+
+  console.log('formValues', formValues);
 
   useMenuToggle();
 
@@ -38,10 +46,10 @@ function DataEntryForm({ fields, dataTc, isEditMode = false }) {
   }, [actionData, fieldErrors, navigation.formAction]);
 
   const inputRows = groupFieldsIntoRows(
-    fields.filter((field) => field.type !== formInputTypes.textarea)
+    fields.filter((field) => field.inputElementType !== formInputTypes.textarea)
   );
   const textAreaFields = fields.filter(
-    (field) => field.type === formInputTypes.textarea
+    (field) => field.inputElementType === formInputTypes.textarea
   );
 
   function handleClearFormClick() {
@@ -49,8 +57,8 @@ function DataEntryForm({ fields, dataTc, isEditMode = false }) {
   }
 
   function handleClearForm() {
+    clearForm();
     setFieldErrors(null);
-    formRef.current.reset();
     modalRef.current.close();
   }
 
@@ -77,18 +85,23 @@ function DataEntryForm({ fields, dataTc, isEditMode = false }) {
         </div>
       </Modal>
       <div data-tc={`${dataTc}-container`} className={styles.formContainer}>
-        <Form ref={formRef} className={styles.formInputs} method="post">
+        <Form
+          className={styles.formInputs}
+          method="post"
+          onSubmit={handleSubmit}
+        >
           {fieldErrors?.status === 'fail' && !_.isEmpty(fieldErrors?.data) && (
             <APIErrorList ref={errorListRef} data={fieldErrors.data} />
           )}
           {inputRows.map((row) => (
             <div className={styles.rowContainer} key={row[0].configProps.name}>
               {row.map((field) => (
-                <InputField
+                <Input
                   key={field.configProps.name}
                   field={field}
+                  value={formValues[field.configProps.name] || ''}
                   error={
-                    fieldErrors?.data[field.configProps.name]
+                    fieldErrors?.data[field.name]
                       ? `${field.label.replace('(required)', '')} is required`
                       : null
                   }
@@ -97,11 +110,12 @@ function DataEntryForm({ fields, dataTc, isEditMode = false }) {
             </div>
           ))}
           {textAreaFields.map((field) => (
-            <InputField
+            <Input
               key={field.configProps.name}
               field={field}
+              value={formValues[field.configProps.name]}
               error={
-                fieldErrors?.data[field.configProps.name]
+                fieldErrors?.data[field.name]
                   ? `${field.label.replace('(required)', '')} is required`
                   : null
               }
@@ -139,8 +153,15 @@ DataEntryForm.propTypes = {
   fields: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
-      type: PropTypes.string,
-      configProps: PropTypes.object,
+      inputElementType: PropTypes.string.isRequired,
+      optionsKey: PropTypes.string,
+      configProps: PropTypes.shape({
+        type: PropTypes.string,
+        name: PropTypes.string.isRequired,
+        onChange: PropTypes.func.isRequired,
+        required: PropTypes.bool,
+        placeholder: PropTypes.string,
+      }).isRequired,
     }).isRequired
   ),
 };

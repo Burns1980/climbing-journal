@@ -4,29 +4,43 @@ import PropTypes from 'prop-types';
 import { Select } from '../';
 import styles from './input.module.css';
 
-function Input({ className, inputLabel, name, inputType, error, ...props }) {
+// TODO: Make sure to clear the state in the clear form modal
+function Input({ field, error, ...props }) {
   let controlComponent;
+  const { inputElementType, label, configProps } = field;
+  const { name } = configProps;
 
   if (error) {
     props['aria-describedby'] = `${name}-error`;
   }
 
-  const commonClassNames = `${className} ${error && styles.errorBorder}`;
+  const inputClassName = `${
+    inputElementType === 'textarea' ? styles.formtextArea : styles.formInput
+  } text-sm`;
 
-  switch (inputType) {
+  const commonClassNames = `${inputClassName} ${
+    error ? styles.errorBorder : ''
+  }`;
+
+  switch (inputElementType) {
     case 'textarea':
       controlComponent = (
         <textarea
           className={commonClassNames}
           id={name}
-          name={name}
           {...props}
+          {...field.configProps}
         />
       );
       break;
     case 'input':
       controlComponent = (
-        <input className={commonClassNames} id={name} name={name} {...props} />
+        <input
+          className={commonClassNames}
+          id={name}
+          {...props}
+          {...field.configProps}
+        />
       );
       break;
     case 'select':
@@ -34,8 +48,8 @@ function Input({ className, inputLabel, name, inputType, error, ...props }) {
         <Select
           className={commonClassNames}
           id={name}
-          name={name}
           {...props}
+          {...field.configProps}
         ></Select>
       );
       break;
@@ -44,9 +58,9 @@ function Input({ className, inputLabel, name, inputType, error, ...props }) {
   }
 
   return (
-    <>
+    <div className={`${styles.inputContainer} text-sm`}>
       <label className={styles.formInputLabel + ' text-md'} htmlFor={name}>
-        {inputLabel}
+        {label}
       </label>
       {controlComponent}
       {error && (
@@ -54,15 +68,12 @@ function Input({ className, inputLabel, name, inputType, error, ...props }) {
           {error}
         </div>
       )}
-    </>
+    </div>
   );
 }
 
 Input.propTypes = {
-  className: PropTypes.string.isRequired,
-  inputLabel: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  inputType: PropTypes.oneOf(['input', 'textarea', 'select']).isRequired,
+  field: PropTypes.object.isRequired,
   error: PropTypes.string,
 };
 

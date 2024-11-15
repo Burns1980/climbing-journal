@@ -1,5 +1,5 @@
 // Field types definition
-export const DEFAULT_OPTIONS_VALUE = '--Choose aid from climb type--';
+export const DEFAULT_OPTIONS_VALUE = '--Choose aid from Climb type--';
 export const formInputTypes = {
   input: 'input',
   select: 'select',
@@ -14,7 +14,7 @@ export const fieldPropNames = {
   GRADE: 'grade',
   AID_RATING: 'aidRating',
   SERIOUSNESS_RATING: 'seriousnessRating',
-  LENGTH: 'length',
+  LENGTH: 'routeLength',
   PITCHES: 'pitches',
   COMMITMENT_GRADE: 'commitmentGrade',
   DESCRIPTION: 'description',
@@ -143,98 +143,130 @@ export const optionSets = {
 export const formInputFields = [
   {
     label: 'Route name (required)',
-    type: formInputTypes.input,
+    inputElementType: formInputTypes.input,
     configProps: {
       required: true,
       type: 'text',
       name: fieldPropNames.NAME,
+      onChange: () => {},
     },
   },
   {
     label: 'Location',
-    type: formInputTypes.input,
-    configProps: { type: 'text', name: fieldPropNames.LOCATION },
+    inputElementType: formInputTypes.input,
+    configProps: {
+      type: 'text',
+      name: fieldPropNames.LOCATION,
+      onChange: () => {},
+    },
   },
   {
     label: 'Date climbed',
-    type: formInputTypes.input,
+    inputElementType: formInputTypes.input,
     configProps: {
       type: 'date',
       min: '1900-01-01',
       name: fieldPropNames.DATE_CLIMBED,
+      onChange: () => {},
     },
   },
   {
     label: 'Climb type',
-    type: formInputTypes.select,
+    inputElementType: formInputTypes.select,
+    optionsKey: 'climbTypes',
     configProps: {
       name: fieldPropNames.TYPE,
       required: true,
+      options: [],
+      onChange: () => {},
     },
-    optionsKey: 'climbTypes',
   },
   {
     label: 'Difficulty grade',
-    type: formInputTypes.select,
-    configProps: {
-      required: true,
-      name: fieldPropNames.GRADE,
-    },
+    inputElementType: formInputTypes.select,
     optionsKey: 'YDSGrades',
+    configProps: {
+      name: fieldPropNames.GRADE,
+      required: true,
+      options: [],
+      onChange: () => {},
+    },
   },
   {
     label: 'Aid rating',
-    type: formInputTypes.select,
+    inputElementType: formInputTypes.select,
+    optionsKey: 'disabledAid',
     configProps: {
       name: fieldPropNames.AID_RATING,
+      options: [],
+      disabled: true,
+      onChange: () => {},
     },
-    optionsKey: 'disabledAid',
   },
   {
     label: 'Seriousness rating',
-    type: formInputTypes.select,
-    configProps: { name: fieldPropNames.SERIOUSNESS_RATING },
+    inputElementType: formInputTypes.select,
     optionsKey: 'seriousnessRatings',
+    configProps: {
+      name: fieldPropNames.SERIOUSNESS_RATING,
+      options: [],
+      onChange: () => {},
+    },
   },
   {
     label: 'Length',
-    type: formInputTypes.input,
+    inputElementType: formInputTypes.input,
+    type: 'text',
     configProps: {
-      type: 'text',
       name: fieldPropNames.LENGTH,
+      onChange: () => {},
     },
   },
   {
     label: 'Pitches',
-    type: formInputTypes.input,
-    configProps: { type: 'number', name: fieldPropNames.PITCHES },
+    inputElementType: formInputTypes.input,
+    configProps: {
+      type: 'number',
+      name: fieldPropNames.PITCHES,
+      onChange: () => {},
+    },
   },
   {
     label: 'Grade',
-    type: formInputTypes.select,
-    configProps: { name: fieldPropNames.COMMITMENT_GRADE },
+    inputElementType: formInputTypes.select,
     optionsKey: 'commitmentGrades',
+    configProps: {
+      name: fieldPropNames.COMMITMENT_GRADE,
+      options: [],
+      onChange: () => {},
+    },
   },
   {
     label: 'Description',
-    type: formInputTypes.textarea,
+    inputElementType: formInputTypes.textarea,
     configProps: {
       placeholder: 'What do you have to say about the route?',
       name: fieldPropNames.DESCRIPTION,
+      onChange: () => {},
     },
   },
   {
     label: 'Gear',
-    type: formInputTypes.textarea,
+    inputElementType: formInputTypes.textarea,
     configProps: {
       placeholder:
         'Add some gear here, unless you free soloed. What kind of shoes did you wear?',
       name: fieldPropNames.GEAR,
+      onChange: () => {},
     },
   },
   {
     label: 'Cover image URL',
-    type: formInputTypes.input,
-    configProps: { type: 'text', name: fieldPropNames.IMAGE_COVER_URL },
+    inputElementType: formInputTypes.input,
+    configProps: {
+      type: 'text',
+      name: fieldPropNames.IMAGE_COVER_URL,
+      onChange: () => {},
+    },
   },
 ];

@@ -8,25 +8,7 @@ const formFields = formInputFields.map((field) => {
       ...field,
       configProps: {
         ...field.configProps,
-        options: optionSets[field.optionsKey],
-        onChange: () => {},
-      },
-      controlProps: {
-        onChange: () => {},
-      },
-    };
-  }
-
-  if (field.configProps.name === 'aidRating') {
-    return {
-      ...field,
-      configProps: {
-        ...field.configProps,
-        onChange: () => {},
-      },
-      controlProps: {
-        disabled: true,
-        onChange: () => {},
+        options: [...optionSets[field.optionsKey]],
       },
     };
   }
@@ -35,30 +17,58 @@ const formFields = formInputFields.map((field) => {
     ...field,
     configProps: {
       ...field.configProps,
-      onChange: () => {},
-    },
-    controlProps: {
-      onChange: () => {},
     },
   };
 });
 
-const initialState = formFields.map((field) => {
-  return {
-    [field.configProps.name]: '',
-  };
-});
+// const initialState= formFields.map((field) => {
+//   if (field.optionsKey) {
+//     return {
+//       [field.configProps.name]: field.configProps.options[0],
+//     };
+//   }
+
+//   return {
+//     [field.configProps.name]: '',
+//   };
+// });
+
+function initializeState() {
+  return formFields.map((field) => {
+    if (field.optionsKey) {
+      return {
+        [field.configProps.name]: field.configProps.options[0],
+      };
+    }
+
+    return {
+      [field.configProps.name]: '',
+    };
+  });
+}
 
 export default function useRouteForm() {
+  console.log('init state', initializeState());
+  const [formValues, setFormValues] = useState(initializeState());
+
   // initializing the event handlers
   formFields.forEach((field) => {
-    if (field.configProps.name === 'type') {
-      return (field.configProps.onChange = handleTypeChange);
+    const { configProps } = field;
+
+    if (configProps.name === 'type') {
+      return (configProps.onChange = handleTypeChange);
     }
-    field.configProps.onChange = handleChange;
+    configProps.onChange = handleChange;
   });
 
-  const [formValues, setFormValues] = useState(initialState);
+  function clearForm() {
+    console.log('initial state', formValues);
+    const initialState = initializeState();
+    setFormValues((currentState) => ({
+      ...currentState,
+      ...initialState,
+    }));
+  }
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -71,15 +81,22 @@ export default function useRouteForm() {
     });
 
     console.log('value', value);
+    console.log('state', formValues);
   }
 
   function handleTypeChange(e) {
-    console.log('input', e.target);
+    const { name, value } = e.target;
+    setFormValues((formValues) => {
+      return {
+        ...formValues,
+        [name]: value,
+      };
+    });
+    console.log('value', value);
+    console.log('state', formValues);
   }
 
-  useEffect(() => {}, []);
-
-  return { formFields };
+  return { formFields, formValues, clearForm };
 }
 
 // export default function useRouteForm() {

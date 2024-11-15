@@ -1,5 +1,5 @@
 import React from 'react';
-import { redirect } from 'react-router-dom';
+import { redirect, useSubmit } from 'react-router-dom';
 
 import PageWrapper from '../PageWrapper';
 import { DataEntryForm } from '../../containers';
@@ -7,8 +7,17 @@ import useRouteForm from './useRouteForm';
 import { fetchRoutes } from '../../utils';
 
 function AddNewRoute() {
-  // initializes form fields and control props for the form
-  const { formFields } = useRouteForm();
+  const submit = useSubmit();
+  // initializes form fields and state
+  const { formFields, formValues, clearForm } = useRouteForm();
+
+  function handleSubmit(e) {
+    submit(
+      // { data: formValues },
+      { data: [{ test: 'data' }] },
+      { method: 'post', encType: 'application/json' }
+    );
+  }
 
   return (
     <PageWrapper
@@ -16,25 +25,35 @@ function AddNewRoute() {
       title="Enter new route"
       showSidebar={false}
     >
-      <DataEntryForm dataTc="addNewRouteForm" fields={formFields} />
+      <DataEntryForm
+        dataTc="addNewRouteForm"
+        handleSubmit={handleSubmit}
+        fields={formFields}
+        clearForm={clearForm}
+        formValues={formValues}
+      />
     </PageWrapper>
   );
 }
 
 export async function action({ request, params }) {
-  const data = await request.formData();
+  console.log('request', await request.json());
+  // const data = await request.json();
   const newRoute = {};
 
-  for (const [key, val] of data.entries()) {
-    newRoute[key] = val;
-  }
+  // for (const [key, val] of data.entries()) {
+  //   newRoute[key] = val;
+  // }
 
-  const res = await fetchRoutes('POST', { data: [newRoute] });
+  // console.log('data', data);
+  // console.log('new route', newRoute);
 
-  if (res.status === 'fail') {
-    console.log('Error adding new route:', res);
-    return res;
-  }
+  // const res = await fetchRoutes('POST', { data: [newRoute] });
+
+  // if (res.status === 'fail') {
+  //   console.log('Error adding new route:', res);
+  //   return res;
+  // }
 
   return redirect('/routes-climbed');
 }
