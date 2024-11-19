@@ -148,7 +148,6 @@ export const formInputFields = [
       required: true,
       type: 'text',
       name: fieldPropNames.NAME,
-      onChange: () => {},
     },
   },
   {
@@ -157,7 +156,6 @@ export const formInputFields = [
     configProps: {
       type: 'text',
       name: fieldPropNames.LOCATION,
-      onChange: () => {},
     },
   },
   {
@@ -167,7 +165,6 @@ export const formInputFields = [
       type: 'date',
       min: '1900-01-01',
       name: fieldPropNames.DATE_CLIMBED,
-      onChange: () => {},
     },
   },
   {
@@ -177,8 +174,6 @@ export const formInputFields = [
     configProps: {
       name: fieldPropNames.TYPE,
       required: true,
-      options: [],
-      onChange: () => {},
     },
   },
   {
@@ -188,8 +183,6 @@ export const formInputFields = [
     configProps: {
       name: fieldPropNames.GRADE,
       required: true,
-      options: [],
-      onChange: () => {},
     },
   },
   {
@@ -198,9 +191,6 @@ export const formInputFields = [
     optionsKey: 'disabledAid',
     configProps: {
       name: fieldPropNames.AID_RATING,
-      options: [],
-      disabled: true,
-      onChange: () => {},
     },
   },
   {
@@ -209,8 +199,6 @@ export const formInputFields = [
     optionsKey: 'seriousnessRatings',
     configProps: {
       name: fieldPropNames.SERIOUSNESS_RATING,
-      options: [],
-      onChange: () => {},
     },
   },
   {
@@ -219,7 +207,6 @@ export const formInputFields = [
     type: 'text',
     configProps: {
       name: fieldPropNames.LENGTH,
-      onChange: () => {},
     },
   },
   {
@@ -228,7 +215,6 @@ export const formInputFields = [
     configProps: {
       type: 'number',
       name: fieldPropNames.PITCHES,
-      onChange: () => {},
     },
   },
   {
@@ -237,8 +223,6 @@ export const formInputFields = [
     optionsKey: 'commitmentGrades',
     configProps: {
       name: fieldPropNames.COMMITMENT_GRADE,
-      options: [],
-      onChange: () => {},
     },
   },
   {
@@ -247,7 +231,6 @@ export const formInputFields = [
     configProps: {
       placeholder: 'What do you have to say about the route?',
       name: fieldPropNames.DESCRIPTION,
-      onChange: () => {},
     },
   },
   {
@@ -257,7 +240,6 @@ export const formInputFields = [
       placeholder:
         'Add some gear here, unless you free soloed. What kind of shoes did you wear?',
       name: fieldPropNames.GEAR,
-      onChange: () => {},
     },
   },
   {
@@ -266,7 +248,6 @@ export const formInputFields = [
     configProps: {
       type: 'text',
       name: fieldPropNames.IMAGE_COVER_URL,
-      onChange: () => {},
     },
   },
 ];

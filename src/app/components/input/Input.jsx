@@ -4,14 +4,19 @@ import PropTypes from 'prop-types';
 import { Select } from '../';
 import styles from './input.module.css';
 
-// TODO: Make sure to clear the state in the clear form modal
-function Input({ field, error, ...props }) {
+function Input({
+  inputElementType,
+  handleChange,
+  label,
+  configProps,
+  stateObj,
+  error,
+}) {
   let controlComponent;
-  const { inputElementType, label, configProps } = field;
   const { name } = configProps;
 
   if (error) {
-    props['aria-describedby'] = `${name}-error`;
+    configProps['aria-describedby'] = `${name}-error`;
   }
 
   const inputClassName = `${
@@ -28,8 +33,10 @@ function Input({ field, error, ...props }) {
         <textarea
           className={commonClassNames}
           id={name}
-          {...props}
-          {...field.configProps}
+          onChange={handleChange}
+          value={stateObj.value}
+          disabled={stateObj.isDisabled}
+          {...configProps}
         />
       );
       break;
@@ -38,8 +45,10 @@ function Input({ field, error, ...props }) {
         <input
           className={commonClassNames}
           id={name}
-          {...props}
-          {...field.configProps}
+          onChange={handleChange}
+          value={stateObj.value}
+          disabled={stateObj.isDisabled}
+          {...configProps}
         />
       );
       break;
@@ -48,8 +57,11 @@ function Input({ field, error, ...props }) {
         <Select
           className={commonClassNames}
           id={name}
-          {...props}
-          {...field.configProps}
+          onChange={handleChange}
+          value={stateObj.value}
+          disabled={stateObj.isDisabled}
+          options={stateObj.options}
+          {...configProps}
         ></Select>
       );
       break;
@@ -73,7 +85,7 @@ function Input({ field, error, ...props }) {
 }
 
 Input.propTypes = {
-  field: PropTypes.object.isRequired,
+  // field: PropTypes.object.isRequired,
   error: PropTypes.string,
 };
 

@@ -1,4 +1,4 @@
-import _, { method } from 'lodash';
+import _ from 'lodash';
 import React, { useEffect, useRef, useState } from 'react';
 import { Form, useActionData, useNavigation } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -14,6 +14,7 @@ import { useMenuToggle } from '../../customHooks';
 function DataEntryForm({
   fields,
   handleSubmit,
+  handleChange,
   formValues,
   dataTc,
   clearForm,
@@ -25,8 +26,6 @@ function DataEntryForm({
   const navigation = useNavigation();
   const modalRef = useRef();
   const errorListRef = useRef();
-
-  console.log('formValues', formValues);
 
   useMenuToggle();
 
@@ -88,7 +87,7 @@ function DataEntryForm({
         <Form
           className={styles.formInputs}
           method="post"
-          onSubmit={handleSubmit}
+          // onSubmit={handleSubmit}
         >
           {fieldErrors?.status === 'fail' && !_.isEmpty(fieldErrors?.data) && (
             <APIErrorList ref={errorListRef} data={fieldErrors.data} />
@@ -98,8 +97,13 @@ function DataEntryForm({
               {row.map((field) => (
                 <Input
                   key={field.configProps.name}
-                  field={field}
-                  value={formValues[field.configProps.name] || ''}
+                  inputElementType={field.inputElementType}
+                  handleChange={handleChange}
+                  label={field.label}
+                  configProps={field.configProps}
+                  stateObj={formValues.find(
+                    (val) => val.name === field.configProps.name
+                  )}
                   error={
                     fieldErrors?.data[field.name]
                       ? `${field.label.replace('(required)', '')} is required`
@@ -112,8 +116,13 @@ function DataEntryForm({
           {textAreaFields.map((field) => (
             <Input
               key={field.configProps.name}
-              field={field}
-              value={formValues[field.configProps.name]}
+              inputElementType={field.inputElementType}
+              handleChange={handleChange}
+              label={field.label}
+              configProps={field.configProps}
+              stateObj={formValues.find(
+                (val) => val.name === field.configProps.name
+              )}
               error={
                 fieldErrors?.data[field.name]
                   ? `${field.label.replace('(required)', '')} is required`
@@ -158,12 +167,16 @@ DataEntryForm.propTypes = {
       configProps: PropTypes.shape({
         type: PropTypes.string,
         name: PropTypes.string.isRequired,
-        onChange: PropTypes.func.isRequired,
         required: PropTypes.bool,
         placeholder: PropTypes.string,
       }).isRequired,
     }).isRequired
   ),
+  handleChange: PropTypes.func.isRequired,
+  formValues: PropTypes.array,
+  dataTc: PropTypes.string.isRequired,
+  clearForm: PropTypes.func.isRequired,
+  isEditMode: PropTypes.bool,
 };
 
 export default DataEntryForm;

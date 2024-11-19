@@ -1,35 +1,14 @@
-export function updateAidRating(fieldData, value, optionSets) {
-  return {
-    ...fieldData,
-    controlProps: {
-      ...fieldData.controlProps,
-      disabled: value !== 'aid',
-      options: value === 'aid' ? optionSets.aidRatings : optionSets.disabledAid,
-    },
-  };
+export function updateStateValues(prevFormValues, name, value) {
+  return prevFormValues.map((fieldData) =>
+    fieldData.name === name ? { ...fieldData, value } : fieldData
+  );
 }
 
-export function updateGrade(fieldData, value, optionSets) {
-  let options;
-  switch (value) {
-    case 'ice':
-      options = optionSets.iceGrades;
-      break;
-    case 'boulder':
-      options = optionSets.boulderGrades;
-      break;
-    case 'mixed':
-      options = optionSets.mixedGrades;
-      break;
-    default:
-      options = optionSets.YDSGrades;
-  }
-
-  return {
-    ...fieldData,
-    controlProps: {
-      ...fieldData.controlProps,
-      options,
-    },
-  };
+export function updateMultipleStateValues(prevFormValues, updatedFields) {
+  return prevFormValues.map((fieldState) => {
+    const updatedField = updatedFields.find(
+      (updatedField) => updatedField.name === fieldState.name
+    );
+    return updatedField ? { ...fieldState, ...updatedField } : fieldState;
+  });
 }
