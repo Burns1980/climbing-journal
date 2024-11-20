@@ -6,6 +6,6 @@ export { default as ErrorPage } from './error-page';
 export { default as RouteDetail } from './route-detail/RouteDetail';
 export { default as EditPage } from './edit-page/EditPage';
 export {
-  default as AddNewRoute,
-  action as addNewRouteAction,
-} from './add-new-route/AddNewRoute';
+  default as RouteForm,
+  action as RouteFormAction,
+} from './route-form/RouteForm';

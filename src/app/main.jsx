@@ -6,11 +6,11 @@ import {
   Root,
   Home,
   EditPage,
-  AddNewRoute,
+  RouteForm,
   Routes,
   RouteDetail,
   ErrorPage,
-  addNewRouteAction,
+  RouteFormAction,
 } from './pages';
 import { fetchRoutes } from './utils';
 
@@ -42,12 +42,12 @@ const router = createBrowserRouter(
             },
             {
               path: 'add-new-route',
-              element: <AddNewRoute />,
-              action: addNewRouteAction,
+              element: <RouteForm isEditMode={false} />,
+              action: RouteFormAction,
             },
             {
               path: 'edit-route/:routeId',
-              element: <EditPage />,
+              element: <RouteForm isEditMode={true} />,
             },
           ],
         },

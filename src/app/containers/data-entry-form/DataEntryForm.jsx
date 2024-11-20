@@ -87,7 +87,7 @@ function DataEntryForm({
         <Form
           className={styles.formInputs}
           method="post"
-          // onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
         >
           {fieldErrors?.status === 'fail' && !_.isEmpty(fieldErrors?.data) && (
             <APIErrorList ref={errorListRef} data={fieldErrors.data} />

@@ -16,7 +16,7 @@ const EditableSection = ({ title, content, handleEditClick }) => (
 
 EditableSection.propTypes = {
   title: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
+  content: PropTypes.string,
   handleEditClick: PropTypes.func.isRequired,
 };
 
