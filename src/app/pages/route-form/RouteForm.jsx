@@ -10,7 +10,7 @@ import {
   formInputFields,
   fieldPropNames,
 } from '../routes-page/config';
-import { updateTypeChangeValues } from './helpers';
+import { updateRouteStateObject, updateTypeChangeValues } from './helpers';
 
 const formFields = formInputFields.map((field) => ({
   ...field,
@@ -19,68 +19,63 @@ const formFields = formInputFields.map((field) => ({
   },
 }));
 
-function initializeState() {
-  return formFields.map((field) => {
-    const { configProps } = field;
-    const { name } = configProps;
-    const stateObj = {
-      name: name,
-      value: '',
-    };
+const initialState = formFields.map((field) => {
+  const { configProps } = field;
+  const { name } = configProps;
+  const stateObj = {
+    name: name,
+    value: '',
+  };
 
-    stateObj.isDisabled = name === fieldPropNames.AID_RATING;
+  stateObj.isDisabled = name === fieldPropNames.AID_RATING;
 
-    if (field.optionsKey) {
-      const options = optionSets[field.optionsKey];
-      stateObj.value = options[0];
-      stateObj.options = options;
-    }
+  if (field.optionsKey) {
+    const options = optionSets[field.optionsKey];
+    stateObj.value = '';
+    stateObj.options = options;
+  }
 
-    return stateObj;
-  });
-}
+  return stateObj;
+});
 
 function RouteForm({ isEditMode }) {
-  const [formValues, setFormValues] = useState(initializeState());
-  const submit = useSubmit();
   const { routeId } = useParams();
   const { routes } = useContext(DataContext);
-  console.log('routes', routes);
-  console.log('routeId', routeId);
+  const submit = useSubmit();
+  let routeToEdit = {};
+  let editRouteState = [];
+
+  // On page refresh dataContext resets to an empty array so we want to
+  // skip on that case.
+  if (isEditMode && routes.data.length > 0) {
+    routeToEdit = routes.data.find((route) => route._id === routeId);
+    editRouteState = updateRouteStateObject(routeToEdit);
+  }
+
+  const initialStateToSet =
+    editRouteState.length > 0 ? editRouteState : initialState;
+
+  const [formValues, setFormValues] = useState(initialStateToSet);
 
   useEffect(() => {
-    if (isEditMode) {
-      const routeToEdit = routes.data.find((route) => route._id === routeId);
-      console.log('route to edit', routeToEdit);
-      const { name } = routeToEdit;
-      const initialEditState = formValues.map((fieldState) => {
-        return {
-          [fieldState.name]: routeToEdit[fieldState.name],
-        };
-      });
-      console.log('initial edit state', initialEditState);
-      // setFormValues(routeToEdit);
-      if (name === fieldPropNames.TYPE) {
-        updateTypeChangeValues(name, value, setFormValues);
-      } else {
-        setFormValues(
-          formValues.map((fieldState) =>
-            fieldState.name === name ? { ...fieldState, value } : fieldState
-          )
-        );
-      }
+    if (isEditMode && routes.data.length > 0) {
+      routeToEdit = routes.data.find((route) => route._id === routeId) || {};
+      const newState = updateRouteStateObject(routeToEdit, formValues);
+      setFormValues(newState);
     }
-  }, []);
+  }, [routes]);
 
   function clearForm() {
-    setFormValues(initializeState());
+    setFormValues(initialState);
   }
 
   function handleChange(e) {
     const { name, value } = e.target;
 
     if (name === fieldPropNames.TYPE) {
-      updateTypeChangeValues(name, value, setFormValues);
+      setFormValues((prevFormValues) => {
+        return updateTypeChangeValues(name, value, prevFormValues);
+      });
     } else {
       setFormValues(
         formValues.map((fieldState) =>
@@ -94,7 +89,7 @@ function RouteForm({ isEditMode }) {
     e.preventDefault();
 
     submit(
-      { data: formValues },
+      { data: formValues, isEditMode },
       { method: 'post', encType: 'application/json' }
     );
   }
@@ -118,21 +113,31 @@ function RouteForm({ isEditMode }) {
 }
 
 export async function action({ request, params }) {
+  let res;
   const routeData = await request.json();
   const newRoute = {};
-  const { data } = routeData;
+  const { data, isEditMode } = routeData;
 
-  data.forEach((field) => {
-    if (field.value && field.value.match(/--[a-zA-Z ]*--/)) return;
-    field.value && (newRoute[field.name] = field.value);
-  });
+  if (isEditMode) {
+    console.log('in edit mode upon clicking submit button');
+  } else {
+    data.forEach((field) => {
+      if (
+        typeof field.value === 'string' &&
+        field.value.match(/--[a-zA-Z ]*--/)
+      )
+        return;
+      field.value && (newRoute[field.name] = field.value);
+    });
 
-  const res = await fetchRoutes('POST', { data: [newRoute] });
-
-  if (res.status === 'fail') {
-    console.log('Error adding new route:', res);
-    return res;
+    // res = await fetchRoutes('POST', { data: [newRoute] });
   }
+
+  // if (res.status === 'fail') {
+  //   console.log('Error adding new route:', res);
+  //   return res;
+  // }
+  console.log('new route', newRoute);
 
   return redirect('/routes-climbed');
 }

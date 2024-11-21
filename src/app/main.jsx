@@ -48,6 +48,7 @@ const router = createBrowserRouter(
             {
               path: 'edit-route/:routeId',
               element: <RouteForm isEditMode={true} />,
+              action: RouteFormAction,
             },
           ],
         },

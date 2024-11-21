@@ -83,7 +83,7 @@ const routeSchema = new mongoose.Schema(
       uppercase: true,
       enum: ['G', 'PG', 'PG-13', 'R', 'X'],
     },
-    length: {
+    routeLength: {
       type: String,
       trim: true,
     },
