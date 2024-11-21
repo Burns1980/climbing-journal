@@ -7,7 +7,10 @@ function Select({ className, id, name, options, children, ...props }) {
       {children}
       {options &&
         options.map((option) => (
-          <option key={option} value={option}>
+          <option
+            key={option}
+            value={option.match(/--[a-zA-Z ]*--/) ? '' : option}
+          >
             {option}
           </option>
         ))}

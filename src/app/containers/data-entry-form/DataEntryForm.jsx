@@ -13,12 +13,12 @@ import { useMenuToggle } from '../../customHooks';
 
 function DataEntryForm({
   fields,
+  isEditMode,
   handleSubmit,
   handleChange,
   formValues,
   dataTc,
   clearForm,
-  isEditMode = false,
 }) {
   const actionData = useActionData();
   const [fieldErrors, setFieldErrors] = useState(actionData);

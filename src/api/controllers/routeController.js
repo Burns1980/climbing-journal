@@ -89,7 +89,7 @@ exports.updateRouteById = async (req, res, next) => {
     const updatedRoute = await Route.findByIdAndUpdate(
       req.params.id,
       req.body,
-      { new: true, runValidators: true }
+      { new: true, runValidators: true, context: 'query' }
     );
 
     if (!updatedRoute) {

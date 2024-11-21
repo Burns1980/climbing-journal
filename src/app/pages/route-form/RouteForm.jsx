@@ -10,7 +10,7 @@ import {
   formInputFields,
   fieldPropNames,
 } from '../routes-page/config';
-import { updateRouteStateObject, updateTypeChangeValues } from './helpers';
+import { getInitialEditRouteState, getTypeChangeValues } from './helpers';
 
 const formFields = formInputFields.map((field) => ({
   ...field,
@@ -19,7 +19,7 @@ const formFields = formInputFields.map((field) => ({
   },
 }));
 
-const initialState = formFields.map((field) => {
+const defaultState = formFields.map((field) => {
   const { configProps } = field;
   const { name } = configProps;
   const stateObj = {
@@ -38,35 +38,29 @@ const initialState = formFields.map((field) => {
   return stateObj;
 });
 
+let i = 1;
+
 function RouteForm({ isEditMode }) {
+  console.log('render number', i++);
+  const [formValues, setFormValues] = useState(defaultState);
   const { routeId } = useParams();
   const { routes } = useContext(DataContext);
   const submit = useSubmit();
-  let routeToEdit = {};
-  let editRouteState = [];
-
-  // On page refresh dataContext resets to an empty array so we want to
-  // skip on that case.
-  if (isEditMode && routes.data.length > 0) {
-    routeToEdit = routes.data.find((route) => route._id === routeId);
-    editRouteState = updateRouteStateObject(routeToEdit);
-  }
-
-  const initialStateToSet =
-    editRouteState.length > 0 ? editRouteState : initialState;
-
-  const [formValues, setFormValues] = useState(initialStateToSet);
 
   useEffect(() => {
     if (isEditMode && routes.data.length > 0) {
-      routeToEdit = routes.data.find((route) => route._id === routeId) || {};
-      const newState = updateRouteStateObject(routeToEdit, formValues);
-      setFormValues(newState);
+      const routeToEdit =
+        routes.data.find((route) => route._id === routeId) || {};
+      const initialEditRouteState = getInitialEditRouteState(
+        routeToEdit,
+        formValues
+      );
+      setFormValues(initialEditRouteState);
     }
   }, [routes]);
 
   function clearForm() {
-    setFormValues(initialState);
+    setFormValues(defaultState);
   }
 
   function handleChange(e) {
@@ -74,7 +68,7 @@ function RouteForm({ isEditMode }) {
 
     if (name === fieldPropNames.TYPE) {
       setFormValues((prevFormValues) => {
-        return updateTypeChangeValues(name, value, prevFormValues);
+        return getTypeChangeValues(name, value, prevFormValues);
       });
     } else {
       setFormValues(
@@ -102,6 +96,7 @@ function RouteForm({ isEditMode }) {
     >
       <DataEntryForm
         dataTc="RouteFormForm"
+        isEditMode={isEditMode}
         handleSubmit={handleSubmit}
         handleChange={handleChange}
         fields={formFields}
@@ -114,30 +109,25 @@ function RouteForm({ isEditMode }) {
 
 export async function action({ request, params }) {
   let res;
+  const { routeId } = params;
   const routeData = await request.json();
   const newRoute = {};
   const { data, isEditMode } = routeData;
 
-  if (isEditMode) {
-    console.log('in edit mode upon clicking submit button');
-  } else {
-    data.forEach((field) => {
-      if (
-        typeof field.value === 'string' &&
-        field.value.match(/--[a-zA-Z ]*--/)
-      )
-        return;
-      field.value && (newRoute[field.name] = field.value);
-    });
+  data.forEach((field) => {
+    if (typeof field.value === 'string' && field.value.match(/--[a-zA-Z ]*--/))
+      return;
+    field.value && (newRoute[field.name] = field.value);
+  });
 
-    // res = await fetchRoutes('POST', { data: [newRoute] });
+  res = isEditMode
+    ? await fetchRoutes('PUT', newRoute, routeId)
+    : await fetchRoutes('POST', { data: [newRoute] });
+
+  if (res.status === 'fail') {
+    console.log('Error adding new route:', res);
+    return res;
   }
-
-  // if (res.status === 'fail') {
-  //   console.log('Error adding new route:', res);
-  //   return res;
-  // }
-  console.log('new route', newRoute);
 
   return redirect('/routes-climbed');
 }

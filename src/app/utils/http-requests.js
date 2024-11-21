@@ -1,7 +1,12 @@
 import { GET_ROUTES_URL } from '../../utils/constants';
 import { apiUrl } from '../../utils/envVars';
 
-export const fetchRoutes = async (httpVerb, data, filter = undefined) => {
+export const fetchRoutes = async (
+  httpVerb,
+  data,
+  routeId,
+  filter = undefined
+) => {
   switch (httpVerb.toUpperCase()) {
     case 'GET': {
       if (!filter) {
@@ -28,6 +33,46 @@ export const fetchRoutes = async (httpVerb, data, filter = undefined) => {
       try {
         const res = await fetch(`${apiUrl}${GET_ROUTES_URL}`, {
           method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body,
+        });
+
+        if (res.status === 400) {
+          const resBody = await res.json();
+
+          return resBody;
+        }
+        if (!res.ok) {
+          throw new Response(
+            JSON.stringify({
+              message:
+                'The request to save the data to the database failed. Ensure all data fields are correct.',
+            }),
+            { status: res.status }
+          );
+        }
+
+        return res;
+      } catch (error) {
+        throw new Response(
+          JSON.stringify({
+            message:
+              'The request to save the data to the database failed. Ensure all data fields are correct.',
+          }),
+          { status: 500 }
+        );
+      }
+    }
+    case 'PUT': {
+      const body = JSON.stringify(data);
+
+      console.log('body', data);
+
+      try {
+        const res = await fetch(`${apiUrl}${GET_ROUTES_URL}/${routeId}`, {
+          method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
           },

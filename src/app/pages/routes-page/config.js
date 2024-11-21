@@ -21,13 +21,21 @@ export const fieldPropNames = {
   GEAR: 'gear',
   IMAGE_COVER_URL: 'imageCoverUrl',
 };
-const pleaseChoose = '--Please choose from dropdown--';
+const pleaseChoose = '--Please choose an option--';
 
 // Options for select fields
 export const optionSets = {
-  climbTypes: ['sport', 'traditional', 'boulder', 'aid', 'ice', 'mixed'],
+  climbTypes: [
+    pleaseChoose,
+    'sport',
+    'traditional',
+    'boulder',
+    'aid',
+    'ice',
+    'mixed',
+  ],
   YDSGrades: [
-    '',
+    pleaseChoose,
     '5.0',
     '5.1',
     '5.2',
@@ -85,9 +93,9 @@ export const optionSets = {
     '5.15',
     '5.15+',
   ],
-  iceGrades: ['', 'WI1', 'WI2', 'WI3', 'WI4', 'WI5', 'WI6', 'WI7'],
+  iceGrades: [pleaseChoose, 'WI1', 'WI2', 'WI3', 'WI4', 'WI5', 'WI6', 'WI7'],
   boulderGrades: [
-    '',
+    pleaseChoose,
     'V0',
     'V1',
     'V2',
@@ -107,7 +115,7 @@ export const optionSets = {
     'V16',
   ],
   mixedGrades: [
-    '',
+    pleaseChoose,
     'M1',
     'M2',
     'M3',
@@ -127,7 +135,7 @@ export const optionSets = {
   ],
   disabledAid: [DEFAULT_OPTIONS_VALUE],
   aidRatings: [
-    '',
+    pleaseChoose,
     'C1',
     'C2',
     'C3',
@@ -140,8 +148,8 @@ export const optionSets = {
     'A4',
     'A5',
   ],
-  seriousnessRatings: ['', 'G', 'PG', 'PG-13', 'R', 'X'],
-  commitmentGrades: ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII'],
+  seriousnessRatings: [pleaseChoose, 'G', 'PG', 'PG-13', 'R', 'X'],
+  commitmentGrades: [pleaseChoose, 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII'],
 };
 
 // Form fields definition

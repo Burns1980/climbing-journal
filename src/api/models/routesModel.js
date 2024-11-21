@@ -31,7 +31,7 @@ const routeSchema = new mongoose.Schema(
       validate: {
         validator: function (value) {
           if (value === 'aid') {
-            return aidRE.test(this.aidRating);
+            return aidRE.test(this.get('aidRating'));
           }
           return true;
         },
@@ -45,7 +45,7 @@ const routeSchema = new mongoose.Schema(
       required: [true, 'The difficulty grade is required.'],
       validate: {
         validator: function (value) {
-          switch (this.type) {
+          switch (this.get('type')) {
             case 'aid':
             case 'traditional':
             case 'sport':
@@ -69,7 +69,7 @@ const routeSchema = new mongoose.Schema(
       trim: true,
       validate: {
         validator: function (value) {
-          if (this.type === 'aid') {
+          if (this.get('type') === 'aid') {
             return aidRE.test(value);
           }
           return false;
