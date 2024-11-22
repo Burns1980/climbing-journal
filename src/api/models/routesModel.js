@@ -1,4 +1,3 @@
-const { lowerCase } = require('lodash');
 const mongoose = require('mongoose');
 
 const ydsGradeRE = /5\.(?:[0-7]|[8-9](\+|-)?|1[0-5][abcd\+-]?)$/;
@@ -67,21 +66,27 @@ const routeSchema = new mongoose.Schema(
     aidRating: {
       type: String,
       trim: true,
-      validate: {
-        validator: function (value) {
-          if (this.get('type') === 'aid') {
-            return aidRE.test(value);
-          }
-          return false;
-        },
-        message: (props) => `The aid rating ${props.value} is invalid`,
-      },
+      upperCase: true,
+      enum: [
+        '',
+        'A0',
+        'A1',
+        'A2',
+        'A3',
+        'A4',
+        'A5',
+        'C1',
+        'C2',
+        'C3',
+        'C4',
+        'C5',
+      ],
     },
     seriousnessRating: {
       type: String,
       trim: true,
       uppercase: true,
-      enum: ['G', 'PG', 'PG-13', 'R', 'X'],
+      enum: ['', 'G', 'PG', 'PG-13', 'R', 'X'],
     },
     routeLength: {
       type: String,
@@ -95,7 +100,7 @@ const routeSchema = new mongoose.Schema(
       type: String,
       trim: true,
       uppercase: true,
-      enum: ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'],
+      enum: ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII'],
     },
     description: {
       type: String,

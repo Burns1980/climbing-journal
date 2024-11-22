@@ -103,7 +103,7 @@ exports.updateRouteById = async (req, res, next) => {
     });
   } catch (err) {
     next(
-      new AppError(`There was an error trying to update the route: ${err}`, 404)
+      new AppError(`There was an error trying to update the route: ${err}`, 400)
     );
   }
 };

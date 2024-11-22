@@ -115,9 +115,15 @@ export async function action({ request, params }) {
   const { data, isEditMode } = routeData;
 
   data.forEach((field) => {
-    if (typeof field.value === 'string' && field.value.match(/--[a-zA-Z ]*--/))
-      return;
-    field.value && (newRoute[field.name] = field.value);
+    // Map unused fields to emtpy string
+    if (
+      typeof field.value === 'string' &&
+      field.value.match(/--[a-z\/A-Z ]*--/)
+    ) {
+      return (newRoute[field.name] = '');
+    }
+
+    field && (newRoute[field.name] = field.value);
   });
 
   res = isEditMode

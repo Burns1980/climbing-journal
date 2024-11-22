@@ -9,19 +9,26 @@ export const fetchRoutes = async (
 ) => {
   switch (httpVerb.toUpperCase()) {
     case 'GET': {
-      if (!filter) {
-        const res = await fetch(`${apiUrl}${GET_ROUTES_URL}`, {});
+      try {
+        if (!filter) {
+          const res = await fetch(`${apiUrl}${GET_ROUTES_URL}`, {});
 
-        if (!res.ok) {
-          throw new Response(
-            JSON.stringify({
-              message: 'The fetch routes operation failed. Try refreshing',
-            }),
-            { status: 500 }
-          );
+          if (!res.ok) {
+            throw new Response(
+              JSON.stringify({
+                message: 'The fetch routes operation failed. Try refreshing',
+              }),
+              { status: 500 }
+            );
+          }
+
+          return res;
         }
-
-        return res;
+      } catch (error) {
+        if (error.status) {
+          throw error;
+        }
+        throw new Error('An unexpected error occurred', { cause: error });
       }
 
       // filtered get requests here
@@ -42,13 +49,30 @@ export const fetchRoutes = async (
         if (res.status === 400) {
           const resBody = await res.json();
 
-          return resBody;
+          throw new Response(
+            JSON.stringify({
+              title: 'The request to add a new route failed.',
+              message: resBody.message,
+            }),
+            { status: 400 }
+          );
+        }
+        if (res.status === 404) {
+          const resBody = await res.json();
+
+          throw new Response(
+            JSON.stringify({
+              title: 'The resource requested was not found',
+              message: resBody.message,
+            }),
+            { status: 404 }
+          );
         }
         if (!res.ok) {
           throw new Response(
             JSON.stringify({
-              message:
-                'The request to save the data to the database failed. Ensure all data fields are correct.',
+              title: 'An unknow error occurred.',
+              message: await res.json().message,
             }),
             { status: res.status }
           );
@@ -56,19 +80,14 @@ export const fetchRoutes = async (
 
         return res;
       } catch (error) {
-        throw new Response(
-          JSON.stringify({
-            message:
-              'The request to save the data to the database failed. Ensure all data fields are correct.',
-          }),
-          { status: 500 }
-        );
+        if (error.status) {
+          throw error;
+        }
+        throw new Error('An unexpected error occurred', { cause: error });
       }
     }
     case 'PUT': {
       const body = JSON.stringify(data);
-
-      console.log('body', data);
 
       try {
         const res = await fetch(`${apiUrl}${GET_ROUTES_URL}/${routeId}`, {
@@ -82,13 +101,30 @@ export const fetchRoutes = async (
         if (res.status === 400) {
           const resBody = await res.json();
 
-          return resBody;
+          throw new Response(
+            JSON.stringify({
+              title: 'The request to update the route failed.',
+              message: resBody.message,
+            }),
+            { status: 400 }
+          );
+        }
+        if (res.status === 404) {
+          const resBody = await res.json();
+
+          throw new Response(
+            JSON.stringify({
+              title: 'The resource requested was not found',
+              message: resBody.message,
+            }),
+            { status: 404 }
+          );
         }
         if (!res.ok) {
           throw new Response(
             JSON.stringify({
-              message:
-                'The request to save the data to the database failed. Ensure all data fields are correct.',
+              title: 'An unknow error occurred.',
+              message: await res.json().message,
             }),
             { status: res.status }
           );
@@ -96,13 +132,10 @@ export const fetchRoutes = async (
 
         return res;
       } catch (error) {
-        throw new Response(
-          JSON.stringify({
-            message:
-              'The request to save the data to the database failed. Ensure all data fields are correct.',
-          }),
-          { status: 500 }
-        );
+        if (error.status) {
+          throw error;
+        }
+        throw new Error('An unexpected error occurred', { cause: error });
       }
     }
     default: {

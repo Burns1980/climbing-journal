@@ -108,7 +108,6 @@ export function getTypeChangeValues(name, value, prevFormValues) {
       );
     }
     case optionSets.climbTypes[AID]: {
-      console.log('aid chosen');
       const updatedValues = [
         enabledAidObj,
         {
@@ -169,7 +168,6 @@ export function getTypeChangeValues(name, value, prevFormValues) {
       );
     }
     case optionSets.climbTypes[ICE]: {
-      console.log('ice chosen');
       const updatedValues = [
         disabledAidObj,
         {
