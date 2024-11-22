@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
   Root,
   Home,
-  EditPage,
+  // EditPage,
   RouteForm,
   Routes,
   RouteDetail,

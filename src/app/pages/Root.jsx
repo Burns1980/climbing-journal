@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 
 import { Header, NavigationBar } from '../components';
-import { MenuModalProvider, DataProvider, FormProvider } from '../store';
+import { MenuModalProvider, DataProvider } from '../store';
 
 function Root() {
   return (
@@ -10,11 +10,9 @@ function Root() {
         <Header />
         <NavigationBar />
         <DataProvider>
-          <FormProvider>
-            <main>
-              <Outlet />
-            </main>
-          </FormProvider>
+          <main>
+            <Outlet />
+          </main>
         </DataProvider>
       </MenuModalProvider>
     </>

@@ -131,7 +131,7 @@ export async function action({ request, params }) {
     : await fetchRoutes('POST', { data: [newRoute] });
 
   if (res.status === 'fail') {
-    console.log('Error adding new route:', res);
+    console.error('Error adding new route:', res);
     return res;
   }
 

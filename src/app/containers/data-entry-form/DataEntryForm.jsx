@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Form, useActionData, useNavigation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -173,6 +173,7 @@ DataEntryForm.propTypes = {
     }).isRequired
   ),
   handleChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
   formValues: PropTypes.array,
   dataTc: PropTypes.string.isRequired,
   clearForm: PropTypes.func.isRequired,

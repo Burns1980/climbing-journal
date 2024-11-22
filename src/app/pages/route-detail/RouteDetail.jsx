@@ -40,7 +40,6 @@ export default function RouteDetail() {
     window.scrollTo(0, 0);
   }, []);
   const routeDetail = data.find((route) => route._id === routeId);
-  // console.log('route detail', routeDetail);
   // const routeDetail = testData;
   const gradeTxt = routeDetail && [
     routeDetail[GRADE] ? routeDetail[GRADE].toLowerCase() : '',
