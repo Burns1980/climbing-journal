@@ -1,4 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { redirect, useSubmit, useParams } from 'react-router-dom';
 
 import PageWrapper from '../PageWrapper';
@@ -9,6 +10,7 @@ import {
   optionSets,
   formInputFields,
   fieldPropNames,
+  DEFAULT_OPTION,
 } from '../routes-page/config';
 import { getInitialEditRouteState, getTypeChangeValues } from './helpers';
 
@@ -32,7 +34,13 @@ const defaultState = formFields.map((field) => {
   if (field.optionsKey) {
     const options = optionSets[field.optionsKey];
     stateObj.value = '';
-    stateObj.options = options;
+
+    if (name === fieldPropNames.TYPE) {
+      stateObj.options = options;
+      return stateObj;
+    }
+
+    stateObj.options = DEFAULT_OPTION;
   }
 
   return stateObj;
@@ -48,16 +56,19 @@ function RouteForm({ isEditMode }) {
   const submit = useSubmit();
 
   useEffect(() => {
+    console.log('useEffect', routes.data);
     if (isEditMode && routes.data.length > 0) {
+      console.log('formValues', formValues);
       const routeToEdit =
         routes.data.find((route) => route._id === routeId) || {};
       const initialEditRouteState = getInitialEditRouteState(
         routeToEdit,
-        formValues
+        defaultState
       );
+      console.log('initial edit state', routeToEdit);
       setFormValues(initialEditRouteState);
     }
-  }, [routes]);
+  }, [routes.data, routeId, isEditMode]);
 
   function clearForm() {
     setFormValues(defaultState);
@@ -66,7 +77,7 @@ function RouteForm({ isEditMode }) {
   function handleChange(e) {
     const { name, value } = e.target;
 
-    if (name === fieldPropNames.TYPE) {
+    if (value && name === fieldPropNames.TYPE) {
       setFormValues((prevFormValues) => {
         return getTypeChangeValues(name, value, prevFormValues);
       });
@@ -100,8 +111,8 @@ function RouteForm({ isEditMode }) {
         handleSubmit={handleSubmit}
         handleChange={handleChange}
         fields={formFields}
-        clearForm={clearForm}
         formValues={formValues}
+        clearForm={clearForm}
       />
     </PageWrapper>
   );
@@ -118,7 +129,7 @@ export async function action({ request, params }) {
     // Map unused fields to emtpy string
     if (
       typeof field.value === 'string' &&
-      field.value.match(/--[a-z\/A-Z ]*--/)
+      field.value.match(/--[a-z/A-Z ]*--/)
     ) {
       return (newRoute[field.name] = '');
     }
@@ -130,12 +141,20 @@ export async function action({ request, params }) {
     ? await fetchRoutes('PUT', newRoute, routeId)
     : await fetchRoutes('POST', { data: [newRoute] });
 
-  if (res.status === 'fail') {
-    console.error('Error adding new route:', res);
+  // const jsonRes = await res.json();
+  // console.log('res', jsonRes);
+
+  if (!res.ok) {
+    console.log('newRoute', newRoute);
+    console.log('Error adding new route:', res);
+    // return await res.json();
     return res;
   }
 
   return redirect('/routes-climbed');
 }
+RouteForm.propTypes = {
+  isEditMode: PropTypes.bool.isRequired,
+};
 
 export default RouteForm;

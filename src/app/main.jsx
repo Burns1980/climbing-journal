@@ -24,6 +24,7 @@ const router = createBrowserRouter(
       errorElement: <ErrorPage />,
       id: 'root',
       loader: () => fetchRoutes('GET'),
+      shouldRevalidate: () => false,
       children: [
         {
           index: true,

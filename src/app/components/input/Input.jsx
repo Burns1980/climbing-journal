@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Select } from '../';
@@ -12,7 +11,7 @@ function Input({
   stateObj,
   error,
 }) {
-  let controlComponent;
+  let inputComponent;
   const { name } = configProps;
 
   if (error) {
@@ -29,7 +28,7 @@ function Input({
 
   switch (inputElementType) {
     case 'textarea':
-      controlComponent = (
+      inputComponent = (
         <textarea
           className={commonClassNames}
           id={name}
@@ -41,7 +40,7 @@ function Input({
       );
       break;
     case 'input':
-      controlComponent = (
+      inputComponent = (
         <input
           className={commonClassNames}
           id={name}
@@ -53,7 +52,7 @@ function Input({
       );
       break;
     case 'select':
-      controlComponent = (
+      inputComponent = (
         <Select
           className={commonClassNames}
           id={name}
@@ -66,7 +65,7 @@ function Input({
       );
       break;
     default:
-      controlComponent = <div>Invalid control type</div>;
+      inputComponent = <div>Invalid control type</div>;
   }
 
   return (
@@ -74,7 +73,7 @@ function Input({
       <label className={styles.formInputLabel + ' text-md'} htmlFor={name}>
         {label}
       </label>
-      {controlComponent}
+      {inputComponent}
       {error && (
         <div id={`${name}-error`} className={styles.controlError + ' text-sm'}>
           {error}
@@ -85,7 +84,11 @@ function Input({
 }
 
 Input.propTypes = {
-  // field: PropTypes.object.isRequired,
+  inputElementType: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
+  configProps: PropTypes.object,
+  stateObj: PropTypes.object.isRequired,
   error: PropTypes.string,
 };
 

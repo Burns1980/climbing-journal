@@ -10,7 +10,7 @@ const routeSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, 'The route name is missing'],
+      required: [true, 'The route name is required'],
       trim: true,
     },
     location: {
@@ -23,7 +23,7 @@ const routeSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      required: [true, 'The type of climb is missing'],
+      required: [true, 'The type of climb is required'],
       trim: true,
       lowercase: true,
       enum: ['', 'traditional', 'boulder', 'sport', 'ice', 'mixed', 'aid'],

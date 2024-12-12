@@ -58,7 +58,7 @@ exports.getRoutes = async (req, res, next) => {
     const routes = await Route.find();
 
     if (routes.length <= 0) {
-      return next(new AppError('There was no route data', 404));
+      return next(new AppError('There were no routes found', 404));
     }
 
     res
@@ -102,9 +102,8 @@ exports.updateRouteById = async (req, res, next) => {
       data: { route: updatedRoute },
     });
   } catch (err) {
-    next(
-      new AppError(`There was an error trying to update the route: ${err}`, 400)
-    );
+    console.log('err', err);
+    next(new AppError(err, 400));
   }
 };
 

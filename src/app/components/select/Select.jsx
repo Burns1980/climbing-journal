@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
 function Select({ className, id, name, options, children, ...props }) {
@@ -9,7 +8,7 @@ function Select({ className, id, name, options, children, ...props }) {
         options.map((option) => (
           <option
             key={option}
-            value={option.match(/--[a-z\/A-Z ]*--/) ? '' : option}
+            value={option.match(/--[a-z/A-Z ]*--/) ? '' : option}
           >
             {option}
           </option>

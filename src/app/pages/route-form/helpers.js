@@ -45,7 +45,7 @@ export function getTypeChangeValues(name, value, prevFormValues) {
 
   const YDSGradeObj = {
     name: fieldPropNames.GRADE,
-    value: getFieldValue(prevFormValues, fieldPropNames.GRADE) || YDSGrades[0],
+    value: YDSGrades[0],
     options: YDSGrades,
   };
   const disabledAidObj = {
@@ -138,9 +138,7 @@ export function getTypeChangeValues(name, value, prevFormValues) {
         disabledAidObj,
         {
           name: fieldPropNames.GRADE,
-          value:
-            getFieldValue(prevFormValues, fieldPropNames.GRADE) ||
-            boulderGrades[0],
+          value: boulderGrades[0],
           options: boulderGrades,
           isDisabled: false,
         },

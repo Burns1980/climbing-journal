@@ -30,7 +30,7 @@ export const fetchRoutes = async (
         }
         throw new Error('An unexpected error occurred', { cause: error });
       }
-
+      break;
       // filtered get requests here
     }
 
@@ -46,17 +46,12 @@ export const fetchRoutes = async (
           body,
         });
 
+        // In case when request was bad, we want the form to handle the errrors
         if (res.status === 400) {
-          const resBody = await res.json();
-
-          throw new Response(
-            JSON.stringify({
-              title: 'The request to add a new route failed.',
-              message: resBody.message,
-            }),
-            { status: 400 }
-          );
+          console.log('body', res);
+          return await res.json();
         }
+
         if (res.status === 404) {
           const resBody = await res.json();
 
@@ -68,6 +63,7 @@ export const fetchRoutes = async (
             { status: 404 }
           );
         }
+
         if (!res.ok) {
           throw new Response(
             JSON.stringify({
@@ -98,17 +94,12 @@ export const fetchRoutes = async (
           body,
         });
 
+        // In case when request was bad, we want the form to handle the errors
         if (res.status === 400) {
-          const resBody = await res.json();
-
-          throw new Response(
-            JSON.stringify({
-              title: 'The request to update the route failed.',
-              message: resBody.message,
-            }),
-            { status: 400 }
-          );
+          console.log('PUT 400 res', res);
+          return res;
         }
+
         if (res.status === 404) {
           const resBody = await res.json();
 

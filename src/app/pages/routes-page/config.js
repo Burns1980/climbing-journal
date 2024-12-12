@@ -1,5 +1,6 @@
 // Field types definition
-export const DEFAULT_OPTIONS_VALUE = '--Choose aid from Climb type--';
+export const DEFAULT_AID = '--Choose aid from Climb type--';
+export const DEFAULT_OPTION = ['--Please select a Climb type--'];
 export const formInputTypes = {
   input: 'input',
   select: 'select',
@@ -26,7 +27,7 @@ const pleaseChoose = '--Please choose an option--';
 // Options for select fields
 export const optionSets = {
   climbTypes: [
-    pleaseChoose,
+    DEFAULT_OPTION[0],
     'sport',
     'traditional',
     'boulder',
@@ -133,7 +134,7 @@ export const optionSets = {
     'M15',
     'M16',
   ],
-  disabledAid: [DEFAULT_OPTIONS_VALUE],
+  disabledAid: [DEFAULT_AID],
   aidRatings: [
     pleaseChoose,
     'C1',
@@ -155,12 +156,30 @@ export const optionSets = {
 // Form fields definition
 export const formInputFields = [
   {
+    label: 'Climb type (required)',
+    inputElementType: formInputTypes.select,
+    optionsKey: 'climbTypes',
+    configProps: {
+      name: fieldPropNames.TYPE,
+      // required: true,
+    },
+  },
+  {
     label: 'Route name (required)',
     inputElementType: formInputTypes.input,
     configProps: {
-      required: true,
+      // required: true,
       type: 'text',
       name: fieldPropNames.NAME,
+    },
+  },
+  {
+    label: 'Difficulty grade (required)',
+    inputElementType: formInputTypes.select,
+    optionsKey: 'YDSGrades',
+    configProps: {
+      name: fieldPropNames.GRADE,
+      // required: true,
     },
   },
   {
@@ -181,29 +200,12 @@ export const formInputFields = [
     },
   },
   {
-    label: 'Climb type (required)',
-    inputElementType: formInputTypes.select,
-    optionsKey: 'climbTypes',
-    configProps: {
-      name: fieldPropNames.TYPE,
-      required: true,
-    },
-  },
-  {
-    label: 'Difficulty grade (required)',
-    inputElementType: formInputTypes.select,
-    optionsKey: 'YDSGrades',
-    configProps: {
-      name: fieldPropNames.GRADE,
-      required: true,
-    },
-  },
-  {
     label: 'Aid rating',
     inputElementType: formInputTypes.select,
     optionsKey: 'disabledAid',
     configProps: {
       name: fieldPropNames.AID_RATING,
+      // required: true,
     },
   },
   {

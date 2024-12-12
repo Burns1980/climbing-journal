@@ -20,29 +20,33 @@ function DataEntryForm({
   dataTc,
   clearForm,
 }) {
-  const actionData = useActionData();
-  const [fieldErrors, setFieldErrors] = useState(actionData);
-
+  const actionDataErrors = useActionData();
+  const [errors, setErrors] = useState(null);
   const navigation = useNavigation();
   const modalRef = useRef();
+  const formRef = useRef();
+  const editModalRef = useRef();
   const errorListRef = useRef();
 
   useMenuToggle();
 
   useEffect(() => {
-    setFieldErrors(actionData);
+    console.log('actionData', actionDataErrors);
+    if (
+      actionDataErrors?.status === 'fail' &&
+      !_.isEmpty(actionDataErrors?.data)
+    ) {
+      setErrors(actionDataErrors);
+    }
+  }, [actionDataErrors]);
 
-    if (fieldErrors?.status === 'fail' && !_.isEmpty(fieldErrors?.data)) {
+  useEffect(() => {
+    errors &&
       errorListRef.current?.scrollIntoView({
         behavior: 'smooth',
         block: 'nearest',
       });
-    }
-
-    if (navigation.formAction === '/routes-climbed/add-new-route') {
-      setFieldErrors(null);
-    }
-  }, [actionData, fieldErrors, navigation.formAction]);
+  }, [errors]);
 
   const inputRows = groupFieldsIntoRows(
     fields.filter((field) => field.inputElementType !== formInputTypes.textarea)
@@ -55,42 +59,69 @@ function DataEntryForm({
     modalRef.current.open();
   }
 
+  function handleCancelEditClick() {
+    editModalRef.current.open();
+  }
+
   function handleClearForm() {
     clearForm();
-    setFieldErrors(null);
+    setErrors(null);
     modalRef.current.close();
+    formRef?.current.scrollIntoView({ behavior: 'smooth' });
   }
 
   function handleGoBack() {
     modalRef.current.close();
   }
 
+  const modal = isEditMode ? (
+    <Modal
+      data-tc={`${dataTc}-modal`}
+      className={styles.confirmationModal}
+      ref={editModalRef}
+    >
+      <h2 className="text-lg">Clicking Cancel will discard all changes.</h2>
+      <div className={styles.modalBtns}>
+        <Button onClick={handleGoBack}>Keep editing</Button>
+        <Button
+          className={`${styles.btnMarginTop} btn-secondary text-md`}
+          onClick={handleClearForm}
+        >
+          Cancel
+        </Button>
+      </div>
+    </Modal>
+  ) : (
+    <Modal
+      data-tc={`${dataTc}-modal`}
+      className={styles.confirmationModal}
+      ref={modalRef}
+    >
+      <h2 className="text-lg">Are you sure you want to clear the form?</h2>
+      <div className={styles.modalBtns}>
+        <Button onClick={handleGoBack}>Cancel</Button>
+        <Button
+          className={`${styles.btnMarginTop} btn-secondary text-md`}
+          onClick={handleClearForm}
+        >
+          Clear form
+        </Button>
+      </div>
+    </Modal>
+  );
+
   return (
     <>
-      <Modal
-        data-tc={`${dataTc}-modal`}
-        className={styles.confirmationModal}
-        ref={modalRef}
-      >
-        <h2 className="text-lg">Are you sure you want to clear the form?</h2>
-        <div className={styles.modalBtns}>
-          <Button onClick={handleGoBack}>Cancel</Button>
-          <Button
-            className={`${styles.btnMarginTop} btn-secondary text-md`}
-            onClick={handleClearForm}
-          >
-            Clear form
-          </Button>
-        </div>
-      </Modal>
+      {modal}
       <div data-tc={`${dataTc}-container`} className={styles.formContainer}>
         <Form
+          ref={formRef}
           className={styles.formInputs}
           method="post"
           onSubmit={handleSubmit}
         >
-          {fieldErrors?.status === 'fail' && !_.isEmpty(fieldErrors?.data) && (
-            <APIErrorList ref={errorListRef} data={fieldErrors.data} />
+          {errors?.status === 'fail' && !_.isEmpty(errors?.data) && (
+            <APIErrorList ref={errorListRef} data={errors.data} />
           )}
           {inputRows.map((row) => (
             <div className={styles.rowContainer} key={row[0].configProps.name}>
@@ -104,11 +135,7 @@ function DataEntryForm({
                   stateObj={formValues.find(
                     (val) => val.name === field.configProps.name
                   )}
-                  error={
-                    fieldErrors?.data[field.name]
-                      ? `${field.label.replace('(required)', '')} is required`
-                      : null
-                  }
+                  error={errors?.data[field.configProps.name]}
                 />
               ))}
             </div>
@@ -123,11 +150,7 @@ function DataEntryForm({
               stateObj={formValues.find(
                 (val) => val.name === field.configProps.name
               )}
-              error={
-                fieldErrors?.data[field.name]
-                  ? `${field.label.replace('(required)', '')} is required`
-                  : null
-              }
+              error={errors?.data[field.configProps.name]}
             />
           ))}
           <div className={`${styles.buttonRow}`}>
@@ -143,7 +166,14 @@ function DataEntryForm({
                 </span>
               )}
             </Button>
-            {!isEditMode && (
+            {isEditMode ? (
+              <Button
+                onClick={handleCancelEditClick}
+                className={`btn-secondary text-md ${styles.formButton}`}
+              >
+                Cancel
+              </Button>
+            ) : (
               <Button
                 onClick={handleClearFormClick}
                 className={`btn-secondary text-md ${styles.formButton}`}
