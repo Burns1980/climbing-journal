@@ -48,7 +48,6 @@ export const fetchRoutes = async (
 
         // In case when request was bad, we want the form to handle the errrors
         if (res.status === 400) {
-          console.log('body', res);
           return await res.json();
         }
 
@@ -96,7 +95,6 @@ export const fetchRoutes = async (
 
         // In case when request was bad, we want the form to handle the errors
         if (res.status === 400) {
-          console.log('PUT 400 res', res);
           return res;
         }
 

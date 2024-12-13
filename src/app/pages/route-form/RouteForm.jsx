@@ -77,6 +77,11 @@ function RouteForm({ isEditMode }) {
   function handleChange(e) {
     const { name, value } = e.target;
 
+    if (name === 'pitches') {
+      console.log('typeof', typeof value);
+      console.log('pitches', value);
+    }
+
     if (value && name === fieldPropNames.TYPE) {
       setFormValues((prevFormValues) => {
         return getTypeChangeValues(name, value, prevFormValues);

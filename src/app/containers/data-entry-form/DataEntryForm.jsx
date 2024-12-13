@@ -20,7 +20,7 @@ function DataEntryForm({
   dataTc,
   clearForm,
 }) {
-  const actionDataErrors = useActionData();
+  const actionResultData = useActionData();
   const [errors, setErrors] = useState(null);
   const navigation = useNavigation();
   const modalRef = useRef();
@@ -31,14 +31,14 @@ function DataEntryForm({
   useMenuToggle();
 
   useEffect(() => {
-    console.log('actionData', actionDataErrors);
+    console.log('actionResultData', actionResultData);
     if (
-      actionDataErrors?.status === 'fail' &&
-      !_.isEmpty(actionDataErrors?.data)
+      actionResultData?.status === 'fail' &&
+      !_.isEmpty(actionResultData?.data)
     ) {
-      setErrors(actionDataErrors);
+      setErrors(actionResultData);
     }
-  }, [actionDataErrors]);
+  }, [actionResultData]);
 
   useEffect(() => {
     errors &&

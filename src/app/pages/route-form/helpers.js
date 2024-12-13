@@ -418,7 +418,9 @@ export function getInitialEditRouteState(editRouteObj, curRouteStateArr) {
     if (field.name === 'dateClimbed') {
       return {
         ...field,
-        value: dayjs(editRouteObj[field.name]).format('YYYY-MM-DD'),
+        value: editRouteObj[field.name]
+          ? dayjs(editRouteObj[field.name]).format('YYYY-MM-DD')
+          : '',
       };
     }
 

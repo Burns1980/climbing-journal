@@ -24,7 +24,11 @@ const router = createBrowserRouter(
       errorElement: <ErrorPage />,
       id: 'root',
       loader: () => fetchRoutes('GET'),
-      shouldRevalidate: () => false,
+      // We don't want to revalidate if there are form validation errors
+      shouldRevalidate: (action) => {
+        console.log('action', action);
+        return !action.actionResult;
+      },
       children: [
         {
           index: true,
