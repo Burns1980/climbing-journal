@@ -1,6 +1,11 @@
 import _ from 'lodash';
 import { useEffect, useRef, useState } from 'react';
-import { Form, useActionData, useNavigation } from 'react-router-dom';
+import {
+  Form,
+  useActionData,
+  useNavigate,
+  useNavigation,
+} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { Button, LoadSpinner, APIErrorList } from '../../components';
@@ -23,15 +28,14 @@ function DataEntryForm({
   const actionResultData = useActionData();
   const [errors, setErrors] = useState(null);
   const navigation = useNavigation();
+  const navigate = useNavigate();
   const modalRef = useRef();
   const formRef = useRef();
-  const editModalRef = useRef();
   const errorListRef = useRef();
 
   useMenuToggle();
 
   useEffect(() => {
-    console.log('actionResultData', actionResultData);
     if (
       actionResultData?.status === 'fail' &&
       !_.isEmpty(actionResultData?.data)
@@ -59,11 +63,14 @@ function DataEntryForm({
     modalRef.current.open();
   }
 
-  function handleCancelEditClick() {
-    editModalRef.current.open();
+  function handleDiscardChanges() {
+    modalRef.current.open();
   }
 
-  function handleClearForm() {
+  function handleFormReset() {
+    if (isEditMode) {
+      return navigate(-1);
+    }
     clearForm();
     setErrors(null);
     modalRef.current.close();
@@ -74,45 +81,28 @@ function DataEntryForm({
     modalRef.current.close();
   }
 
-  const modal = isEditMode ? (
-    <Modal
-      data-tc={`${dataTc}-modal`}
-      className={styles.confirmationModal}
-      ref={editModalRef}
-    >
-      <h2 className="text-lg">Clicking Cancel will discard all changes.</h2>
-      <div className={styles.modalBtns}>
-        <Button onClick={handleGoBack}>Keep editing</Button>
-        <Button
-          className={`${styles.btnMarginTop} btn-secondary text-md`}
-          onClick={handleClearForm}
-        >
-          Cancel
-        </Button>
-      </div>
-    </Modal>
-  ) : (
-    <Modal
-      data-tc={`${dataTc}-modal`}
-      className={styles.confirmationModal}
-      ref={modalRef}
-    >
-      <h2 className="text-lg">Are you sure you want to clear the form?</h2>
-      <div className={styles.modalBtns}>
-        <Button onClick={handleGoBack}>Cancel</Button>
-        <Button
-          className={`${styles.btnMarginTop} btn-secondary text-md`}
-          onClick={handleClearForm}
-        >
-          Clear form
-        </Button>
-      </div>
-    </Modal>
-  );
-
   return (
     <>
-      {modal}
+      <Modal
+        data-tc={`${dataTc}-modal`}
+        className={styles.confirmationModal}
+        ref={modalRef}
+      >
+        <h2 className="text-lg">
+          {isEditMode
+            ? 'Do you want to discard all changes?'
+            : 'Are you sure you want to clear the form?'}
+        </h2>
+        <div className={styles.modalBtns}>
+          <Button onClick={handleGoBack}>Cancel</Button>
+          <Button
+            className={`${styles.btnMarginTop} btn-secondary text-md`}
+            onClick={handleFormReset}
+          >
+            {isEditMode ? 'Discard all changes' : 'Clear form'}
+          </Button>
+        </div>
+      </Modal>
       <div data-tc={`${dataTc}-container`} className={styles.formContainer}>
         <Form
           ref={formRef}
@@ -166,21 +156,12 @@ function DataEntryForm({
                 </span>
               )}
             </Button>
-            {isEditMode ? (
-              <Button
-                onClick={handleCancelEditClick}
-                className={`btn-secondary text-md ${styles.formButton}`}
-              >
-                Cancel
-              </Button>
-            ) : (
-              <Button
-                onClick={handleClearFormClick}
-                className={`btn-secondary text-md ${styles.formButton}`}
-              >
-                Clear form
-              </Button>
-            )}
+            <Button
+              className={`btn-secondary text-md ${styles.formButton}`}
+              onClick={isEditMode ? handleDiscardChanges : handleClearFormClick}
+            >
+              {isEditMode ? 'Discard changes' : 'Clear form'}
+            </Button>
           </div>
         </Form>
       </div>

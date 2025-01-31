@@ -46,26 +46,20 @@ const defaultState = formFields.map((field) => {
   return stateObj;
 });
 
-let i = 1;
-
 function RouteForm({ isEditMode }) {
-  console.log('render number', i++);
   const [formValues, setFormValues] = useState(defaultState);
   const { routeId } = useParams();
   const { routes } = useContext(DataContext);
   const submit = useSubmit();
 
   useEffect(() => {
-    console.log('useEffect', routes.data);
     if (isEditMode && routes.data.length > 0) {
-      console.log('formValues', formValues);
       const routeToEdit =
         routes.data.find((route) => route._id === routeId) || {};
       const initialEditRouteState = getInitialEditRouteState(
         routeToEdit,
         defaultState
       );
-      console.log('initial edit state', routeToEdit);
       setFormValues(initialEditRouteState);
     }
   }, [routes.data, routeId, isEditMode]);
@@ -76,11 +70,6 @@ function RouteForm({ isEditMode }) {
 
   function handleChange(e) {
     const { name, value } = e.target;
-
-    if (name === 'pitches') {
-      console.log('typeof', typeof value);
-      console.log('pitches', value);
-    }
 
     if (value && name === fieldPropNames.TYPE) {
       setFormValues((prevFormValues) => {
@@ -126,9 +115,9 @@ function RouteForm({ isEditMode }) {
 export async function action({ request, params }) {
   let res;
   const { routeId } = params;
-  const routeData = await request.json();
-  const newRoute = {};
-  const { data, isEditMode } = routeData;
+  const formData = await request.json();
+  const routeData = {};
+  const { data, isEditMode } = formData;
 
   data.forEach((field) => {
     // Map unused fields to emtpy string
@@ -136,27 +125,23 @@ export async function action({ request, params }) {
       typeof field.value === 'string' &&
       field.value.match(/--[a-z/A-Z ]*--/)
     ) {
-      return (newRoute[field.name] = '');
+      return (routeData[field.name] = '');
     }
 
-    field && (newRoute[field.name] = field.value);
+    field && (routeData[field.name] = field.value);
   });
 
   res = isEditMode
-    ? await fetchRoutes('PUT', newRoute, routeId)
-    : await fetchRoutes('POST', { data: [newRoute] });
-
-  // const jsonRes = await res.json();
-  // console.log('res', jsonRes);
+    ? await fetchRoutes('PUT', routeData, routeId)
+    : await fetchRoutes('POST', { data: [routeData] });
 
   if (!res.ok) {
-    console.log('newRoute', newRoute);
-    console.log('Error adding new route:', res);
-    // return await res.json();
     return res;
   }
 
-  return redirect('/routes-climbed');
+  return isEditMode
+    ? redirect(`/routes-climbed/${routeId}`)
+    : redirect(`/routes-climbed/`);
 }
 RouteForm.propTypes = {
   isEditMode: PropTypes.bool.isRequired,

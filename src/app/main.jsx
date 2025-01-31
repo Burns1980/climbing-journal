@@ -5,7 +5,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
   Root,
   Home,
-  // EditPage,
   RouteForm,
   Routes,
   RouteDetail,
@@ -26,7 +25,6 @@ const router = createBrowserRouter(
       loader: () => fetchRoutes('GET'),
       // We don't want to revalidate if there are form validation errors
       shouldRevalidate: (action) => {
-        console.log('action', action);
         return !action.actionResult;
       },
       children: [
