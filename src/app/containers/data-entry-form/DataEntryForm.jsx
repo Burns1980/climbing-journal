@@ -145,6 +145,12 @@ function DataEntryForm({
           ))}
           <div className={`${styles.buttonRow}`}>
             <Button
+              className={`btn-secondary text-md ${styles.formButton}`}
+              onClick={isEditMode ? handleDiscardChanges : handleClearFormClick}
+            >
+              {isEditMode ? 'Discard changes' : 'Clear form'}
+            </Button>
+            <Button
               type="submit"
               className={`btn text-md position-relative ${styles.formButton}`}
               disabled={navigation.state !== 'idle'}
@@ -155,12 +161,6 @@ function DataEntryForm({
                   <LoadSpinner className="size-sm" />
                 </span>
               )}
-            </Button>
-            <Button
-              className={`btn-secondary text-md ${styles.formButton}`}
-              onClick={isEditMode ? handleDiscardChanges : handleClearFormClick}
-            >
-              {isEditMode ? 'Discard changes' : 'Clear form'}
             </Button>
           </div>
         </Form>

@@ -100,7 +100,7 @@ function RouteForm({ isEditMode }) {
       showSidebar={false}
     >
       <DataEntryForm
-        dataTc="RouteFormForm"
+        dataTc="RouteForm"
         isEditMode={isEditMode}
         handleSubmit={handleSubmit}
         handleChange={handleChange}

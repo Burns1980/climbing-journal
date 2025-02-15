@@ -31,5 +31,11 @@ module.exports = {
         // Node.js specific rules
       },
     },
+    {
+      files: ['*.test.js', '*.test.jsx'],
+      rules: {
+        'react/prop-types': 'off',
+      },
+    },
   ],
 };
