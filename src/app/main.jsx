@@ -5,64 +5,78 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
   Root,
   Home,
-  EditPage,
-  AddNewRoute,
+  RouteForm,
   Routes,
-  RouteRoot,
   RouteDetail,
   ErrorPage,
-  addNewRouteAction,
+  RouteFormAction,
 } from './pages';
 import { fetchRoutes } from './utils';
 
 import './index.css';
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <Root />,
+      errorElement: <ErrorPage />,
+      id: 'root',
+      loader: () => fetchRoutes('GET'),
+      // We don't want to revalidate if there are form validation errors
+      shouldRevalidate: (action) => {
+        return !action.actionResult;
+      },
+      children: [
+        {
+          index: true,
+          element: <Home />,
+        },
+        {
+          path: 'routes-climbed',
+          children: [
+            {
+              index: true,
+              element: <Routes />,
+            },
+            {
+              path: ':routeId',
+              element: <RouteDetail />,
+            },
+            {
+              path: 'add-new-route',
+              element: <RouteForm isEditMode={false} />,
+              action: RouteFormAction,
+            },
+            {
+              path: 'edit-route/:routeId',
+              element: <RouteForm isEditMode={true} />,
+              action: RouteFormAction,
+            },
+          ],
+        },
+        {
+          path: 'trip-research',
+          element: <div>Trip research</div>,
+        },
+        {
+          path: 'trip-report',
+          element: <div>Trip report</div>,
+        },
+      ],
+    },
+  ],
   {
-    path: '/',
-    element: <Root />,
-    errorElement: <ErrorPage />,
-    id: 'root',
-    loader: () => fetchRoutes('GET'),
-    children: [
-      {
-        index: true,
-        element: <Home />,
-      },
-      {
-        path: 'routes-climbed',
-        element: <RouteRoot />,
-        children: [
-          {
-            index: true,
-            element: <Routes />,
-          },
-          {
-            path: ':routeId',
-            element: <RouteDetail />,
-          },
-          {
-            path: 'add-new-route',
-            element: <AddNewRoute />,
-            action: addNewRouteAction,
-          },
-          {
-            path: 'edit-route/:routeId',
-            element: <EditPage />,
-          },
-        ],
-      },
-      {
-        path: 'trip-research',
-        element: <div>Trip research</div>,
-      },
-      {
-        path: 'trip-report',
-        element: <div>Trip report</div>,
-      },
-    ],
-  },
-]);
+    future: {
+      v7_relativeSplatPath: true,
+      v7_startTransition: true,
+      v7_fetcherPersistent: true,
+      v7_normalizeFormMethod: true,
+      v7_partialHydration: true,
+      v7_skipActionStatusRevalidation: true,
+    },
+  }
+);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

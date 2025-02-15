@@ -10,19 +10,14 @@ export default function ErrorPage() {
   let title = 'Sorry, an unexpected error has occurred.';
   let message = 'Something went wrong.';
 
-  console.log('error', error);
-
-  if (error.status === 400) {
-    message = JSON.parse(error.data).message;
+  if (error.status === 400 || error.status === 404) {
+    const errorData = JSON.parse(error.data);
+    message = errorData.message;
+    title = errorData.title || title;
   }
 
   if (error.status === 500) {
-    message = JSON.parse(error.data).message;
-  }
-
-  if (error.status === 404) {
-    title = 'Not found!';
-    message = 'Page or resource was not found.';
+    message = JSON.parse(error.data).message || message;
   }
 
   return (

@@ -10,5 +10,11 @@ export default defineConfig(({ mode }) => {
     define: {
       'import.meta.env.VITE_API_URL': JSON.stringify(apiUrl),
     },
+    test: {
+      include: ['**/**/**/data-ent*/*.test.jsx', '**/**/**/button/*.test.jsx'],
+      environment: 'jsdom',
+      setupFiles: './vite-setup-file.js',
+      globals: true, // needed for jest-dom to work
+    },
   };
 });

@@ -1,7 +1,10 @@
-const { lowerCase } = require('lodash');
 const mongoose = require('mongoose');
+const dayjs = require('dayjs');
+const customParseFormat = require('dayjs/plugin/customParseFormat');
 
-const ydsGradeRE = /5\.(?:[0-7]|[8-9](\+|-)?|1[0-5][abcd\+-]?)$/;
+dayjs.extend(customParseFormat);
+
+const ydsGradeRE = /5\.(?:[0-7]|[8-9](\+|-)?|1[0-5][abcd+-]?)$/;
 const boulderGradeRE = /^V(?:[0-9]|1[0-7])(?:\+|-)?$/;
 const mixedGradeRE = /^M(?:[1-9]|1[0-6])$/;
 const iceGradeRE = /^WI[1-7]{1}$/;
@@ -11,7 +14,7 @@ const routeSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, 'The route name is missing'],
+      required: [true, 'The route name is required'],
       trim: true,
     },
     location: {
@@ -19,25 +22,24 @@ const routeSchema = new mongoose.Schema(
       trim: true,
     },
     dateClimbed: {
-      type: Date,
-      default: Date.now(),
+      type: String,
+      validate: {
+        validator: function (value) {
+          if (value === '') {
+            return true;
+          }
+          return dayjs(value, 'YYYY-MM-DD', true).isValid();
+        },
+        message: (props) => `${props.value} is an invalid date`,
+      },
     },
     type: {
       type: String,
-      required: [true, 'The type of climb is missing'],
+      required: [true, 'The type of climb is required'],
       trim: true,
       lowercase: true,
       enum: ['', 'traditional', 'boulder', 'sport', 'ice', 'mixed', 'aid'],
-      validate: {
-        validator: function (value) {
-          if (value === 'aid') {
-            return aidRE.test(this.aidRating);
-          }
-          return true;
-        },
-        message: (props) =>
-          `${props.value} climb type needs to have an aid rating`,
-      },
+      message: '{VALUE} not a valid climb type',
     },
     grade: {
       type: String,
@@ -45,7 +47,7 @@ const routeSchema = new mongoose.Schema(
       required: [true, 'The difficulty grade is required.'],
       validate: {
         validator: function (value) {
-          switch (this.type) {
+          switch (this.get('type')) {
             case 'aid':
             case 'traditional':
             case 'sport':
@@ -67,35 +69,53 @@ const routeSchema = new mongoose.Schema(
     aidRating: {
       type: String,
       trim: true,
+      upperCase: true,
+      enum: [
+        '',
+        'A0',
+        'A1',
+        'A2',
+        'A3',
+        'A4',
+        'A5',
+        'C1',
+        'C2',
+        'C3',
+        'C4',
+        'C5',
+      ],
+      message: '{VALUE} not a valid aid rating',
       validate: {
         validator: function (value) {
-          if (this.type === 'aid') {
-            return aidRE.test(value);
-          }
-          return false;
+          return this.get('type') === 'aid' && !aidRE.test(value)
+            ? false
+            : true;
         },
-        message: (props) => `The aid rating ${props.value} is invalid`,
+        message: () => 'When Climb type is "aid" Aid rating is required',
       },
     },
     seriousnessRating: {
       type: String,
       trim: true,
       uppercase: true,
-      enum: ['G', 'PG', 'PG-13', 'R', 'X'],
+      enum: ['', 'G', 'PG', 'PG-13', 'R', 'X'],
+      message: '{VALUE} not supported',
     },
-    length: {
+    routeLength: {
       type: String,
       trim: true,
     },
     pitches: {
       type: Number,
       trim: true,
+      min: [0, 'Cannot have a negative number'],
     },
     commitmentGrade: {
       type: String,
       trim: true,
       uppercase: true,
-      enum: ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'],
+      enum: ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII'],
+      message: '{VALUE} is not a valid commitment grade',
     },
     description: {
       type: String,

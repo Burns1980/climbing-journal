@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event';
 import { useNavigate } from 'react-router-dom';
 import { fetchRoutes } from '../../utils';
 
-import AddNewRoute from './AddNewRoute';
+import RouteForm from './RouteForm';
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -19,11 +19,11 @@ jest.mock('../../utils', () => ({
 
 const mockRoute = { name: 'Test Route', grade: '5.10b' };
 
-describe('AddNewRoute', () => {
+describe('RouteForm', () => {
   it('renders the form and submits data', async () => {
     render(
       <MemoryRouter>
-        <AddNewRoute />
+        <RouteForm />
       </MemoryRouter>
     );
 
@@ -50,7 +50,7 @@ describe('AddNewRoute', () => {
 
     render(
       <MemoryRouter>
-        <AddNewRoute />
+        <RouteForm />
       </MemoryRouter>
     );
 

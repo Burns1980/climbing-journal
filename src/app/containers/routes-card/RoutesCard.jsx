@@ -69,12 +69,14 @@ const RoutesCard = ({ routeData }) => {
               <Link to={_id}>{name}</Link>
               <span className="route-card-grade text-md">{fullRating}</span>
             </h3>
-            <TruncateText
-              className="route-card-description text-sm"
-              text={description}
-              maxWords={100}
-              onClick={handleReadMoreClick}
-            />
+            {description && (
+              <TruncateText
+                className="route-card-description text-sm"
+                text={description}
+                maxWords={100}
+                onClick={handleReadMoreClick}
+              />
+            )}
           </div>
         </div>
         <div className="route-card-gear-beta">

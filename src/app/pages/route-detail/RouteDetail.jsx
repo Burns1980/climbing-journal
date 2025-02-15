@@ -40,16 +40,15 @@ export default function RouteDetail() {
     window.scrollTo(0, 0);
   }, []);
   const routeDetail = data.find((route) => route._id === routeId);
-  // console.log(routeDetail);
   // const routeDetail = testData;
-  const gradeTxt = [
+  const gradeTxt = routeDetail && [
     routeDetail[GRADE] ? routeDetail[GRADE].toLowerCase() : '',
     routeDetail[AID_RATING] ? routeDetail[AID_RATING].toUpperCase() : '',
     routeDetail[SERIOUSNESS_RATING]
       ? routeDetail[SERIOUSNESS_RATING].toUpperCase()
       : '',
   ];
-  const typeText = [
+  const typeText = routeDetail && [
     routeDetail[TYPE] ? routeDetail[TYPE].toLowerCase() : '',
     routeDetail[PITCHES]
       ? `${routeDetail[PITCHES]} ${
@@ -63,15 +62,12 @@ export default function RouteDetail() {
       ? routeDetail[COMMITMENT_GRADE].toUpperCase()
       : '',
   ];
-  const fullGradeTxt = gradeTxt.filter((txt) => txt).join(' ');
-  const fullTypeText = typeText.filter((txt) => txt).join(', ');
+  const fullGradeTxt = gradeTxt && gradeTxt.filter((txt) => txt).join(' ');
+  const fullTypeText = typeText && typeText.filter((txt) => txt).join(', ');
 
   function handleEditClick() {
     navigate(`../edit-route/${routeId}`, { relative: 'path' });
   }
-
-  // console.log(data);
-  // console.log(routeDetail);
 
   const contentNotReady = isLoading ? (
     <div className="display-flex">

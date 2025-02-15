@@ -1,6 +1,7 @@
 // Field types definition
-export const DEFAULT_OPTIONS_VALUE = '--Choose aid from climb type--';
-export const fieldTypes = {
+export const DEFAULT_AID = '--Choose aid from Climb type--';
+export const DEFAULT_OPTION = ['--Please select a Climb type--'];
+export const formInputTypes = {
   input: 'input',
   select: 'select',
   textarea: 'textarea',
@@ -14,18 +15,28 @@ export const fieldPropNames = {
   GRADE: 'grade',
   AID_RATING: 'aidRating',
   SERIOUSNESS_RATING: 'seriousnessRating',
-  LENGTH: 'length',
+  LENGTH: 'routeLength',
   PITCHES: 'pitches',
   COMMITMENT_GRADE: 'commitmentGrade',
   DESCRIPTION: 'description',
   GEAR: 'gear',
   IMAGE_COVER_URL: 'imageCoverUrl',
 };
+const pleaseChoose = '--Please choose an option--';
 
 // Options for select fields
 export const optionSets = {
-  climbTypes: ['sport', 'traditional', 'boulder', 'aid', 'ice', 'mixed'],
+  climbTypes: [
+    DEFAULT_OPTION[0],
+    'sport',
+    'traditional',
+    'boulder',
+    'aid',
+    'ice',
+    'mixed',
+  ],
   YDSGrades: [
+    pleaseChoose,
     '5.0',
     '5.1',
     '5.2',
@@ -83,8 +94,9 @@ export const optionSets = {
     '5.15',
     '5.15+',
   ],
-  iceGrades: ['WI1', 'WI2', 'WI3', 'WI4', 'WI5', 'WI6', 'WI7'],
+  iceGrades: [pleaseChoose, 'WI1', 'WI2', 'WI3', 'WI4', 'WI5', 'WI6', 'WI7'],
   boulderGrades: [
+    pleaseChoose,
     'V0',
     'V1',
     'V2',
@@ -104,6 +116,7 @@ export const optionSets = {
     'V16',
   ],
   mixedGrades: [
+    pleaseChoose,
     'M1',
     'M2',
     'M3',
@@ -121,8 +134,9 @@ export const optionSets = {
     'M15',
     'M16',
   ],
-  disabledAid: [DEFAULT_OPTIONS_VALUE],
+  disabledAid: [DEFAULT_AID],
   aidRatings: [
+    pleaseChoose,
     'C1',
     'C2',
     'C3',
@@ -135,29 +149,50 @@ export const optionSets = {
     'A4',
     'A5',
   ],
-  seriousnessRatings: ['G', 'PG', 'PG-13', 'R', 'X'],
-  commitmentGrades: ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'],
+  seriousnessRatings: [pleaseChoose, 'G', 'PG', 'PG-13', 'R', 'X'],
+  commitmentGrades: [pleaseChoose, 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII'],
 };
 
 // Form fields definition
-export const formFields = [
+export const formInputFields = [
+  {
+    label: 'Climb type (required)',
+    inputElementType: formInputTypes.select,
+    optionsKey: 'climbTypes',
+    configProps: {
+      name: fieldPropNames.TYPE,
+      // required: true,
+    },
+  },
   {
     label: 'Route name (required)',
-    type: fieldTypes.input,
+    inputElementType: formInputTypes.input,
     configProps: {
-      required: true,
+      // required: true,
       type: 'text',
       name: fieldPropNames.NAME,
     },
   },
   {
+    label: 'Difficulty grade (required)',
+    inputElementType: formInputTypes.select,
+    optionsKey: 'YDSGrades',
+    configProps: {
+      name: fieldPropNames.GRADE,
+      // required: true,
+    },
+  },
+  {
     label: 'Location',
-    type: fieldTypes.input,
-    configProps: { type: 'text', name: fieldPropNames.LOCATION },
+    inputElementType: formInputTypes.input,
+    configProps: {
+      type: 'text',
+      name: fieldPropNames.LOCATION,
+    },
   },
   {
     label: 'Date climbed',
-    type: fieldTypes.input,
+    inputElementType: formInputTypes.input,
     configProps: {
       type: 'date',
       min: '1900-01-01',
@@ -165,56 +200,49 @@ export const formFields = [
     },
   },
   {
-    label: 'Climb type',
-    type: fieldTypes.select,
-    configProps: {
-      name: fieldPropNames.TYPE,
-      required: true,
-    },
-    optionsKey: 'climbTypes',
-  },
-  {
-    label: 'Difficulty grade',
-    type: fieldTypes.select,
-    configProps: {
-      required: true,
-      name: fieldPropNames.GRADE,
-    },
-    optionsKey: 'YDSGrades',
-  },
-  {
     label: 'Aid rating',
-    type: fieldTypes.select,
+    inputElementType: formInputTypes.select,
+    optionsKey: 'disabledAid',
     configProps: {
       name: fieldPropNames.AID_RATING,
+      // required: true,
     },
-    optionsKey: 'disabledAid',
   },
   {
     label: 'Seriousness rating',
-    type: fieldTypes.select,
-    configProps: { name: fieldPropNames.SERIOUSNESS_RATING },
+    inputElementType: formInputTypes.select,
     optionsKey: 'seriousnessRatings',
+    configProps: {
+      name: fieldPropNames.SERIOUSNESS_RATING,
+    },
   },
   {
     label: 'Length',
-    type: fieldTypes.input,
-    configProps: { type: 'text', name: fieldPropNames.LENGTH },
+    inputElementType: formInputTypes.input,
+    type: 'text',
+    configProps: {
+      name: fieldPropNames.LENGTH,
+    },
   },
   {
     label: 'Pitches',
-    type: fieldTypes.input,
-    configProps: { type: 'number', name: fieldPropNames.PITCHES },
+    inputElementType: formInputTypes.input,
+    configProps: {
+      type: 'number',
+      name: fieldPropNames.PITCHES,
+    },
   },
   {
     label: 'Grade',
-    type: fieldTypes.select,
-    configProps: { name: fieldPropNames.COMMITMENT_GRADE },
+    inputElementType: formInputTypes.select,
     optionsKey: 'commitmentGrades',
+    configProps: {
+      name: fieldPropNames.COMMITMENT_GRADE,
+    },
   },
   {
     label: 'Description',
-    type: fieldTypes.textarea,
+    inputElementType: formInputTypes.textarea,
     configProps: {
       placeholder: 'What do you have to say about the route?',
       name: fieldPropNames.DESCRIPTION,
@@ -222,7 +250,7 @@ export const formFields = [
   },
   {
     label: 'Gear',
-    type: fieldTypes.textarea,
+    inputElementType: formInputTypes.textarea,
     configProps: {
       placeholder:
         'Add some gear here, unless you free soloed. What kind of shoes did you wear?',
@@ -231,7 +259,10 @@ export const formFields = [
   },
   {
     label: 'Cover image URL',
-    type: fieldTypes.input,
-    configProps: { type: 'text', name: fieldPropNames.IMAGE_COVER_URL },
+    inputElementType: formInputTypes.input,
+    configProps: {
+      type: 'text',
+      name: fieldPropNames.IMAGE_COVER_URL,
+    },
   },
 ];

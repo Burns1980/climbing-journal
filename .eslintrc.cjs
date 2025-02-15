@@ -8,9 +8,9 @@ module.exports = {
     'plugin:react-hooks/recommended',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
-  argsIgnorePattern: ['^_'],
+  // argsIgnorePattern: ['^_'],
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
-  settings: { react: { version: '18.2' } },
+  settings: { react: { version: '18.3' } },
   plugins: ['react-refresh'],
   rules: {
     'react/jsx-no-target-blank': 'off',
@@ -29,6 +29,12 @@ module.exports = {
       },
       rules: {
         // Node.js specific rules
+      },
+    },
+    {
+      files: ['*.test.js', '*.test.jsx'],
+      rules: {
+        'react/prop-types': 'off',
       },
     },
   ],

@@ -8,10 +8,3 @@ export const groupFieldsIntoRows = (fields) => {
     return rows;
   }, []);
 };
-
-export function getMatchingDynamicProps(fieldName, dynamicProps) {
-  const containesDynamicProp = dynamicProps.find(
-    (fieldProp) => fieldProp.name === fieldName
-  );
-  return containesDynamicProp ? containesDynamicProp.dynamicProps : '';
-}

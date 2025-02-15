@@ -26,6 +26,7 @@ PageWrapper.propTypes = {
   title: PropTypes.string,
   children: PropTypes.node.isRequired,
   showSidebar: PropTypes.bool,
+  sidebarProps: PropTypes.object,
 };
 
 export default PageWrapper;
