@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { act } from 'react-dom/test-utils';
+import { act } from "react";
 import userEvent from '@testing-library/user-event';
 import { useNavigate } from 'react-router-dom';
 import { fetchRoutes } from '../../utils';
