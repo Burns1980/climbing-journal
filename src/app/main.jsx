@@ -20,6 +20,7 @@ const router = createBrowserRouter(
     {
       path: '/',
       element: <Root />,
+      hydrateFallbackElement: <Home />,
       errorElement: <ErrorPage />,
       id: 'root',
       loader: () => fetchRoutes('GET'),

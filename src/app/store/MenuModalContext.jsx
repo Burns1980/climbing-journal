@@ -35,9 +35,9 @@ function MenuModalProvider({ children }) {
   };
 
   return (
-    <MenuModalContext.Provider value={menuModalCtx}>
+    (<MenuModalContext value={menuModalCtx}>
       {children}
-    </MenuModalContext.Provider>
+    </MenuModalContext>)
   );
 }
 

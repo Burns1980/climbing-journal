@@ -29,11 +29,11 @@ function DataProvider({ children }) {
   useLoadRoutesToState(dispatch, data.data);
 
   return (
-    <DataContext.Provider value={state}>
-      <DataDispatchContext.Provider value={dispatch}>
+    (<DataContext value={state}>
+      <DataDispatchContext value={dispatch}>
         {children}
-      </DataDispatchContext.Provider>
-    </DataContext.Provider>
+      </DataDispatchContext>
+    </DataContext>)
   );
 }
 

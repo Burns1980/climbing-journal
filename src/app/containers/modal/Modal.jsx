@@ -1,13 +1,10 @@
-import { forwardRef, useImperativeHandle, useRef } from 'react';
+import { useImperativeHandle, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 
 import './modal.css';
 
-const Modal = forwardRef(function Modal(
-  { className, children, ...props },
-  ref
-) {
+function Modal({ className, children, ref, ...props }) {
   const dialogRef = useRef();
 
   useImperativeHandle(
@@ -31,7 +28,7 @@ const Modal = forwardRef(function Modal(
     </dialog>,
     document.getElementById('modal-root')
   );
-});
+}
 
 Modal.propTypes = {
   children: PropTypes.node.isRequired,

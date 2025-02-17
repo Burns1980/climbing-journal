@@ -32,7 +32,7 @@ module.exports = {
       },
     },
     {
-      files: ['*.test.js', '*.test.jsx'],
+      files: ['*.js', '*.jsx'],
       rules: {
         'react/prop-types': 'off',
       },

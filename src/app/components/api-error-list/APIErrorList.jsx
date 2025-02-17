@@ -1,9 +1,6 @@
-import { forwardRef } from 'react';
-import PropTypes from 'prop-types';
-
 import styles from './api-error-list.module.css';
 
-const APIErrorList = forwardRef(function APIErrorList({ data }, ref) {
+function APIErrorList({ data, ref }) {
   return (
     <div
       role="alert"
@@ -20,10 +17,6 @@ const APIErrorList = forwardRef(function APIErrorList({ data }, ref) {
       </ul>
     </div>
   );
-});
-
-APIErrorList.propTypes = {
-  data: PropTypes.object.isRequired,
-};
+}
 
 export default APIErrorList;
